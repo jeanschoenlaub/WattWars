@@ -21,7 +21,10 @@ public class Electron : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (!target) return;
+        if (!target) {
+            Destroy(gameObject); // Destroy the electron if the target is null
+            return;
+        }
 
         Vector2 direction = (target.position - transform.position).normalized;
 
@@ -29,8 +32,8 @@ public class Electron : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other){
-        other.gameObject.GetComponent<Health>().TakeDamage(damagePoint);
         Destroy(gameObject); //Destroys the electron
+        other.gameObject.GetComponent<Health>().TakeDamage(damagePoint);
     }
 }
 
