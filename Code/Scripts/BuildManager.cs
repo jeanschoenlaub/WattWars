@@ -19,4 +19,8 @@ public class BuildManager : MonoBehaviour
     public Tower GetSelectedTower(){
         return towers[selectedTowerIndex];
     }
+
+    public void SetSelectedTower(int _towerIndex){
+       selectedTowerIndex = _towerIndex;
+    }
 }

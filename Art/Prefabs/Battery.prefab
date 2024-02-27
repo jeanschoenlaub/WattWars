@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 1309906617
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1385156780, guid: 40947cc77652d4d0493aee52a5b64fde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eaaf6877e194a424d9d9f2ed48b19912, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 7230351067204527642}
   - component: {fileID: 2570773423997975023}
   m_Layer: 0
-  m_Name: TestTurret
+  m_Name: Battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  targetingRange: 5
-  electronPerSeconds: 3
+  targetingRange: 10
+  electronPerSeconds: 1
 --- !u!1 &8728037326273155529
 GameObject:
   m_ObjectHideFlags: 0

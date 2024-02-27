@@ -28,6 +28,8 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesAlive;
     private bool isSpawning = false;
 
+    
+
     private void Awake(){
         onEnemyDestroy.AddListener(EnemyDestroyed);
     }
@@ -38,8 +40,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update(){
         if (!isSpawning){return;}
-
-        timeSinceLastSpawn += Time.deltaTime; 
+        
+        int currentGameSpeed = LevelManager.GetGameSpeed();
+        timeSinceLastSpawn += Time.deltaTime * currentGameSpeed; 
 
         if (timeSinceLastSpawn >= (1f/enemiesPerSeconds) && enemiesLeftToSpawn > 0){
             SpawnEnemy();

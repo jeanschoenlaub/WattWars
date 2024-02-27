@@ -39,7 +39,9 @@ public class Turret : MonoBehaviour
 
         RotateTowardsTarget();
         ScaleToTarget();
-        timeUntilFire += Time.deltaTime;
+
+        int currentGameSpeed = LevelManager.GetGameSpeed();
+        timeUntilFire += Time.deltaTime*currentGameSpeed;
 
         if (timeUntilFire >= 1f/ electronPerSeconds){
             Shoot(); 

@@ -32,8 +32,15 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        int currentGameSpeed = LevelManager.GetGameSpeed();
         Vector2 direction = (target.position - transform.position).normalized;
 
-        rb.velocity = direction * moveSpeed;
+        rb.velocity = direction * moveSpeed * currentGameSpeed;
+
+        // Adding logic to make the Sprite rotate based on direction but not really good
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float rotationOffset = 180f; // Becuase facing left initially
+        Quaternion rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
+        rb.transform.rotation = rotation;// Apply the rotation to the transform
     }
 }

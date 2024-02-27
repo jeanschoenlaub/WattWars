@@ -28,7 +28,8 @@ public class Electron : MonoBehaviour
 
         Vector2 direction = (target.position - transform.position).normalized;
 
-        electron.velocity = direction * electronSpeed;
+        int currentGameSpeed = LevelManager.GetGameSpeed();
+        electron.velocity = direction * electronSpeed * currentGameSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other){

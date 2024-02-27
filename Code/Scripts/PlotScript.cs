@@ -27,7 +27,12 @@ public class PlotScript : MonoBehaviour
         if ( tower != null) { return;}
 
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
-        tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+
+        //Level manager handles if not enough money
+        if ( LevelManager.main.SpendCurrency(towerToBuild.cost) ){ 
+            tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+        }
+        
     }
 
 }
