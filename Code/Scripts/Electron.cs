@@ -31,7 +31,7 @@ public class Electron : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other){
         Destroy(gameObject); //Destroys the electron
-        other.gameObject.GetComponent<Health>().TakeDamage(damagePoint);
+        other.gameObject.GetComponent<Health>().TakeElecDamage(damagePoint);
     }
 }
 

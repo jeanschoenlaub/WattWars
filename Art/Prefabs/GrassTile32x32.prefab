@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 8441527609442106511}
-  hoverColor: {r: 0.9433962, g: 0.89444643, b: 0.89444643, a: 1}
+  hoverColor: {r: 0.12130821, g: 1, b: 0, a: 1}
   constructable: 1
