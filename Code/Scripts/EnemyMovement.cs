@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform target;
     private int pathIndex = 0;
+    public int pathProgress = 0; // to track furthest along ennemy
 
     private void Start(){
         target = LevelManager.main.path[pathIndex];
@@ -36,6 +37,8 @@ public class EnemyMovement : MonoBehaviour
         Vector2 direction = (target.position - transform.position).normalized;
 
         rb.velocity = direction * moveSpeed * currentGameSpeed;
+
+        pathProgress += currentGameSpeed;
 
         // Adding logic to make the Sprite rotate based on direction but not really good
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

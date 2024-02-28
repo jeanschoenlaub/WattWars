@@ -57,10 +57,26 @@ public class Turret : MonoBehaviour
         electronScript.SetTarget(target);
     }
 
-    private void FindTarget(){ 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2) transform.position, 0f, enemyMask);
-        if (hits.Length > 0){
-            target = hits[0].transform;
+    private void FindTarget()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask);
+        if (hits.Length > 0)
+        {
+            Transform furthestTarget = null;
+            float maxProgress = -1f; // Start with a progress lower than any enemy could have
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                EnemyMovement enemyMovement = hit.transform.GetComponent<EnemyMovement>();
+
+                if (enemyMovement != null && enemyMovement.pathProgress > maxProgress)
+                {
+                    furthestTarget = hit.transform;
+                    maxProgress = enemyMovement.pathProgress;
+                }
+            }
+
+            target = furthestTarget; // Set the found target
         }
     }
 

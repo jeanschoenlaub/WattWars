@@ -7,6 +7,7 @@ public class PlotScript : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Color hoverColor;
+    [SerializeField] private bool constructable; // Can't build on some tile prefabs like roads
 
     private GameObject tower; //no build tower by defaut
     private Color startColor;
@@ -28,11 +29,10 @@ public class PlotScript : MonoBehaviour
 
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
 
-        //Level manager handles if not enough money
-        if ( LevelManager.main.SpendCurrency(towerToBuild.cost) ){ 
-            tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+        if (constructable == true){ // If we can build on this tile
+            if ( LevelManager.main.SpendCurrency(towerToBuild.cost) ){ // If enough money (this substracts as well)
+                tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+            }
         }
-        
     }
-
 }
