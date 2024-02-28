@@ -1610,7 +1610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 81fca7827cf6641dea360cf041f7ad78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7474,7 +7474,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10502,7 +10502,7 @@ MonoBehaviour:
   - {fileID: 1714334314}
   - {fileID: 127191454}
   - {fileID: 1141462188}
-  coins: 0
+  coins: 200
 --- !u!4 &1624488372
 Transform:
   m_ObjectHideFlags: 0
@@ -10557,6 +10557,10 @@ MonoBehaviour:
     cost: 120
     size: 
     prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
+  - name: FuelPump
+    cost: 100
+    size: 
+    prefab: {fileID: 7753436983663317480, guid: 67d7ce04ee2784a3abcf13c156d77d55, type: 3}
   towerPreviewInstance: {fileID: 0}
 --- !u!1 &1629536667
 GameObject:

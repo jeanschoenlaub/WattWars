@@ -50,7 +50,7 @@ public class Turret : MonoBehaviour
 
     private void Shoot(){
         GameObject electronObj = Instantiate(electronPrefab, firingPoint.position, Quaternion.identity);
-        Electron electronScript = electronObj.GetComponent<Electron>();
+        Bullet electronScript = electronObj.GetComponent<Bullet>();
         electronScript.SetTarget(target);
     }
 

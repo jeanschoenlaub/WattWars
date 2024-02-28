@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class Electron : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     
     [Header("References")]
-    [SerializeField] private Rigidbody2D electron;
+    [SerializeField] private Rigidbody2D bullet;
 
     [Header("Attributes")]
-    [SerializeField] private float electronSpeed = 5f;
-    [SerializeField] private int damagePoint = 1;
-
+    [SerializeField] private float bulletSpeed = 5f;
+    [SerializeField] private int elecDamage = 1;
+    [SerializeField] private int fuelDamage = 1;
     
     private Transform target;
 
@@ -26,12 +26,13 @@ public class Electron : MonoBehaviour
         Vector2 direction = (target.position - transform.position).normalized;
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
-        electron.velocity = direction * electronSpeed * currentGameSpeed;
+        bullet.velocity = direction * bulletSpeed * currentGameSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other){
         Destroy(gameObject); //Destroys the electron
-        other.gameObject.GetComponent<Health>().TakeElecDamage(damagePoint);
+        other.gameObject.GetComponent<Health>().TakeElecDamage(elecDamage);
+        other.gameObject.GetComponent<Health>().TakeFuelDamage(fuelDamage);
     }
 }
 

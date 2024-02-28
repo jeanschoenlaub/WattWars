@@ -6,6 +6,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager main;
+
+    [Header("Attributes")]
+    [SerializeField] private int startingCoins ;
     
     public Transform startPoint;
     public Transform[] path;
@@ -30,7 +33,7 @@ public class LevelManager : MonoBehaviour
     }
 
     private void Start(){
-        coins = 100;
+        coins = startingCoins;
     }
 
     public void IncreaseCurrency( int amount ){

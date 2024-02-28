@@ -3,8 +3,8 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] private int elecLives = 2;
-    [SerializeField] private int fuelLives = 2;
+    [SerializeField] public int elecLives = 2;
+    [SerializeField] public int fuelLives = 2;
     [SerializeField] private int maxElecLives = 2;
     [SerializeField] private int maxFuelLives = 2;
     [SerializeField] private int killCoins = 5;
