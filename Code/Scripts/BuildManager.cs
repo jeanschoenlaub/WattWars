@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
@@ -9,18 +7,71 @@ public class BuildManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Tower[] towers;
 
-    private int selectedTowerIndex = 0;
+    private Tower selectedTower;
+    public GameObject towerPreviewInstance;
+
 
     void Awake()
     {
-      main = this;
+        main = this;
     }
 
-    public Tower GetSelectedTower(){
-        return towers[selectedTowerIndex];
+    public Tower GetSelectedTower()
+    {
+        return selectedTower;
     }
 
-    public void SetSelectedTower(int _towerIndex){
-       selectedTowerIndex = _towerIndex;
+    public void SetSelectedTower(int towerIndex)
+    {
+        // Destroy existing preview if switching towers
+        if (towerPreviewInstance != null)
+        {
+          Destroy(towerPreviewInstance);
+        }
+
+        selectedTower = towers[towerIndex];
+        // Create a new preview instance initially transparent and script disabled
+        towerPreviewInstance = Instantiate(selectedTower.prefab);
+        SetOpacity(towerPreviewInstance,0f,Color.white);
+        DisableComponents(towerPreviewInstance);
+    }
+
+    public void DeselectTower()
+    {
+        if (towerPreviewInstance != null)
+        {
+            Destroy(towerPreviewInstance);
+        }
+        selectedTower = null;
+    }
+
+    // Utility method to set opacity
+    public void SetOpacity(GameObject obj, float opacity, Color color)
+    {
+        foreach (var renderer in obj.GetComponentsInChildren<SpriteRenderer>())
+        {
+            color.a = opacity;
+            renderer.color = color;
+        }
+    }
+
+    // Utility method to disable components
+    private void DisableComponents(GameObject obj)
+    {
+        foreach (var collider in obj.GetComponentsInChildren<Collider2D>()){
+            collider.enabled = false;
+        }
+        foreach (var script in obj.GetComponentsInChildren<MonoBehaviour>()){
+            script.enabled = false;
+        }
+    }
+
+    // Call this method to update the position of the preview
+    public void UpdatePreviewPosition(Vector3 position)
+    {
+        if (towerPreviewInstance != null)
+        {
+            towerPreviewInstance.transform.position = position;
+        }
     }
 }

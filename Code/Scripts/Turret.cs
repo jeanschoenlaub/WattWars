@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using UnityEditor;
-// using Unity.VisualScripting;
-// using UnityEngine.UIElements;
 
 public class Turret : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class Turret : MonoBehaviour
             return;
         } else {
             float distance = Vector2.Distance(transform.position, target.position);
-            if (distance >= targetingRange - 0.5f){
+            if (distance > targetingRange){
                 target = null;
                 ToggleWireVisibility(false);
                 return; 
@@ -59,11 +56,11 @@ public class Turret : MonoBehaviour
 
     private void FindTarget()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange - 0.2f, Vector2.zero, 0f, enemyMask);
         if (hits.Length > 0)
         {
             Transform furthestTarget = null;
-            float maxProgress = -1f; // Start with a progress lower than any enemy could have
+            int maxProgress = -1; // Start with a progress lower than any enemy could have
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -75,7 +72,6 @@ public class Turret : MonoBehaviour
                     maxProgress = enemyMovement.pathProgress;
                 }
             }
-
             target = furthestTarget; // Set the found target
         }
     }

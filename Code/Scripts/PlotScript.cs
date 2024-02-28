@@ -16,8 +16,18 @@ public class PlotScript : MonoBehaviour
         startColor = sr.color; 
     }
 
-    private void OnMouseEnter (){ 
-        sr.color = hoverColor;
+    private void OnMouseEnter()
+    {
+        if (BuildManager.main.GetSelectedTower() != null)
+        {
+            sr.color = hoverColor;
+            // Update the position of the tower preview to this plot
+            BuildManager.main.UpdatePreviewPosition(transform.position);
+            BuildManager.main.SetOpacity(BuildManager.main.towerPreviewInstance, 0.5f, Color.white);
+            if (!constructable){
+            BuildManager.main.SetOpacity(BuildManager.main.towerPreviewInstance, 0.5f, Color.red);
+            }
+        }
     }
 
     private void OnMouseExit(){
@@ -25,14 +35,20 @@ public class PlotScript : MonoBehaviour
     }
 
     private void OnMouseDown(){
-        if ( tower != null) { return;}
+        if (tower != null || !constructable) 
+        {
+            // Deselect tower if clicking on a non-constructable plot or already has a tower
+            BuildManager.main.DeselectTower();
+            return;
+        }
 
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
-
-        if (constructable == true){ // If we can build on this tile
-            if ( LevelManager.main.SpendCurrency(towerToBuild.cost) ){ // If enough money (this substracts as well)
-                tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
-            }
+        if (towerToBuild != null && LevelManager.main.SpendCurrency(towerToBuild.cost))
+        {
+            tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+            // Reset tower opacity to 100% upon placing
+            BuildManager.main.SetOpacity(tower, 1f, Color.white);
+            BuildManager.main.DeselectTower();
         }
     }
 }
