@@ -5,32 +5,64 @@ public class Plot : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] public bool constructable; // Can't build on some tile prefabs like roads
+    [SerializeField] public bool constructable;
 
-    private GameObject plotTower; // Tower object on each plot, default no tower
-    private bool anyPlotNotConstructable = false; //lag to track if any plots (for 2x2 towers) not constr.
+    private GameObject placedStructure; // Generalized from plotTower
+    private bool anyPlotNotConstructable = false;
 
-    // Static list to track colored plots for made attribute to set and reset from different functions
     private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
 
     private void OnMouseEnter()
     {
-        // Web some logic if the mouse enters a plot but only if a tower is selected    
-        Tower towerToBuild = BuildManager.main.GetSelectedTower();
-        if (towerToBuild == null){return;} 
+        // Generalize this to work with any selected structure, not just towers
+        var structureToBuild = BuildManager.main.GetSelectedStructure();
+        if (structureToBuild == null) return;
 
-        // First we display a tower at 50% opposity on the selected plot
         BuildManager.main.UpdatePreviewPosition(transform.position);
-        BuildManager.main.SetOpacity(BuildManager.main.towerPreviewInstance, 0.5f, Color.white);
-        
-        //Then we color each plot in green if you can construct a tower on it and red if not
-        //And we use GridManager utility functions to know neightbors of plot and tower size
+        BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.white);
+
+        CheckPlotConstructability(structureToBuild);
+    }
+
+    private void OnMouseExit()
+    {
+        foreach (var plotSr in plotsToColor)
+        {
+            plotSr.color = Color.white;
+        }
+        plotsToColor.Clear();
+    }
+
+    private void OnMouseDown()
+    {
+        if (placedStructure != null || anyPlotNotConstructable)
+        {
+            BuildManager.main.DeselectStructure();
+            return;
+        }
+
+        PlaceStructureIfPossible();
+    }
+
+    private void CheckPlotConstructability(object structureToBuild)
+    {
         Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
         anyPlotNotConstructable = false;
 
-        for (int x = 0; x < towerToBuild.size[0]; x++)
+        var size = new int[] { 0, 0 };
+
+        if (structureToBuild is Tower tower)
         {
-            for (int y = 0; y < towerToBuild.size[1]; y++)
+            size = new int[] {tower.size[0], tower.size[1]}; // Assuming Tower has a size field like int[] size;
+        }
+        else if (structureToBuild is Building building)
+        {
+            size = new int[] {building.size[0], building.size[1]};
+        }
+
+        for (int x = 0; x < size[0]; x++)
+        {
+            for (int y = 0; y < size[1]; y++)
             {
                 int checkX = gridPosition.x + x;
                 int checkY = gridPosition.y + y;
@@ -41,43 +73,41 @@ public class Plot : MonoBehaviour
                     bool isPlotConstructable = GridManager.Instance.IsPlotConstructable(checkX, checkY);
                     plotSr.color = isPlotConstructable ? Color.green : Color.red;
 
-                    if (!isPlotConstructable){ anyPlotNotConstructable = true;}
+                    if (!isPlotConstructable) anyPlotNotConstructable = true;
                 }
             }
         }
 
-        //If any plots not available, color the entire tower red
-        if (anyPlotNotConstructable){
-            BuildManager.main.SetOpacity(BuildManager.main.towerPreviewInstance, 0.5f, Color.red);
+        if (anyPlotNotConstructable)
+        {
+            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.red);
         }
     }
 
-    private void OnMouseExit(){
-        // On MouseExit we reset the color 
-        foreach (var plotSr in plotsToColor)
+    private void PlaceStructureIfPossible()
+    {
+       var structureToBuild = BuildManager.main.GetSelectedStructure();
+
+        int cost = 0;
+        GameObject prefab = null; // Declare prefab as GameObject
+
+        if (structureToBuild is Tower tower)
         {
-            plotSr.color = Color.white;
+            cost = tower.cost;
+            prefab = tower.prefab; // Assigning the prefab from the Tower
         }
-        // Clear the list after resetting the colors
-        plotsToColor.Clear();
-    }
-
-    private void OnMouseDown(){
-
-        // If we can't build because not constructable or there already is a tower we just deselect towerToBuild 
-        if (plotTower != null || anyPlotNotConstructable) 
+        else if (structureToBuild is Building building)
         {
-            BuildManager.main.DeselectTower();// Deselect towerToBuild
-            return;
+            cost = building.cost;
+            prefab = building.prefab; // Assigning the prefab from the Building
         }
 
-        Tower towerToBuild = BuildManager.main.GetSelectedTower();
-        if (towerToBuild != null && LevelManager.main.SpendCurrency(towerToBuild.cost))
+        // Ensure prefab is not null to avoid errors in Instantiate
+        if (prefab != null && LevelManager.main.SpendCurrency(cost))
         {
-            plotTower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
-            // Reset tower opacity to 100% upon placing
-            BuildManager.main.SetOpacity(plotTower, 1f, Color.white);
-            BuildManager.main.DeselectTower();
+            placedStructure = Instantiate(prefab, transform.position, Quaternion.identity);
+            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
+            BuildManager.main.DeselectStructure();
         }
     }
 }
