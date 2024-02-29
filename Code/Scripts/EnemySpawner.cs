@@ -28,8 +28,6 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesAlive;
     private bool isSpawning = false;
 
-    
-
     private void Awake(){
         onEnemyDestroy.AddListener(EnemyDestroyed);
     }
