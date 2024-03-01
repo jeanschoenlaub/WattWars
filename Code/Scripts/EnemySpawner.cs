@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,14 +8,11 @@ public class EnemySpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
-
     [Header("Attributes")]
     [SerializeField] private int baseEnemyNb = 8;
     [SerializeField] private float enemiesPerSeconds = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
-
     [SerializeField] private float enemyIncreasePerWave = 0.7f;
-
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();

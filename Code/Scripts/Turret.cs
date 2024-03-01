@@ -39,22 +39,26 @@ public class Turret : MonoBehaviour
     private void FindTarget()
     {
         target = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
+        float closestDistance = Mathf.Infinity;
+    
         // Find the closest enemy
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            Vector3 directionToTarget = enemy.transform.position - currentPosition;
+            // Used to determine the furthest ennemy on the path
+            float enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
+            
+            // Used to determine if enemy is in range
+            Vector3 directionToTarget = enemy.transform.position -  transform.position;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+
+            if (enemyProgress < closestDistance)
             {
                 EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
                 Health enemyHealth = enemy.GetComponent<Health>();
                 // Check if enemy can be targeted based on health and is within range
                 if (enemyHealth != null && enemyHealth.elecLives != 0 && dSqrToTarget <= (targetingRange * targetingRange))
                 {
-                    closestDistanceSqr = dSqrToTarget;
+                    closestDistance = enemyProgress;
                     target = enemy.transform;
                 }
             }
@@ -63,14 +67,14 @@ public class Turret : MonoBehaviour
         // If no enemy is targeted, find the closest building
         if (target == null)
         {
-            closestDistanceSqr = Mathf.Infinity; // Reset for building search
+            closestDistance = Mathf.Infinity; // Reset for building search
             foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
             {
-                Vector3 directionToTarget = building.transform.position - currentPosition;
-                float dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (dSqrToTarget < closestDistanceSqr && dSqrToTarget <= (targetingRange * targetingRange))
+                Vector3 directionToBuilding = building.transform.position - transform.position;
+                float dSqrToBuilding = directionToBuilding.sqrMagnitude;
+                if (dSqrToBuilding < closestDistance && dSqrToBuilding <= (targetingRange * targetingRange))
                 {
-                    closestDistanceSqr = dSqrToTarget;
+                    closestDistance = dSqrToBuilding;
                     target = building.transform;
                 }
             }

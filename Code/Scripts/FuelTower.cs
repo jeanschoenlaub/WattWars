@@ -48,7 +48,7 @@ public class FuelTower : MonoBehaviour
         if (hits.Length > 0)
         {
             Transform furthestTarget = null;
-            int maxProgress = -1; // Start with a progress lower than any enemy could have
+            float maxProgress = -1; // Start with a progress lower than any enemy could have
 
             foreach (RaycastHit2D hit in hits)
             {
