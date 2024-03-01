@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7911650124807435119}
   - component: {fileID: 3823237002620790623}
-  - component: {fileID: 1887312294896457130}
   - component: {fileID: 2784496065596580479}
   m_Layer: 7
   m_Name: Electron
@@ -164,33 +163,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &1887312294896457130
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6012673426103185755}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!114 &2784496065596580479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f466e43b029e84f54a86d64e655b8e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1887312294896457130}
+  bullet: {fileID: 0}
   bulletSpeed: 5
   elecDamage: 1
   fuelDamage: 0

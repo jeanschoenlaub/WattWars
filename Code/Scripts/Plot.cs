@@ -18,6 +18,7 @@ public class Plot : MonoBehaviour
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
+        //BuildManager.main.DisableComponents(BuildManager.main.structurePreviewInstance);
         BuildManager.main.UpdatePreviewPosition(transform.position);
         BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.white);
 
@@ -53,7 +54,7 @@ public class Plot : MonoBehaviour
 
         if (structureToBuild is Tower tower)
         {
-            size = new int[] {tower.size[0], tower.size[1]}; // Assuming Tower has a size field like int[] size;
+            size = new int[] {tower.size[0], tower.size[1]};
         }
         else if (structureToBuild is Building building)
         {
@@ -106,6 +107,7 @@ public class Plot : MonoBehaviour
         if (prefab != null && LevelManager.main.SpendCurrency(cost))
         {
             placedStructure = Instantiate(prefab, transform.position, Quaternion.identity);
+            if (structureToBuild is Building ) { placedStructure.tag = "Building";}
             BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
             BuildManager.main.DeselectStructure();
         }

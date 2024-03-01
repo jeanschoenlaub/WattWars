@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private Rigidbody2D rb;
-    
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
@@ -19,7 +16,12 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Update() {
-        if (Vector2.Distance(target.position, transform.position) <= 0.1f){
+        UpdatePathTarget();
+        MoveTowardsTarget();
+    }
+
+   private void UpdatePathTarget() {
+         if (Vector2.Distance(target.position, transform.position) <= 0.1f){
             pathIndex++;
 
             if (pathIndex == LevelManager.main.path.Length){
@@ -32,18 +34,15 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() {
+    private void MoveTowardsTarget() {
         int currentGameSpeed = LevelManager.GetGameSpeed();
-        Vector2 direction = (target.position - transform.position).normalized;
-
-        rb.velocity = direction * moveSpeed * currentGameSpeed;
-
-        pathProgress += currentGameSpeed;
+        float step = moveSpeed * currentGameSpeed * Time.deltaTime; // Calculate the step size
+        transform.position = Vector2.MoveTowards(transform.position, target.position, step);
 
         // Adding logic to make the Sprite rotate based on direction but not really good
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        float rotationOffset = 180f; // Becuase facing left initially
-        Quaternion rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
-        rb.transform.rotation = rotation;// Apply the rotation to the transform
+        // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // float rotationOffset = 180f; // Becuase facing left initially
+        // Quaternion rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
+        // rb.transform.rotation = rotation;// Apply the rotation to the transform
     }
 }

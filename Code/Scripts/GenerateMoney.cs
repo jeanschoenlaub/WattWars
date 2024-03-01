@@ -19,7 +19,6 @@ public class GenerateMoney : MonoBehaviour
     {
         {
             elecReceived += amount;
-            Debug.Log(elecReceived);
             if (elecReceived == elecRequired){
                 elecReceived = 0;
                 LevelManager.main.IncreaseCurrency(moneyGenerated);
@@ -34,7 +33,7 @@ public class GenerateMoney : MonoBehaviour
         if (elecGenBar != null) {
             Vector3 scale = elecGenBar.localScale;
             if (elecReceived == 0){scale.x = 0;}
-            else { scale.x = (float) elecRequired/ elecReceived ;}
+            else { scale.x = (float) elecReceived / elecRequired ;}
             elecGenBar.localScale = scale;
         }
         
@@ -42,7 +41,7 @@ public class GenerateMoney : MonoBehaviour
         if (fuelGenBar != null) {
             Vector3 scale = fuelGenBar.localScale;
             if (fuelReceived == 0){scale.x = 0;}
-            else { scale.x = (float) fuelRequired/ fuelReceived;}
+            else { scale.x = (float) fuelReceived / fuelRequired ;}
             fuelGenBar.localScale = scale;
         }
     }

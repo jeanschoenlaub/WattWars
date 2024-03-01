@@ -39,37 +39,40 @@ public class Turret : MonoBehaviour
     private void FindTarget()
     {
         target = null;
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange - 0.2f, Vector2.zero, 0f, enemyMask);
-        if (hits.Length > 0)
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        // Find the closest enemy
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            Transform furthestTarget = null;
-            int maxProgress = -1; // Start with a progress lower than any enemy could have
-
-            foreach (RaycastHit2D hit in hits)
+            Vector3 directionToTarget = enemy.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
             {
-                EnemyMovement enemyMovement = hit.transform.GetComponent<EnemyMovement>();
-                Health enemyHealth = hit.transform.GetComponent<Health>();
-
-                // First we check if ennemy still needs damage from our tower type (elec or fuel)
-                // If yes we check if it's the furthest ennemy along, if yes --> target
-                // HARDCODED ELEC FOR NOW
-                if (enemyHealth == null || enemyHealth.elecLives != 0 ){
-                    if (enemyMovement != null && enemyMovement.pathProgress > maxProgress  )
-                    {
-                        furthestTarget = hit.transform;
-                        maxProgress = enemyMovement.pathProgress;
-                    }
+                EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+                Health enemyHealth = enemy.GetComponent<Health>();
+                // Check if enemy can be targeted based on health and is within range
+                if (enemyHealth != null && enemyHealth.elecLives != 0 && dSqrToTarget <= (targetingRange * targetingRange))
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    target = enemy.transform;
                 }
             }
-            target = furthestTarget; // Set the found target
         }
 
-        // Then if we didn't find any ennemy to shoot we can target buildings
+        // If no enemy is targeted, find the closest building
         if (target == null)
         {
-            RaycastHit2D[] buildingHits = Physics2D.CircleCastAll(transform.position, targetingRange - 0.2f, Vector2.zero, 0f, buildingMask);
-            if (buildingHits.Length > 0){
-                target = buildingHits[0].transform;
+            closestDistanceSqr = Mathf.Infinity; // Reset for building search
+            foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
+            {
+                Vector3 directionToTarget = building.transform.position - currentPosition;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr && dSqrToTarget <= (targetingRange * targetingRange))
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    target = building.transform;
+                }
             }
         }
     }

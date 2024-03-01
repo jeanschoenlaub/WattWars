@@ -27,21 +27,6 @@ public class BuildManager : MonoBehaviour
         selectedStructure=null;
     }
 
-    // public void SetSelectedTower(int towerIndex)
-    // {
-    //     // Destroy existing preview if switching towers
-    //     if (structurePreviewInstance != null)
-    //     {
-    //       Destroy(towerPreviewInstance);
-    //     }
-
-    //     selectedTower = towers[towerIndex];
-    //     // Create a new preview instance initially transparent and script disabled
-    //     towerPreviewInstance = Instantiate(selectedTower.prefab);
-    //     SetOpacity(towerPreviewInstance,0f,Color.white);
-    //     DisableComponents(towerPreviewInstance);
-    // }
-
     // Method to select a tower, keeping your existing logic
     public void SetSelectedTower(int towerIndex)
     {
@@ -86,12 +71,10 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    // Utility method to disable components
+    // Utility method to disable components (called from shop click)
     private void DisableComponents(GameObject obj)
     {
-        foreach (var collider in obj.GetComponentsInChildren<Collider2D>()){
-            collider.enabled = false;
-        }
+        obj.tag = "Preview";
         foreach (var script in obj.GetComponentsInChildren<MonoBehaviour>()){
             script.enabled = false;
         }
