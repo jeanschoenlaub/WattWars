@@ -160,9 +160,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2775836664804250412}
   - component: {fileID: 411594357357229170}
-  - component: {fileID: -1958826440122127256}
   - component: {fileID: -6058641802218336322}
   - component: {fileID: 2028248667730492355}
+  - component: {fileID: -1958826440122127256}
   - component: {fileID: -2284408784463063552}
   m_Layer: 6
   m_Name: Enemy
@@ -239,21 +239,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1958826440122127256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8693263217940201750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87882db59be72416aa7fdd03db4497e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 2028248667730492355}
-  moveSpeed: 1
-  pathProgress: 0
 --- !u!61 &-6058641802218336322
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -326,6 +311,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-1958826440122127256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693263217940201750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87882db59be72416aa7fdd03db4497e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2028248667730492355}
+  moveSpeed: 1
+  pathProgress: 0
 --- !u!114 &-2284408784463063552
 MonoBehaviour:
   m_ObjectHideFlags: 0

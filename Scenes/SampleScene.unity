@@ -27713,8 +27713,6 @@ MonoBehaviour:
     cost: 20
     size: 0200000002000000
     prefab: {fileID: 3185910401608733865, guid: caaadb5efbaf4464682a0c35043eb1e5, type: 3}
-    isActive: 0
-    energyReceived: 0
   structurePreviewInstance: {fileID: 0}
 --- !u!114 &1624488375
 MonoBehaviour:

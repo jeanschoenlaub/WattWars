@@ -31,8 +31,22 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other){
         Destroy(gameObject); //Destroys the electron
-        other.gameObject.GetComponent<Health>().TakeElecDamage(elecDamage);
-        other.gameObject.GetComponent<Health>().TakeFuelDamage(fuelDamage);
+        Debug.Log("Collision");
+        
+        // Check if the collided object is an enemy, then apply both types of damage
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+            if (other.gameObject.GetComponent<Health>() != null){
+                other.gameObject.GetComponent<Health>().TakeElecDamage(elecDamage);
+                other.gameObject.GetComponent<Health>().TakeFuelDamage(fuelDamage);
+            }
+        }
+        // Check if the collided object is a building, then receive enegry
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Buildings")){
+            Debug.Log("hit building");
+            if (other.gameObject.GetComponent<GenerateMoney>() != null){
+                other.gameObject.GetComponent<GenerateMoney>().ReceiveEnergy(elecDamage); // Assuming 'amount' is defined elsewhere
+            }
+        }
     }
 }
 

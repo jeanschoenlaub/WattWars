@@ -38,7 +38,8 @@ public class Health : MonoBehaviour
         // Update electric lives bar scale
         if (elecLivesBar != null) {
             Vector3 scale = elecLivesBar.localScale;
-            scale.x = (float)elecLives / maxElecLives;
+            if (elecLives == 0){scale.x = 0;}
+            else { scale.x = (float)elecLives / maxElecLives;}
             elecLivesBar.localScale = scale;
         }
         

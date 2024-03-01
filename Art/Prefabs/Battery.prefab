@@ -254,6 +254,9 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
+  buildingMask:
+    serializedVersion: 2
+    m_Bits: 256
   targetingRange: 10
   electronPerSeconds: 1
 --- !u!1 &8728037326273155529
