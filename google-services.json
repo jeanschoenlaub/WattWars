@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1065929365034",
+    "firebase_url": "https://wattwars-46853-default-rtdb.firebaseio.com",
+    "project_id": "wattwars-46853",
+    "storage_bucket": "wattwars-46853.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065929365034:android:a6ae9bd53aa5607226d553",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.WattWars"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgu33CTYVgnkiuTRjMw6KrQD4HyaKLsRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

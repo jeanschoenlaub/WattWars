@@ -87,37 +87,22 @@ public class Plot : MonoBehaviour
 
     private void PlaceStructureIfPossible()
     {
-       var structureToBuild = BuildManager.main.GetSelectedStructure();
+       Structure structureToBuild = BuildManager.main.GetSelectedStructure();
 
-        int cost = 0;
-        GameObject prefab = null; // Declare prefab as GameObject
-        int [] size = null;
-
-        if (structureToBuild is Tower tower)
-        {
-            cost = tower.cost;
-            prefab = tower.prefab; // Assigning the prefab from the Tower
-            size = tower.size;
-        }
-        else if (structureToBuild is Building building)
-        {
-            cost = building.cost;
-            prefab = building.prefab; // Assigning the prefab from the Building
-            size = building.size;
-        }
+        GameObject prefab = structureToBuild.prefab; // Declare prefab as GameObject
+        int [] size = structureToBuild.size;
 
         // Ensure prefab is not null to avoid errors in Instantiate
-        if (prefab != null && LevelManager.main.SpendCurrency(cost))
+        if (prefab != null && LevelManager.main.SpendCurrency(structureToBuild.cost))
         {
             placedStructure = Instantiate(prefab, transform.position, Quaternion.identity);
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
             
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
 
-            if (structureToBuild is Building ) { 
+            if (structureToBuild is Building) { 
                 placedStructure.tag = "Building";
             }
-
 
             BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
             BuildManager.main.DeselectStructure();
