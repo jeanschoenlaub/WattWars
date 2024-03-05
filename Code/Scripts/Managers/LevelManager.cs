@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,7 +6,10 @@ public class LevelManager : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private int startingCoins ;
-    
+    [SerializeField] public Scenario currentScenario;
+    [SerializeField] public int currentDayIndex = 0;
+    [SerializeField] public int currentWaveIndex = 0;
+
     public Transform startPoint;
     public Transform[] path;
 
@@ -28,8 +28,15 @@ public class LevelManager : MonoBehaviour
         return gameSpeed;
     }
 
-    private void Awake(){
+    private void Awake()
+    {
+        if (main != null && main != this)
+        {
+            Destroy(gameObject); // Ensure singleton integrity
+            return;
+        }
         main = this;
+        DontDestroyOnLoad(gameObject); // Persist across scenes
     }
 
     private void Start(){
@@ -51,5 +58,49 @@ public class LevelManager : MonoBehaviour
             return false;
         }
         
+    }
+
+    // Call this to start a scenario
+    public void LoadScenario(Scenario scenario)
+    {
+        currentScenario = scenario;
+        currentDayIndex = 0;
+        currentWaveIndex = 0;
+        LoadDay();
+    }
+
+    void LoadDay()
+    {
+        if (currentDayIndex < currentScenario.days.Count)
+        {
+            Day currentDay = currentScenario.days[currentDayIndex];
+            Debug.Log("START DAY!");
+            // Additional setup for the day can go here, e.g., initializing wave spawners
+        }
+        else
+        {
+            Debug.Log("Scenario Complete!");
+            // Handle scenario completion, e.g., return to map
+        }
+    }
+
+    // Call to progress to the next wave or day
+    public void NextWave()
+    {
+        currentWaveIndex++;
+        Day currentDay = currentScenario.days[currentDayIndex];
+
+        if (currentWaveIndex >= currentDay.waves.Count)
+        {
+            // All waves for the day completed, load next day
+            currentWaveIndex = 0;
+            currentDayIndex++;
+            LoadDay();
+        }
+        else
+        {
+            // Load next wave within the current day
+            // Wave setup logic goes here, e.g., triggering wave spawn mechanisms
+        }
     }
 }

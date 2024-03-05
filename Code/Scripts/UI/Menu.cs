@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] TextMeshProUGUI currencyUI;
+    [SerializeField] TextMeshProUGUI waveUI;
     [SerializeField] Animator anim;
 
     private bool isMenuOpen = false;
@@ -73,6 +74,8 @@ public class Menu : MonoBehaviour
 
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
+        waveUI.text =  LevelManager.main.currentDayIndex.ToString() + "/" 
+                        +  LevelManager.main.currentScenario.days[LevelManager.main.currentDayIndex].waves.Count.ToString();
     }
 
     
