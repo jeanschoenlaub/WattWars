@@ -19,20 +19,23 @@ public class BuildManager : MonoBehaviour
 
     public Structure GetSelectedStructure()
     {
+       
         return selectedStructure;
     }
 
     public void DeselectStructure()
     {
+        LevelManager.SetGameSpeed(1);
+        ClearStructurePreview();
         selectedStructure=null;
     }
 
-    // Method to select a tower, keeping your existing logic
     public void SetSelectedTower(int towerIndex)
     {
         ClearStructurePreview();
         selectedStructure = towers[towerIndex];
         CreateStructurePreview(((Tower)selectedStructure).prefab);
+        LevelManager.SetGameSpeed(0);
     }
 
     // Add a method to select a building
