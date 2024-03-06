@@ -55,7 +55,7 @@ public class Health : MonoBehaviour
     void CheckIfDestroyed()
     {
         if ( elecLives <= 0 && fuelLives <= 0 && !isDestroyed){
-            EnemySpawner.onEnemyDestroy.Invoke();
+            WaveManager.onEnemyDestroy.Invoke();
             LevelManager.main.IncreaseCurrency(killCoins);
             Destroy(gameObject);
             isDestroyed = true;
