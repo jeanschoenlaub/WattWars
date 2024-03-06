@@ -18,8 +18,11 @@ public class Menu : MonoBehaviour
     public Sprite playSprite;
     public Sprite pauseSprite;
 
+    private WaveManager waveManager;
+
     void Start()
     {
+        waveManager = FindObjectOfType<WaveManager>();
         playPauseButton.onClick.AddListener(TogglePlayPause);
         ffButton.onClick.AddListener(ToggleFastForward);
         UpdateFFButtonColor(); // Set initial FF button color
@@ -74,7 +77,7 @@ public class Menu : MonoBehaviour
 
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
-        waveUI.text =  LevelManager.main.currentDayIndex.ToString() + "/" 
+        waveUI.text =  (waveManager.currentWaveIndex + 1).ToString() + "/" 
                         +  LevelManager.main.currentScenario.days[LevelManager.main.currentDayIndex].waves.Count.ToString();
     }
 

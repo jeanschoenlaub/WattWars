@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour {
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
-    private int currentWaveIndex = 0;
+    public int currentWaveIndex = 0;
     private bool isSpawning = false;
     public int enemiesAlive = 0;
 
