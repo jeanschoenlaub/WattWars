@@ -12,6 +12,15 @@ public class Plot : MonoBehaviour
 
     private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
 
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }   
+
+    
+
     private void OnMouseEnter()
     {
         // Generalize this to work with any selected structure, not just towers
@@ -39,6 +48,7 @@ public class Plot : MonoBehaviour
         if (placedStructure != null || anyPlotNotConstructable)
         {
             BuildManager.main.DeselectStructure();
+            audioManager.PlaySFX(audioManager.badActionSFX);
             return;
         }
 
@@ -97,6 +107,8 @@ public class Plot : MonoBehaviour
         {
             placedStructure = Instantiate(prefab, transform.position, Quaternion.identity);
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
+
+            audioManager.PlaySFX(audioManager.buildSFX);
             
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
 
@@ -106,6 +118,10 @@ public class Plot : MonoBehaviour
 
             BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
             BuildManager.main.DeselectStructure();
+        }else {
+            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
+            BuildManager.main.DeselectStructure();
+            audioManager.PlaySFX(audioManager.badActionSFX);
         }
     }
 }

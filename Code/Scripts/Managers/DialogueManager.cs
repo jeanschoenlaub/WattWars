@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI; // Make sure to include this for UI components
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -9,6 +8,13 @@ public class DialogueManager : MonoBehaviour
     private bool isDialogueActive = false;
     private string[] dialogues; // Array to hold your dialogues
     private int currentDialogueIndex = 0;
+
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -23,6 +29,7 @@ public class DialogueManager : MonoBehaviour
 
     public void OnDialogueAreaClicked()
     {
+        Debug.Log("clicked");
         if (!isDialogueActive)
         {
             TriggerPopUp();
@@ -34,6 +41,7 @@ public class DialogueManager : MonoBehaviour
                 // Go to next dialogue
                 currentDialogueIndex++;
                 UpdateDialogueText();
+                audioManager.PlaySFX(audioManager.dialogSFX);
             }
             else
             {
@@ -46,6 +54,7 @@ public class DialogueManager : MonoBehaviour
 
     public void TriggerPopUp()
     {
+        Debug.Log("trigger pop-up");
         isDialogueActive = true;
         FridgePopUpAnimator.gameObject.SetActive(true);
         FridgePopUpAnimator.SetTrigger("PopUp");

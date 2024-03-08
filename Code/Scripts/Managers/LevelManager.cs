@@ -15,6 +15,19 @@ public class LevelManager : MonoBehaviour
 
     public int coins;
     private static int gameSpeed = 1; // Default game speed
+    private AudioManager audioManager; 
+
+    private void Awake()
+    {
+        if (main != null && main != this)
+        {
+            Destroy(gameObject); // Ensure singleton integrity
+            return;
+        }
+        main = this;
+        DontDestroyOnLoad(gameObject); // Persist across scenes
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Public method to set game speed
     public static void SetGameSpeed(int speed)
@@ -26,17 +39,6 @@ public class LevelManager : MonoBehaviour
     public static int GetGameSpeed()
     {
         return gameSpeed;
-    }
-
-    private void Awake()
-    {
-        if (main != null && main != this)
-        {
-            Destroy(gameObject); // Ensure singleton integrity
-            return;
-        }
-        main = this;
-        DontDestroyOnLoad(gameObject); // Persist across scenes
     }
 
     private void Start(){

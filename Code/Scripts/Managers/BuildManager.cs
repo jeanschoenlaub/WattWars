@@ -11,15 +11,16 @@ public class BuildManager : MonoBehaviour
     private Structure selectedStructure; // object to store either Tower or Building
     public GameObject structurePreviewInstance; // Generalized name for preview instance
 
+    private AudioManager audioManager;
 
-    void Awake()
+    private void Awake()
     {
         main = this;
-    }
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }   
 
     public Structure GetSelectedStructure()
     {
-       
         return selectedStructure;
     }
 
@@ -35,7 +36,9 @@ public class BuildManager : MonoBehaviour
         ClearStructurePreview();
         selectedStructure = towers[towerIndex];
         CreateStructurePreview(((Tower)selectedStructure).prefab);
+        
         LevelManager.SetGameSpeed(0);
+        audioManager.PlaySFX(audioManager.buildSelected);
     }
 
     // Add a method to select a building
@@ -44,6 +47,9 @@ public class BuildManager : MonoBehaviour
         ClearStructurePreview();
         selectedStructure = buildings[buildingIndex];
         CreateStructurePreview(((Building)selectedStructure).prefab);
+
+        LevelManager.SetGameSpeed(0);
+        audioManager.PlaySFX(audioManager.buildSelected);
     }
 
     // Utility method to clear the existing preview
