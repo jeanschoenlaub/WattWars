@@ -415,8 +415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elecLives: 5
   fuelLives: 0
-  maxElecLives: 0
-  maxFuelLives: 5
+  maxElecLives: 5
+  maxFuelLives: 0
   killCoins: 5
   elecLivesBar: {fileID: 4955146038203394097}
   fuelLivesBar: {fileID: 526046905988870736}

@@ -26,7 +26,7 @@ public class BuildManager : MonoBehaviour
 
     public void DeselectStructure()
     {
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
         ClearStructurePreview();
         selectedStructure=null;
     }
@@ -37,7 +37,7 @@ public class BuildManager : MonoBehaviour
         selectedStructure = towers[towerIndex];
         CreateStructurePreview(((Tower)selectedStructure).prefab);
         
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         audioManager.PlaySFX(audioManager.buildSelected);
     }
 
@@ -48,7 +48,7 @@ public class BuildManager : MonoBehaviour
         selectedStructure = buildings[buildingIndex];
         CreateStructurePreview(((Building)selectedStructure).prefab);
 
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         audioManager.PlaySFX(audioManager.buildSelected);
     }
 

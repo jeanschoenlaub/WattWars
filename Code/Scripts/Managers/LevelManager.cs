@@ -14,7 +14,8 @@ public class LevelManager : MonoBehaviour
     public Transform[] path;
 
     public int coins;
-    private static int gameSpeed = 1; // Default game speed
+     private static int gameSpeed = 1; // Default game speed
+    private static int savedGameSpeed = 1; // To save the speed before pausing
     private AudioManager audioManager; 
 
     private void Awake()
@@ -40,6 +41,20 @@ public class LevelManager : MonoBehaviour
     {
         return gameSpeed;
     }
+
+    // Method to pause the game (set speed to 0)
+    public static void PauseGame()
+    {
+        savedGameSpeed = gameSpeed; // Save the current speed
+        SetGameSpeed(0); // Pause the game
+    }
+
+    // Method to resume the game at previously saved speed
+    public static void ResumeGame()
+    {
+        SetGameSpeed(savedGameSpeed); // Resume at saved speed
+    }
+
 
     private void Start(){
         coins = startingCoins;

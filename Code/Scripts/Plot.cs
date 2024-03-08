@@ -119,7 +119,7 @@ public class Plot : MonoBehaviour
             BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
             BuildManager.main.DeselectStructure();
         }else {
-            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
+            // If not enough money we deselect and play error sound
             BuildManager.main.DeselectStructure();
             audioManager.PlaySFX(audioManager.badActionSFX);
         }

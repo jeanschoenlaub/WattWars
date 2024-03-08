@@ -29,7 +29,6 @@ public class DialogueManager : MonoBehaviour
 
     public void OnDialogueAreaClicked()
     {
-        Debug.Log("clicked");
         if (!isDialogueActive)
         {
             TriggerPopUp();
@@ -41,12 +40,11 @@ public class DialogueManager : MonoBehaviour
                 // Go to next dialogue
                 currentDialogueIndex++;
                 UpdateDialogueText();
-                audioManager.PlaySFX(audioManager.dialogSFX);
+                audioManager.PlaySFX(audioManager.dialogNextSFX);
             }
             else
             {
                 // Last dialogue; hide the dialogue box
-                Debug.Log("trigger pop down");
                 TriggerPopDown();
             }
         }
@@ -54,19 +52,22 @@ public class DialogueManager : MonoBehaviour
 
     public void TriggerPopUp()
     {
-        Debug.Log("trigger pop-up");
+        
         isDialogueActive = true;
         FridgePopUpAnimator.gameObject.SetActive(true);
         FridgePopUpAnimator.SetTrigger("PopUp");
         currentDialogueIndex = 0; // Reset dialogue index
         UpdateDialogueText();
+
+        audioManager.PlaySFX(audioManager.dialogUpSFX);
     }
 
     private void TriggerPopDown()
     {
         FridgePopUpAnimator.SetTrigger("PopDown"); // Ensure you have a PopDown animation
         isDialogueActive = false;
-        // Optionally reset currentDialogueIndex or wait until next TriggerPopUp
+        
+        audioManager.PlaySFX(audioManager.dialogDownSFX);
     }
 
     private void UpdateDialogueText()

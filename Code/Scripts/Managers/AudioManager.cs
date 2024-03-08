@@ -9,7 +9,9 @@ public class AudioManager : MonoBehaviour
     [Header("SFX")]
     public AudioClip Track1;
     public AudioClip coinsSFX;
-    public AudioClip dialogSFX;
+    public AudioClip dialogNextSFX;
+    public AudioClip dialogUpSFX;
+    public AudioClip dialogDownSFX;
     public AudioClip badActionSFX;
     public AudioClip buildSFX;
     public AudioClip buildSelected;
@@ -21,7 +23,6 @@ public class AudioManager : MonoBehaviour
     
     //function to call any oneshot clip
     public void PlaySFX( AudioClip clip){
-        Debug.Log("called music");
         SFXSource.PlayOneShot(clip);
     }
     
