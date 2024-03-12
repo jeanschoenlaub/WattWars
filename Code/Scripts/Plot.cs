@@ -45,6 +45,9 @@ public class Plot : MonoBehaviour
 
     private void OnMouseDown()
     {
+        var structureToBuild = BuildManager.main.GetSelectedStructure();
+        if (structureToBuild == null) return;
+        
         if (placedStructure != null || anyPlotNotConstructable)
         {
             BuildManager.main.DeselectStructure();

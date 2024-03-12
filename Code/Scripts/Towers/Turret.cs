@@ -5,8 +5,10 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject electronPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private GameObject switchOnOff;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private LayerMask buildingMask;
+    [SerializeField] private Animator SwitchButtonAnim;
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 5f;
@@ -14,6 +16,7 @@ public class Turret : MonoBehaviour
 
     private Transform target;
     private float timeUntilFire;
+    private bool isSwitchedOn = false; // Starts false but when we click down to build turns On
 
     private void Update(){
  
@@ -34,6 +37,15 @@ public class Turret : MonoBehaviour
         GameObject electronObj = Instantiate(electronPrefab, firingPoint.position, Quaternion.identity);
         Bullet electronScript = electronObj.GetComponent<Bullet>();
         electronScript.SetTarget(target);
+    }
+
+    private void OnMouseDown()
+    {
+        if (switchOnOff != null )
+        {
+            isSwitchedOn = !isSwitchedOn; // Toggle the state
+            SwitchButtonAnim.SetBool("TurnSwitchOn", isSwitchedOn);
+        }
     }
 
     private void FindTarget()

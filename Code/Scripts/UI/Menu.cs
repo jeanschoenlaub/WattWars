@@ -6,7 +6,9 @@ public class Menu : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] TextMeshProUGUI currencyUI;
+    [SerializeField] TextMeshProUGUI livesUI;
     [SerializeField] TextMeshProUGUI waveUI;
+    [SerializeField] TextMeshProUGUI waveAnim;
     [SerializeField] Animator anim;
 
     private bool isMenuOpen = false;
@@ -77,7 +79,11 @@ public class Menu : MonoBehaviour
 
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
-        waveUI.text =  (waveManager.currentWaveIndex + 1).ToString() + "/" 
+        livesUI.text = LevelManager.main.currentScenario.Lives.ToString();
+
+        //For the following waves starts at 0 and we want to start with 1 for UI 
+        waveAnim.text =  ("Day "+ LevelManager.main.currentDayIndex + 1 + " - Wave " + waveManager.currentWaveIndex + 1).ToString();
+        waveUI.text =  ("Wave " + waveManager.currentWaveIndex + 1).ToString() + "/" 
                         +  LevelManager.main.currentScenario.days[LevelManager.main.currentDayIndex].waves.Count.ToString();
     }
 
