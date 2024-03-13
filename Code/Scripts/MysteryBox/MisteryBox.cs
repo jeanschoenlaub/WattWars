@@ -13,15 +13,14 @@ public class MysteryBox : MonoBehaviour
         // Destroy the box if it reaches the right side of the map
         if(transform.position.x > endOfGameXValue) // Adjust this condition based on your game's coordinate system
         {
-            Debug.Log("killed");
             Destroy(gameObject);
         }
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("Mystery Box Clicked!");
-        // Implement what happens when the box is clicked
-        // For now, it just logs a message
+        QcmManager manager = FindObjectOfType<QcmManager>();
+        manager.ShowQCM();
+        Destroy(gameObject);
     }
 }
