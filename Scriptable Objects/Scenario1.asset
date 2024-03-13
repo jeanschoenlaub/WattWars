@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a39268596854bcd95b606b8f7f303e, type: 3}
   m_Name: Scenario1
   m_EditorClassIdentifier: 
-  scenarioName: 
-  Lives: 0
-  days: []
+  scenarioName: Scenario1
+  Lives: 3
+  days:
+  - {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}

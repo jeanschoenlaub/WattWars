@@ -134,5 +134,5 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  targetingRange: 5
+  targetingRange: 2
   fuelPerSeconds: 1

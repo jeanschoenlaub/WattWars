@@ -27,8 +27,9 @@ public class Plot : MonoBehaviour
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
-        //BuildManager.main.DisableComponents(BuildManager.main.structurePreviewInstance);
-        BuildManager.main.UpdatePreviewPosition(transform.position);
+        //If a structure is selected we show it with a 0.5 opacity and offest based on it's size
+        Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
+        BuildManager.main.UpdatePreviewPosition(instantiationPosition);
         BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.white);
 
         CheckPlotConstructability(structureToBuild);
@@ -100,27 +101,30 @@ public class Plot : MonoBehaviour
 
     private void PlaceStructureIfPossible()
     {
-       Structure structureToBuild = BuildManager.main.GetSelectedStructure();
+        Structure structureToBuild = BuildManager.main.GetSelectedStructure();
 
         GameObject prefab = structureToBuild.prefab; // Declare prefab as GameObject
         int [] size = structureToBuild.size;
 
-        // Ensure prefab is not null to avoid errors in Instantiate
+        // If prefab and player has enough money then we build
         if (prefab != null && LevelManager.main.SpendCurrency(structureToBuild.cost))
         {
-            placedStructure = Instantiate(prefab, transform.position, Quaternion.identity);
-            Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
-
-            audioManager.PlaySFX(audioManager.buildSFX);
+            // First we calculate the actual position which is the center of current plot +  offet based on structure size
+            Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
             
-            GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
-
+            // Then we place structure, play sound, change from a transparent preview opac and deselect struct
+            placedStructure = Instantiate(prefab, instantiationPosition , Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildSFX);
+            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
+            BuildManager.main.DeselectStructure();
             if (structureToBuild is Building) { 
                 placedStructure.tag = "Building";
             }
 
-            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
-            BuildManager.main.DeselectStructure();
+            //Finally we mark the plot(s) as reserved by this stuct so can't build others on top
+            Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
+            GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
+           
         }else {
             // If not enough money we deselect and play error sound
             BuildManager.main.DeselectStructure();

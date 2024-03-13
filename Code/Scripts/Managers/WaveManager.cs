@@ -73,8 +73,9 @@ public class WaveManager : MonoBehaviour {
         if (spawnStates.TrueForAll(s => s.spawnedCount >= s.enemyInfo.quantity))
         {
             //  Wave spawining just finished
-            if (timeSinceLastWave == 0 && newWaveAnimator) {
-                newWaveAnimator.SetBool("NewWaveAnimDisplay", true);
+            if (timeSinceLastWave <= 0.1f && newWaveAnimator) {
+                Debug.Log("Wave finished");
+                newWaveAnimator.SetBool("NewWaveAnimDisplay", false);
             }
             timeSinceLastWave += Time.deltaTime * currentGameSpeed;
             // If there is another wave left we have a little timer and animation
@@ -84,7 +85,7 @@ public class WaveManager : MonoBehaviour {
                 currentWaveIndex++;
                 StartNextWave();
                 // We reset animation and counter
-                newWaveAnimator.SetBool("NewWaveAnimDisplay", false);
+                newWaveAnimator.SetBool("NewWaveAnimDisplay", true);
                 timeSinceLastWave = 0; //Reset the counter
             }
             // If all ennemy dead and last wave --> end Day

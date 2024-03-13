@@ -50,6 +50,11 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public Vector3 CalculateStructureOffsetPosition(int structureSizeX, int structureSizeY){
+        Vector3 offset = new Vector3((structureSizeX - 1) *  plotSize/2, (structureSizeY - 1) *  plotSize/2, 0);
+        return offset;
+    }
+
 
     // Check if a specific plot is available
     public bool IsPlotConstructable(int x, int y)
@@ -60,7 +65,8 @@ public class GridManager : MonoBehaviour
 
     public Vector2Int WorldToGridCoordinates(Vector3 worldPosition)
     {
-        int x = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / plotSize)+1;
+        //Not sure on why +2 and +1 just hard tested with current set-up
+        int x = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / plotSize)+2;
         int y = Mathf.FloorToInt((worldPosition.y - gridOrigin.y) / plotSize)+1;
         return new Vector2Int(x, y);
     }
