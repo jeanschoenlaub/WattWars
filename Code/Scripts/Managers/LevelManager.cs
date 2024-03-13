@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] path;
 
     public int coins;
-     private static int gameSpeed = 1; // Default game speed
+    private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
     private AudioManager audioManager; 
 
