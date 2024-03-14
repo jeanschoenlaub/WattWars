@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
         main = this;
-        DontDestroyOnLoad(gameObject); // Persist across scenes
+        //DontDestroyOnLoad(gameObject); // Persist across scenes
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
@@ -53,6 +54,12 @@ public class LevelManager : MonoBehaviour
     public static void ResumeGame()
     {
         SetGameSpeed(savedGameSpeed); // Resume at saved speed
+    }
+
+    // Load Main Menu
+    public void ExitToMainMenu(){
+        string sceneName = "ScenarioSelection";
+        SceneManager.LoadScene(sceneName);
     }
 
 
