@@ -8,8 +8,6 @@ public class LevelManager : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int startingCoins ;
     [SerializeField] public Scenario currentScenario;
-    [SerializeField] public int currentDayIndex = 0;
-    [SerializeField] public int currentWaveIndex = 0;
 
     public Transform startPoint;
     public Transform[] path;
@@ -17,7 +15,6 @@ public class LevelManager : MonoBehaviour
     public int coins;
     private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
-    private AudioManager audioManager; 
 
     private void Awake()
     {
@@ -28,7 +25,6 @@ public class LevelManager : MonoBehaviour
         }
         main = this;
         //DontDestroyOnLoad(gameObject); // Persist across scenes
-        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Public method to set game speed

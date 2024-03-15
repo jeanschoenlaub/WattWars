@@ -82,9 +82,9 @@ public class Menu : MonoBehaviour
         livesUI.text = LevelManager.main.currentScenario.Lives.ToString();
 
         //For the following waves starts at 0 and we want to start with 1 for UI 
-        waveAnim.text =  ("Day "+ LevelManager.main.currentDayIndex + 1 + " - Wave " + waveManager.currentWaveIndex + 1).ToString();
-        waveUI.text =  ("Wave " + waveManager.currentWaveIndex + 1).ToString() + "/" 
-                        +  LevelManager.main.currentScenario.days[LevelManager.main.currentDayIndex].waves.Count.ToString();
+        waveAnim.text =  "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
+        waveUI.text =   "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
+                        +  waveManager.currentDay.waves.Count.ToString();
     }
 
     

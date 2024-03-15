@@ -20,17 +20,21 @@ public class Turret : MonoBehaviour
 
     private void Update(){
  
-        FindTarget();
+        if (isSwitchedOn){
+            FindTarget();
 
-        if (target){
-            int currentGameSpeed = LevelManager.GetGameSpeed();
-            timeUntilFire += Time.deltaTime*currentGameSpeed;
+            if (target){
+                int currentGameSpeed = LevelManager.GetGameSpeed();
+                timeUntilFire += Time.deltaTime*currentGameSpeed;
 
-            if (timeUntilFire >= 1f/ electronPerSeconds){
-                Shoot(); 
-                timeUntilFire = 0f;
+                if (timeUntilFire >= 1f/ electronPerSeconds){
+                    Shoot(); 
+                    timeUntilFire = 0f;
+                }
             }
+
         }
+       
     }
 
     private void Shoot(){

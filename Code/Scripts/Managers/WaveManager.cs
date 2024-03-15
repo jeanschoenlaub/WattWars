@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class WaveManager : MonoBehaviour {
 
-    //For now manually setting wave
     [Header("References")]
-    [SerializeField] private Day currentDay; // Assign this in the Inspector
     [SerializeField] private Animator newWaveAnimator;
+    [SerializeField] private TextMeshProUGUI BannerDayIndexString;
+    [SerializeField] private TextMeshProUGUI BannerWaveIndexString;
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
+    // We use both an index and class to tack day and wave which contain enemy info - UpdateCurrentDayAndWave function to keep in sync
+    public int currentDayIndex = 0;
+    public Day currentDay;
     public int currentWaveIndex = 0;
-    public int enemiesAlive = 0;
+    public Wave currentWave;
 
+    // Variables used to trigger new wave
+    public int enemiesAlive = 0;
     public float timeBetweenWaves = 3;
     private float timeSinceLastWave = 0;
 
-    // Store the spawn state directly using your existing structure
+    // We use a spwan state to store and spawn enemies
     private List<SpawnState> spawnStates = new List<SpawnState>();
-
     private class SpawnState
     {
         public EnemyWaveInfo enemyInfo;
@@ -41,20 +46,38 @@ public class WaveManager : MonoBehaviour {
 
     private void Start()
     {
+       UpdateCurrentDayAndWave();
        if (currentDay != null && currentDay.waves.Count > 0)
         {
-            //  Display
-            newWaveAnimator.SetBool("NewWaveAnimDisplay", true);
             StartNextWave(); 
         }
     }
+
+    // Function to take sync Day and wave index and class and trigger banner animation
+    private void UpdateCurrentDayAndWave()
+    {
+        if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
+        {
+            currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+            if (currentDay.waves.Count > currentWaveIndex)
+            {
+                currentWave = currentDay.waves[currentWaveIndex];
+                TriggerWaveBannerAnimation();
+            }
+        }
+    }
+
+    private void TriggerWaveBannerAnimation() {
+        // Text updating is done is the UI Menu script
+        newWaveAnimator.SetTrigger("NewWaveAnimDisplay");
+    }
+    
 
     private void Update()
     {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
-        if (currentGameSpeed <= 0) return; // Pause if game speed is 0
 
         foreach (var state in spawnStates)
         {
@@ -69,46 +92,45 @@ public class WaveManager : MonoBehaviour {
             }
         }
 
-        // If all enemies have been spawned for the current wave, we apply a wave delta and spawn the next wave
+        // If all enemies have been spawned for the current wave,
+        // we start counting down to next wave spawn (ie not waiting until all enemy killed)
         if (spawnStates.TrueForAll(s => s.spawnedCount >= s.enemyInfo.quantity))
         {
-            //  Wave spawining just finished
-            if (timeSinceLastWave <= 0.1f && newWaveAnimator) {
-                Debug.Log("Wave finished");
-                newWaveAnimator.SetBool("NewWaveAnimDisplay", false);
-            }
             timeSinceLastWave += Time.deltaTime * currentGameSpeed;
-            // If there is another wave left we have a little timer and animation
-            if (currentWaveIndex + 1 < currentDay.waves.Count && timeSinceLastWave > timeBetweenWaves )
+
+             // If timer up and another wave in the same day --> Next wave
+            if (currentWaveIndex + 1 < currentDay.waves.Count && timeSinceLastWave > timeBetweenWaves)
             {
-                Debug.Log("Spawning next wave");
                 currentWaveIndex++;
                 StartNextWave();
-                // We reset animation and counter
-                newWaveAnimator.SetBool("NewWaveAnimDisplay", true);
                 timeSinceLastWave = 0; //Reset the counter
             }
-            // If all ennemy dead and last wave --> end Day
-            if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count)
-            {
-                Debug.Log("All waves for the day completed.");
-                newWaveAnimator.SetBool("NewWaveAnimDisplay", false);
 
-                // We send finish sign to the level manager with the ScenarioComplete flag equal to ture
-                LevelManager.main.ExitToMainMenu(true);
+            // If all ennemy dead and last wave --> Next Day OR Menu
+            if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count)
+            {;
+                // We check if this is the last day
+                if (LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){
+                    LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
+                }
+                else {
+                    currentDayIndex = currentDayIndex+1;
+                    currentWaveIndex = 0; // Reset so we start day + 1, wave 0 (of Day+1) 
+                    StartNextWave();
+                }
             }
         }
     }
 
     private void StartNextWave()
     {
-        Wave currentWave = currentDay.waves[currentWaveIndex];
         spawnStates.Clear();
-
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {
             spawnStates.Add(new SpawnState(enemyInfo));
         }
+
+        UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
     }
 
     private void SpawnEnemy(GameObject enemyPrefab)
