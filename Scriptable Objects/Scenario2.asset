@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88a39268596854bcd95b606b8f7f303e, type: 3}
-  m_Name: Scenario1
+  m_Name: Scenario2
   m_EditorClassIdentifier: 
-  scenarioName: Scenario1
-  scenarioId: 1
-  Lives: 3
+  scenarioName: Scenario2
+  scenarioId: 2
+  Lives: 5
   days:
-  - {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
+  - {fileID: 11400000, guid: 93f7ce3e9dea24fd2bce4d5942035fe5, type: 2}
   scenarioQuestions: {fileID: 11400000, guid: ba647cb0969c145d7baa2228b7603c4c, type: 2}

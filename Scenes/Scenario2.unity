@@ -840,7 +840,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1624488371}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: ExitToMainMenu
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -35978,7 +35978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingCoins: 200
-  currentScenario: {fileID: 11400000, guid: a170172f5cc4b47fbb24898a4a8a71f3, type: 2}
+  currentScenario: {fileID: 11400000, guid: b5a6fe241ba93465e9986aba8faf21b8, type: 2}
   currentDayIndex: 0
   currentWaveIndex: 0
   startPoint: {fileID: 220964723}

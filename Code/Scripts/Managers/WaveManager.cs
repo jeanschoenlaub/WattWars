@@ -93,6 +93,9 @@ public class WaveManager : MonoBehaviour {
             {
                 Debug.Log("All waves for the day completed.");
                 newWaveAnimator.SetBool("NewWaveAnimDisplay", false);
+
+                // We send finish sign to the level manager with the ScenarioComplete flag equal to ture
+                LevelManager.main.ExitToMainMenu(true);
             }
         }
     }

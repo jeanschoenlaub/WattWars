@@ -57,8 +57,18 @@ public class LevelManager : MonoBehaviour
     }
 
     // Load Main Menu
-    public void ExitToMainMenu(){
-        string sceneName = "ScenarioSelection";
+    public void ExitToMainMenu(bool ScenarioComplete){
+
+        
+
+        // If called with level complete flag && this is the highest level unlocked we save the progression 
+        if (ScenarioComplete && currentScenario.scenarioId + 1> PlayerPrefs.GetInt("UnlockedLevels")){
+            PlayerPrefs.SetInt("UnlockedLevels", currentScenario.scenarioId+1);
+        }
+
+        Debug.Log("Current unlocked sc: " + PlayerPrefs.GetInt("UnlockedLevels"));
+
+        string sceneName = "Menu";
         SceneManager.LoadScene(sceneName);
     }
 

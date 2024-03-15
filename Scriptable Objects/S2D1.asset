@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67673cad9cee400b99042ecf4365fae, type: 3}
-  m_Name: Question1
+  m_Script: {fileID: 11500000, guid: f33de44781f76492ba6107c07e8f246b, type: 3}
+  m_Name: S2D1
   m_EditorClassIdentifier: 
-  questionText: What color is a solar Panel
-  answers:
-  - Blue
-  - Red
-  - Green
-  correctAnswerIndex: 0
+  waves:
+  - {fileID: 11400000, guid: aee94fad6165341aa915755c8933ec0e, type: 2}
