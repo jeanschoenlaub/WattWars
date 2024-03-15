@@ -19,8 +19,6 @@ public class Plot : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }   
 
-    
-
     private void OnMouseEnter()
     {
         // Generalize this to work with any selected structure, not just towers
@@ -30,8 +28,8 @@ public class Plot : MonoBehaviour
         //If a structure is selected we show it with a 0.5 opacity and offest based on it's size
         Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
         BuildManager.main.UpdatePreviewPosition(instantiationPosition);
-        BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.white);
 
+        // We set the opacity of the entire structure to 50% and relvant color based on if constructable
         CheckPlotConstructability(structureToBuild);
     }
 
@@ -93,9 +91,12 @@ public class Plot : MonoBehaviour
             }
         }
 
+        // Finally we set the opacity of the entire structure to 50% and relevant color
         if (anyPlotNotConstructable)
         {
             BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.red);
+        }else {
+            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.green);
         }
     }
 
@@ -115,7 +116,16 @@ public class Plot : MonoBehaviour
             // Then we place structure, play sound, change from a transparent preview opac and deselect struct
             placedStructure = Instantiate(prefab, instantiationPosition , Quaternion.identity);
             audioManager.PlaySFX(audioManager.buildSFX);
-            BuildManager.main.SetOpacity(placedStructure, 1f, Color.white);
+
+
+            // Then set the opacity (base only) to 1
+            Transform BaseTransform = placedStructure.transform.Find("Base");
+            if (BaseTransform != null)
+            {
+                GameObject Base = BaseTransform.gameObject; 
+                BuildManager.main.SetOpacity(Base, 1f, Color.white);
+            }
+
             BuildManager.main.DeselectStructure();
             if (structureToBuild is Building) { 
                 placedStructure.tag = "Building";

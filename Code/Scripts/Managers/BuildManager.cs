@@ -35,8 +35,8 @@ public class BuildManager : MonoBehaviour
     {
         ClearStructurePreview();
         selectedStructure = towers[towerIndex];
-        CreateStructurePreview(((Tower)selectedStructure).prefab);
-        
+        CreateStructurePreview(((Tower)selectedStructure).prefab, selectedStructure);
+
         LevelManager.PauseGame();
         audioManager.PlaySFX(audioManager.buildSelected);
     }
@@ -46,7 +46,7 @@ public class BuildManager : MonoBehaviour
     {
         ClearStructurePreview();
         selectedStructure = buildings[buildingIndex];
-        CreateStructurePreview(((Building)selectedStructure).prefab);
+        CreateStructurePreview(((Building)selectedStructure).prefab, selectedStructure);
 
         LevelManager.PauseGame();
         audioManager.PlaySFX(audioManager.buildSelected);
@@ -63,14 +63,26 @@ public class BuildManager : MonoBehaviour
     }
 
     // Utility method to create a preview instance
-    private void CreateStructurePreview(GameObject prefab)
+    private void CreateStructurePreview(GameObject prefab, Structure structure)
     {
         structurePreviewInstance = Instantiate(prefab);
         SetOpacity(structurePreviewInstance, 0.5f, Color.white);
         DisableComponents(structurePreviewInstance);
+
+        // If it's a tower we also preview the range of tower with a circle
+        if (structure is Tower tower){
+            // Find the RangeCircle GameObject within the instantiated prefab
+            Transform rangeCircleTransform = structurePreviewInstance.transform.Find("RangeCircle");
+            if (rangeCircleTransform != null)
+            {
+                GameObject rangeCircle = rangeCircleTransform.gameObject; 
+                SetOpacity(rangeCircle,0.5f,Color.green);
+                rangeCircle.transform.localScale = new Vector3(tower.range, tower.range, 1);
+            }
+        }
     }
 
-    // Utility method to set opacity
+    // Utility method to set opacity of ALL renders (but can be called with specific game objects)
     public void SetOpacity(GameObject obj, float opacity, Color color)
     {
         foreach (var renderer in obj.GetComponentsInChildren<SpriteRenderer>())

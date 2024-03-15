@@ -7,6 +7,7 @@ public class FuelTower : MonoBehaviour
     [SerializeField] private GameObject fuelPrefab;
     [SerializeField] private Transform firingPoint;
     [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private GameObject rangeCircle;
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 5f;

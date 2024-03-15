@@ -35979,8 +35979,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingCoins: 200
   currentScenario: {fileID: 11400000, guid: b5a6fe241ba93465e9986aba8faf21b8, type: 2}
-  currentDayIndex: 0
-  currentWaveIndex: 0
   startPoint: {fileID: 220964723}
   path:
   - {fileID: 870596430}
@@ -36019,18 +36017,26 @@ MonoBehaviour:
     cost: 100
     size: 0100000001000000
     prefab: {fileID: 6770466984534508825, guid: 02b75729e325e46c7bbcc90be25eab07, type: 3}
+    rangeCircle: {fileID: 0}
+    range: 0
   - name: Battery
     cost: 120
     size: 0200000002000000
     prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
+    rangeCircle: {fileID: 0}
+    range: 0
   - name: FuelPump
     cost: 100
     size: 0100000001000000
     prefab: {fileID: 7753436983663317480, guid: 67d7ce04ee2784a3abcf13c156d77d55, type: 3}
+    rangeCircle: {fileID: 0}
+    range: 1
   - name: DieselGen
     cost: 80
     size: 0200000002000000
     prefab: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
+    rangeCircle: {fileID: 0}
+    range: 5
   buildings:
   - name: Building
     cost: 20
@@ -36457,6 +36463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newWaveAnimator: {fileID: 1534033587}
+  BannerDayIndexString: {fileID: 0}
+  BannerWaveIndexString: {fileID: 0}
   currentDayIndex: 0
   currentDay: {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
   currentWaveIndex: 0

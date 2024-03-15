@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private LayerMask buildingMask;
     [SerializeField] private Animator SwitchButtonAnim;
+    [SerializeField] private GameObject rangeCircle;
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 5f;
