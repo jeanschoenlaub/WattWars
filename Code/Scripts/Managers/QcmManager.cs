@@ -20,12 +20,9 @@ public class QcmManager : MonoBehaviour
 
     [SerializeField] public List<Toggle> toggles; 
 
-    
-
     [Header("Variables")]
     [SerializeField] private float minSpawnDelay ; // Minimum delay before a new box spawns
     [SerializeField] private float maxSpawnDelay ; // Maximum delay before a new box spawns
-    [SerializeField] private int correctPrize ; // Maximum delay before a new box spawns
 
     // Questions
     private QuestionSO currentQuestion = null;
