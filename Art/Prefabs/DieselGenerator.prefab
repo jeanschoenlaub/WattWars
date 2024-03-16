@@ -227,7 +227,7 @@ MonoBehaviour:
     m_Bits: 256
   SwitchButtonAnim: {fileID: 1106878833754128565}
   rangeCircle: {fileID: 7552006623699810664}
-  targetingRange: 5
+  targetingRange: 2
   electronPerSeconds: 1
 --- !u!65 &5654015207017925718
 BoxCollider:

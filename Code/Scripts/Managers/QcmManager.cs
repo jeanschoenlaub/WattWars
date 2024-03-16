@@ -10,10 +10,14 @@ public class QcmManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator qcmAnimator;
+
     [SerializeField] private TextMeshProUGUI qcmQuestion;
     [SerializeField] private TextMeshProUGUI qcmAnswer1;
     [SerializeField] private TextMeshProUGUI qcmAnswer2;
     [SerializeField] private TextMeshProUGUI qcmAnswer3;
+    [SerializeField] private TextMeshProUGUI qcmCountDown;
+    [SerializeField] public TextMeshProUGUI prizeText;
+
     [SerializeField] public List<Toggle> toggles; 
 
     
@@ -26,14 +30,19 @@ public class QcmManager : MonoBehaviour
     // Questions
     private QuestionSO currentQuestion = null;
 
+    // Timer variables
+    private float timeRemaining = 30f; // Time in seconds for each question
+    private bool timerIsRunning = false;
 
-    // Spawn and position variables
+
+    // Spawn and position variables for the misteryBox
     private Vector2 spawnPoint = new Vector2(-11f, 0f); 
     private float minY = -5f; // Minimum Y offset from the spawn point
     private float maxY = 3f; // Maximum Y offset from the spawn point
 
     //AudioManager that we get using tag   
     private AudioManager audioManager;
+    
 
 
     private void Awake()
@@ -45,6 +54,26 @@ public class QcmManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnMysteryBoxAtRandomIntervals());
+    }
+
+    void Update()
+    {
+        if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                qcmCountDown.text =  Mathf.FloorToInt(timeRemaining).ToString();
+            }
+            else
+            {
+                timeRemaining = 0;
+                timerIsRunning = false;
+
+                //TODO implement end of timer functionality
+                Debug.Log("timer is out");
+            }
+        }
     }
 
      private IEnumerator SpawnMysteryBoxAtRandomIntervals()
@@ -92,10 +121,16 @@ public class QcmManager : MonoBehaviour
         qcmAnswer1.text = currentQuestion.answers[0];
         qcmAnswer2.text = currentQuestion.answers[1];
         qcmAnswer3.text = currentQuestion.answers[2];
+
+        // Start the timer and play music
+        timerIsRunning = true;
+        timeRemaining = 30; // Reset the timer for the new question
+        qcmCountDown.text =  Mathf.FloorToInt(timeRemaining).ToString();
+        audioManager.PlayTrack(audioManager.QuizTrack);
     }
 
+
     public void CheckAnswer(){
-        Debug.Log("Correct toggle = " + currentQuestion.correctAnswerIndex);
 
         int index = 0;
         bool correctAnswerChosen = false;
@@ -129,9 +164,49 @@ public class QcmManager : MonoBehaviour
             toggles[currentQuestion.correctAnswerIndex].GetComponentInChildren<Image>().color = Color.green;
             audioManager.PlaySFX(audioManager.badActionSFX);
         }else{
-            LevelManager.main.IncreaseCurrency(correctPrize);
-            audioManager.PlaySFX(audioManager.coinsSFX);
+            StartCoroutine(CashPrizeCoroutine());
+            audioManager.PlaySFX(audioManager.buildSFX);// Correct Sound 
         }
+    }
+
+    private IEnumerator CashPrizeCoroutine()
+    {
+        Debug.Log("started co");
+        float timeElapsed = 0f;
+        float animTime = 1.5f;
+        int startAmount = 0; // Starting amount of the counter
+        int endAmount = Mathf.FloorToInt(timeRemaining); // End amount based on timeRemaining
+        qcmAnimator.SetBool("ShowPrize", true);
+        audioManager.PlayLoopingSFX(audioManager.coinsPouringSFX);
+
+        while (timeElapsed < animTime)
+        {
+            // Calculate the current display amount based on the elapsed time
+            int currentAmount = Mathf.FloorToInt(Mathf.Lerp(startAmount, endAmount, timeElapsed / animTime));
+            prizeText.text = $"+{currentAmount}";
+
+            // Increment the elapsed time by the time since last frame
+            timeElapsed += Time.deltaTime;
+            yield return null; // Wait until the next frame
+        }
+
+        // Set the final amount in the UI
+        prizeText.text = $"+{endAmount}";
+
+       
+
+        
+        audioManager.StopLoopingSFX();
+
+        // Wait a moment to let the player see the final amount
+        yield return new WaitForSeconds(1.0f);
+        // Increase the currency by the end amount
+        LevelManager.main.IncreaseCurrency(endAmount);
+        
+
+        // Hide the prize notification
+        qcmAnimator.SetBool("ShowPrize", false);
+        FinishQCM();
     }
 
 
@@ -145,5 +220,7 @@ public class QcmManager : MonoBehaviour
             toggle.GetComponentInChildren<Image>().color = Color.white;
             toggle.isOn = false;
         }
+
+        audioManager.PlayTrack(audioManager.Track1);
     }
 }
