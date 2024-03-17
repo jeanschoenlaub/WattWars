@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    
-    [Header("References")]
-    [SerializeField] private Rigidbody2D bullet;
 
     [Header("Attributes")]
     [SerializeField] private float bulletSpeed = 5f;
@@ -34,7 +31,6 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject); // Destroy the projectile after interacting
         }
     }
-
 
     private void MoveTowardsTarget() {
         int currentGameSpeed = LevelManager.GetGameSpeed(); // Assuming you have a method to adjust game speed dynamically

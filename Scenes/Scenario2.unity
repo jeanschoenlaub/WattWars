@@ -35190,7 +35190,6 @@ MonoBehaviour:
   - {fileID: 1568314521}
   minSpawnDelay: 2
   maxSpawnDelay: 5
-  correctPrize: 50
 --- !u!1001 &1627210522
 PrefabInstance:
   m_ObjectHideFlags: 0

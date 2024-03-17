@@ -13,17 +13,17 @@ public class FuelTower : MonoBehaviour
     [SerializeField] private float targetingRange = 5f;
     [SerializeField] private float fuelPerSeconds = 1f;
 
-    private Transform target;
+    private Transform furthestTarget;
     private float timeUntilFire;
 
     private void Update(){
-        if (target == null){
+        if (furthestTarget == null){
             FindFuelTarget();
             return;
         } else {
-            float distance = Vector2.Distance(transform.position, target.position);
+            float distance = Vector2.Distance(transform.position, furthestTarget.position);
             if (distance > targetingRange){
-                target = null;
+                furthestTarget = null;
                 return; 
             }
         }
@@ -40,33 +40,44 @@ public class FuelTower : MonoBehaviour
     private void Shoot(){
         GameObject fuelObj = Instantiate(fuelPrefab, firingPoint.position, Quaternion.identity);
         Bullet fuelScript = fuelObj.GetComponent<Bullet>();
-        fuelScript.SetTarget(target);
+        fuelScript.SetTarget(furthestTarget);
     }
 
     private void FindFuelTarget()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange - 0.2f, Vector2.zero, 0f, enemyMask);
-        if (hits.Length > 0)
+        furthestTarget = null;
+        float closestDistance = Mathf.Infinity;
+        float maxProgress = -1;
+    
+        // Find the closest enemy
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            Transform furthestTarget = null;
-            float maxProgress = -1; // Start with a progress lower than any enemy could have
+            // Used to determine the furthest ennemy on the path
+            float enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
+             // Start with a progress lower than any enemy could have
 
-            foreach (RaycastHit2D hit in hits)
+            // Used to determine if enemy is in range
+            Vector3 directionToTarget = enemy.transform.position -  transform.position;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+
+            if (enemyProgress < closestDistance)
             {
-                EnemyMovement enemyMovement = hit.transform.GetComponent<EnemyMovement>();
-                Health enemyHealth = hit.transform.GetComponent<Health>(); // Assuming 'Health' holds the 'fuelLives' attribute
                 
-                // Check both enemyMovement and enemyHealth for null to avoid NullReferenceException
-                if (enemyMovement != null && enemyHealth != null && enemyHealth.fuelLives != 0)
+                EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+                
+
+                Health enemyHealth = enemy.GetComponent<Health>();
+                // Check if enemy can be targeted based on health and is within range
+                if (enemyHealth != null && enemyHealth.fuelLives != 0 && dSqrToTarget <= (targetingRange * targetingRange))
                 {
-                    if (enemyMovement.pathProgress > maxProgress)
+                   if (enemyMovement.pathProgress > maxProgress)
                     {
-                        furthestTarget = hit.transform;
                         maxProgress = enemyMovement.pathProgress;
+                        furthestTarget = enemy.transform;
+                       
                     }
                 }
             }
-            target = furthestTarget; // Set the found target only if fuelLives is not zero
         }
     }
 }

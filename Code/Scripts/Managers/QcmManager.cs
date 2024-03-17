@@ -18,6 +18,8 @@ public class QcmManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI qcmCountDown;
     [SerializeField] public TextMeshProUGUI prizeText;
 
+    [SerializeField] public Button checkAnswers;
+
     [SerializeField] public List<Toggle> toggles; 
 
     [Header("Variables")]
@@ -112,6 +114,8 @@ public class QcmManager : MonoBehaviour
         LevelManager.PauseGame();
         qcmAnimator.SetBool("ShowQCM", true);
 
+        checkAnswers.interactable = true;
+
         // Get a random question and replace text values
         currentQuestion = LevelManager.main.currentScenario.scenarioQuestions.questions[0];
         qcmQuestion.text = currentQuestion.questionText;
@@ -131,6 +135,7 @@ public class QcmManager : MonoBehaviour
 
         int index = 0;
         bool correctAnswerChosen = false;
+        timerIsRunning = false;
 
         foreach (Toggle toggle in toggles)
         {

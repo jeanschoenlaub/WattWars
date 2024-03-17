@@ -11498,12 +11498,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488378}
     - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1109980331}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CheckAnswer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Selectable, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3413786988742566281, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11532,6 +11556,10 @@ PrefabInstance:
     - target: {fileID: 3979024310352669190, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
       propertyPath: m_Name
       value: QCM
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285918672625268133, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 7788875588348625543, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
       propertyPath: m_Pivot.x
@@ -11614,7 +11642,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8243094094640609018, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
@@ -23909,6 +23938,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cfffeef809f74832ad1c0d08e4f3b09, type: 3}
+--- !u!114 &1109980331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2916095585577048255, guid: 5952e66657bc5408bb8a3349ae488c75, type: 3}
+  m_PrefabInstance: {fileID: 523506026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1111446571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5853111326625614738, guid: 6cfffeef809f74832ad1c0d08e4f3b09, type: 3}
@@ -34708,14 +34748,14 @@ MonoBehaviour:
     cost: 100
     size: 0100000001000000
     prefab: {fileID: 7753436983663317480, guid: 67d7ce04ee2784a3abcf13c156d77d55, type: 3}
-    rangeCircle: {fileID: 0}
-    range: 0
+    rangeCircle: {fileID: 7753436983663317480, guid: 67d7ce04ee2784a3abcf13c156d77d55, type: 3}
+    range: 1
   - name: DieselGen
     cost: 80
     size: 0200000002000000
     prefab: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
-    rangeCircle: {fileID: 0}
-    range: 0
+    rangeCircle: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
+    range: 3
   buildings:
   - name: Building
     cost: 20
@@ -35184,6 +35224,7 @@ MonoBehaviour:
   qcmAnswer3: {fileID: 511500026}
   qcmCountDown: {fileID: 623391952}
   prizeText: {fileID: 1841950591}
+  checkAnswers: {fileID: 1109980331}
   toggles:
   - {fileID: 1805140582}
   - {fileID: 102703232}
