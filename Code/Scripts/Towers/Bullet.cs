@@ -45,6 +45,9 @@ public class Bullet : MonoBehaviour
         else if (target.CompareTag("Building")) {
             TransferEnergyToBuilding();
         }
+        else if (target.CompareTag("Tower")) {
+            TransferEnergyToConvertingTower();
+        }
     }
 
 
@@ -62,6 +65,11 @@ public class Bullet : MonoBehaviour
         if (generateMoney != null) {
             generateMoney.ReceiveEnergy(elecDamage); // Assuming 'amount' is defined elsewhere
         }
+    }
+
+    private void TransferEnergyToConvertingTower() {
+        Turret tower = target.GetComponent<Turret>();
+        tower.Convert();
     }
 
 }

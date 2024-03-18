@@ -259,9 +259,9 @@ MonoBehaviour:
   SwitchButtonAnim: {fileID: 0}
   rangeCircle: {fileID: 0}
   targetingRange: 5
-  electronPerSeconds: 1.5
-  fuelPerSeconds: 0
+  bulletPerSeconds: 1
   isSwitcheable: 0
+  isElecTower: 1
 --- !u!1 &8728037326273155529
 GameObject:
   m_ObjectHideFlags: 0

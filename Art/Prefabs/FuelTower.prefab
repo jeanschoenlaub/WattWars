@@ -216,16 +216,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4515703746272357205, guid: 8916150e2a5da42fca88137cf8ba6ff5, type: 3}
   firingPoint: {fileID: 5166262947289068283}
-  switchOnOff: {fileID: 0}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
   buildingMask:
     serializedVersion: 2
     m_Bits: 256
-  SwitchButtonAnim: {fileID: 0}
   rangeCircle: {fileID: 3938702787384931124}
+  towerType: 1
   targetingRange: 2
-  electronPerSeconds: 1
-  fuelPerSeconds: 1
-  isSwitcheable: 0
+  bulletPerSeconds: 1
+  switchOnOff: {fileID: 0}
+  isSwitchable: 0
+  conversion:
+    inputType: 0
+    conversionRatio: 0
+  SwitchButtonAnim: {fileID: 0}
+  isSwitchedOn: 0

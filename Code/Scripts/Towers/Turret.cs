@@ -1,29 +1,41 @@
 using UnityEngine;
 
+public enum TowerType
+{
+    Elec,
+    Fuel,
+    Gas,
+    Coal,
+    // Add more types as needed
+}
+
 public class Turret : MonoBehaviour
 {
-    [Header("References")]
+    [Header("--- All towers common attributes ")]
     [SerializeField] private GameObject bulletPrefab; //Either electron or fuel
     [SerializeField] private Transform firingPoint;
-    [SerializeField] private GameObject switchOnOff;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private LayerMask buildingMask;
-    [SerializeField] private Animator SwitchButtonAnim;
     [SerializeField] private GameObject rangeCircle;
-
-    [Header("Attribute")]
+    [SerializeField] public TowerType towerType;
     [SerializeField] private float targetingRange = 5f;
+
+    [Header("--- Ressource Tower Attribute ---")]
     [SerializeField] private float bulletPerSeconds = 0f;
-    [SerializeField] public bool isSwitcheable = false;
-    [SerializeField] public bool isElecTower = false;
+    
+    [Header("--- Converting Tower Attribute ---")]
+    [SerializeField] private GameObject switchOnOff;
+    [SerializeField] public bool isSwitchable = false;
+    [SerializeField] public ConversionAttribute conversion;
+    [SerializeField] private Animator SwitchButtonAnim;
 
     private Transform furthestTarget;
     private float timeUntilFire;
-    private bool isSwitchedOn = false; // Starts false but when we click down to build turns On
+    public bool isSwitchedOn = false; // Starts false but when we click down to build turns On
 
     private void Update(){
- 
-        if (!isSwitcheable || (isSwitcheable && isSwitchedOn) ){
+        // This is the shoot method only for ressource towers
+        if (!isSwitchable ){
             
             FindTarget();
 
@@ -45,6 +57,11 @@ public class Turret : MonoBehaviour
         bulletScript.SetTarget(furthestTarget);
     }
 
+    public void Convert(){
+        FindTarget();
+        Shoot(); 
+    }
+
     private void OnMouseDown()
     {
         if (switchOnOff != null )
@@ -63,7 +80,7 @@ public class Turret : MonoBehaviour
         }
         else
         {
-            Transform furthestSwitcheableTarget = FindClosestSwitcheableTowerWithinRange();
+            Transform furthestSwitcheableTarget = FindClosestSwitchableTowerWithinRange();
             
             if (furthestSwitcheableTarget != null)
             {
@@ -115,12 +132,12 @@ public class Turret : MonoBehaviour
         }
 
         // Targeting logic based on tower's abilities
-        if ( isElecTower && enemyHealth.elecLives > 0)
+        if ( towerType == TowerType.Elec && enemyHealth.elecLives > 0)
         {
             // Tower can target enemies with elec lives
             return true;
         }
-        else if (!isElecTower && enemyHealth.fuelLives > 0)
+        else if (towerType == TowerType.Fuel && enemyHealth.fuelLives > 0)
         {
             // Tower can target enemies with fuel lives
             return true;
@@ -150,7 +167,7 @@ public class Turret : MonoBehaviour
         return closestBuilding;
     }
 
-    private Transform FindClosestSwitcheableTowerWithinRange()
+    private Transform FindClosestSwitchableTowerWithinRange()
     {
         Transform closestSwitcheableTower = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -159,9 +176,10 @@ public class Turret : MonoBehaviour
         {
             // We only consider towers that are switcheable
             Turret turretScript = tower.GetComponent<Turret>();
-            if (turretScript.isSwitcheable) {
-                Vector3 directionToSwitcheableTower = tower.transform.position - transform.position;
-                float dSqrToSwitcheableTower = directionToSwitcheableTower.sqrMagnitude;
+            // Check if the tower is switchable, switched on, and matches the required input type
+            if (turretScript.isSwitchable && turretScript.isSwitchedOn && turretScript.conversion.inputType == towerType){
+                Vector3 directionToSwitchableTower = tower.transform.position - transform.position;
+                float dSqrToSwitcheableTower = directionToSwitchableTower.sqrMagnitude;
 
                 if (dSqrToSwitcheableTower < closestDistanceSqr && dSqrToSwitcheableTower <= (targetingRange * targetingRange))
                 {

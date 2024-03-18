@@ -129,13 +129,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012d7662243df482ebe1c691a46d7a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  electronPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
+  bulletPrefab: {fileID: 0}
   firingPoint: {fileID: 0}
+  switchOnOff: {fileID: 0}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
   buildingMask:
     serializedVersion: 2
     m_Bits: 256
+  SwitchButtonAnim: {fileID: 0}
+  rangeCircle: {fileID: 0}
   targetingRange: 10
-  electronPerSeconds: 1
+  bulletPerSeconds: 1
+  isSwitcheable: 0
+  isElecTower: 1
