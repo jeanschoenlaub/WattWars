@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 3270516109918731573}
   m_Layer: 8
   m_Name: DieselGenerator
-  m_TagString: Building
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012d7662243df482ebe1c691a46d7a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  electronPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
+  bulletPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
   firingPoint: {fileID: 15090158233139985}
   switchOnOff: {fileID: 3908044847461150451}
   enemyMask:
@@ -249,8 +249,9 @@ MonoBehaviour:
   SwitchButtonAnim: {fileID: 1106878833754128565}
   rangeCircle: {fileID: 7552006623699810664}
   targetingRange: 3
-  electronPerSeconds: 1
+  bulletPerSeconds: 1
   isSwitcheable: 1
+  isElecTower: 1
 --- !u!1001 &5265699058055171057
 PrefabInstance:
   m_ObjectHideFlags: 0

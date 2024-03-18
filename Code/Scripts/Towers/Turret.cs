@@ -3,7 +3,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject electronPrefab;
+    [SerializeField] private GameObject bulletPrefab; //Either electron or fuel
     [SerializeField] private Transform firingPoint;
     [SerializeField] private GameObject switchOnOff;
     [SerializeField] private LayerMask enemyMask;
@@ -13,8 +13,9 @@ public class Turret : MonoBehaviour
 
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 5f;
-    [SerializeField] private float electronPerSeconds = 1f;
-    [SerializeField] private bool isSwitcheable = false;
+    [SerializeField] private float bulletPerSeconds = 0f;
+    [SerializeField] public bool isSwitcheable = false;
+    [SerializeField] public bool isElecTower = false;
 
     private Transform furthestTarget;
     private float timeUntilFire;
@@ -30,20 +31,18 @@ public class Turret : MonoBehaviour
                 int currentGameSpeed = LevelManager.GetGameSpeed();
                 timeUntilFire += Time.deltaTime*currentGameSpeed;
 
-                if (timeUntilFire >= 1f/ electronPerSeconds){
+                if (timeUntilFire >= 1f/ bulletPerSeconds){
                     Shoot(); 
                     timeUntilFire = 0f;
                 }
             }
-
         }
-       
     }
 
     private void Shoot(){
-        GameObject electronObj = Instantiate(electronPrefab, firingPoint.position, Quaternion.identity);
-        Bullet electronScript = electronObj.GetComponent<Bullet>();
-        electronScript.SetTarget(furthestTarget);
+        GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
+        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+        bulletScript.SetTarget(furthestTarget);
     }
 
     private void OnMouseDown()
@@ -64,7 +63,16 @@ public class Turret : MonoBehaviour
         }
         else
         {
-            furthestTarget = FindClosestBuildingWithinRange();
+            Transform furthestSwitcheableTarget = FindClosestSwitcheableTowerWithinRange();
+            
+            if (furthestSwitcheableTarget != null)
+            {
+                furthestTarget = furthestSwitcheableTarget;
+            }
+            else
+            {
+                furthestTarget = FindClosestBuildingWithinRange();
+            }
         }
     }
 
@@ -85,6 +93,12 @@ public class Turret : MonoBehaviour
         return furthestEnemy;
     }
 
+    
+    // This function determines if an enemy is within targeting range and eligible to be targeted
+    // based on the tower's capabilities, specifically targeting enemies with "elecLives" if the
+    //  tower has a positive "electronPerSeconds" rate, or those with "fuelLives" for a positive 
+    //  "fuelPerSeconds" rate. It uses the enemy's health component and position relative to the 
+    //  tower to make this determination, returning true for targetable enemies.
     private bool IsEnemyTargetableAndInRange(GameObject enemy, out float enemyProgress)
     {
         enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
@@ -92,7 +106,28 @@ public class Turret : MonoBehaviour
         float dSqrToTarget = directionToTarget.sqrMagnitude;
         Health enemyHealth = enemy.GetComponent<Health>();
 
-        return enemyHealth != null && enemyHealth.elecLives != 0 && dSqrToTarget <= (targetingRange * targetingRange);
+        // Determine if the enemy is within the targeting range
+        bool isInRange = dSqrToTarget <= (targetingRange * targetingRange);
+
+        if (enemyHealth == null || !isInRange)
+        {
+            return false; // Early exit if the enemy health component is missing or if the enemy is out of range
+        }
+
+        // Targeting logic based on tower's abilities
+        if ( isElecTower && enemyHealth.elecLives > 0)
+        {
+            // Tower can target enemies with elec lives
+            return true;
+        }
+        else if (!isElecTower && enemyHealth.fuelLives > 0)
+        {
+            // Tower can target enemies with fuel lives
+            return true;
+        }
+
+        // If none of the conditions are met, the enemy is not targetable
+        return false;
     }
 
     private Transform FindClosestBuildingWithinRange()
@@ -113,5 +148,29 @@ public class Turret : MonoBehaviour
         }
 
         return closestBuilding;
+    }
+
+    private Transform FindClosestSwitcheableTowerWithinRange()
+    {
+        Transform closestSwitcheableTower = null;
+        float closestDistanceSqr = Mathf.Infinity;
+
+        foreach (GameObject tower in GameObject.FindGameObjectsWithTag("Tower"))
+        {
+            // We only consider towers that are switcheable
+            Turret turretScript = tower.GetComponent<Turret>();
+            if (turretScript.isSwitcheable) {
+                Vector3 directionToSwitcheableTower = tower.transform.position - transform.position;
+                float dSqrToSwitcheableTower = directionToSwitcheableTower.sqrMagnitude;
+
+                if (dSqrToSwitcheableTower < closestDistanceSqr && dSqrToSwitcheableTower <= (targetingRange * targetingRange))
+                {
+                    closestDistanceSqr = dSqrToSwitcheableTower;
+                    closestSwitcheableTower = tower.transform;
+                }
+            }
+        }
+
+        return closestSwitcheableTower;
     }
 }

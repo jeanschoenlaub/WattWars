@@ -19,7 +19,6 @@ public class QcmManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI prizeText;
 
     [SerializeField] public Button checkAnswers;
-
     [SerializeField] public List<Toggle> toggles; 
 
     [Header("Variables")]
@@ -41,8 +40,6 @@ public class QcmManager : MonoBehaviour
 
     //AudioManager that we get using tag   
     private AudioManager audioManager;
-    
-
 
     private void Awake()
     {
@@ -194,9 +191,6 @@ public class QcmManager : MonoBehaviour
 
         // Set the final amount in the UI
         prizeText.text = $"+{endAmount}";
-
-       
-
         
         audioManager.StopLoopingSFX();
 

@@ -177,10 +177,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3423108389033443256}
-  - component: {fileID: 2715245587433314229}
+  - component: {fileID: 3063359666192395507}
   m_Layer: 0
   m_Name: FuelTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ Transform:
   - {fileID: 207003849594528755}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2715245587433314229
+--- !u!114 &3063359666192395507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,14 +211,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7753436983663317480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee7345d3255f4eb5827ed18ea3cf7ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 012d7662243df482ebe1c691a46d7a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelPrefab: {fileID: 4515703746272357205, guid: 8916150e2a5da42fca88137cf8ba6ff5, type: 3}
+  bulletPrefab: {fileID: 4515703746272357205, guid: 8916150e2a5da42fca88137cf8ba6ff5, type: 3}
   firingPoint: {fileID: 5166262947289068283}
+  switchOnOff: {fileID: 0}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
+  buildingMask:
+    serializedVersion: 2
+    m_Bits: 256
+  SwitchButtonAnim: {fileID: 0}
   rangeCircle: {fileID: 3938702787384931124}
   targetingRange: 2
+  electronPerSeconds: 1
   fuelPerSeconds: 1
+  isSwitcheable: 0

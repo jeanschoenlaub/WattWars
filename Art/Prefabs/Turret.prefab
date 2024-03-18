@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 2570773423997975023}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,18 +247,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012d7662243df482ebe1c691a46d7a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wireRotationPoint: {fileID: 2918367937434080529}
-  wireObject: {fileID: 4395254649753536801}
-  electronPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
+  bulletPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
   firingPoint: {fileID: 87377861506237333}
+  switchOnOff: {fileID: 0}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
   buildingMask:
     serializedVersion: 2
     m_Bits: 256
+  SwitchButtonAnim: {fileID: 0}
+  rangeCircle: {fileID: 0}
   targetingRange: 5
   electronPerSeconds: 1.5
+  fuelPerSeconds: 0
+  isSwitcheable: 0
 --- !u!1 &8728037326273155529
 GameObject:
   m_ObjectHideFlags: 0
