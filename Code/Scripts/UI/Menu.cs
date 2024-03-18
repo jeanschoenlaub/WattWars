@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems; // Required for event triggers
 
 public class Menu : MonoBehaviour
 {

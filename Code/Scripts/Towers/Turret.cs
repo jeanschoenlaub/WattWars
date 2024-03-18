@@ -57,55 +57,61 @@ public class Turret : MonoBehaviour
 
     private void FindTarget()
     {
-        furthestTarget = null;
-        float closestDistance = Mathf.Infinity;
+        Transform furthestEnemy = FindFurthestEnemyWithinRange();
+        if (furthestEnemy != null)
+        {
+            furthestTarget = furthestEnemy;
+        }
+        else
+        {
+            furthestTarget = FindClosestBuildingWithinRange();
+        }
+    }
+
+    private Transform FindFurthestEnemyWithinRange()
+    {
+        Transform furthestEnemy = null;
         float maxProgress = -1;
-    
-        // Find the closest enemy
+
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            // Used to determine the furthest ennemy on the path
-            float enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
-             // Start with a progress lower than any enemy could have
-
-            // Used to determine if enemy is in range
-            Vector3 directionToTarget = enemy.transform.position -  transform.position;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-
-            if (enemyProgress < closestDistance)
+            if (IsEnemyTargetableAndInRange(enemy, out float enemyProgress) && enemyProgress > maxProgress)
             {
-                
-                EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
-                
-
-                Health enemyHealth = enemy.GetComponent<Health>();
-                // Check if enemy can be targeted based on health and is within range
-                if (enemyHealth != null && enemyHealth.elecLives != 0 && dSqrToTarget <= (targetingRange * targetingRange))
-                {
-                   if (enemyMovement.pathProgress > maxProgress)
-                    {
-                         maxProgress = enemyMovement.pathProgress;
-                        furthestTarget = enemy.transform;
-                       
-                    }
-                }
+                maxProgress = enemyProgress;
+                furthestEnemy = enemy.transform;
             }
         }
 
-        // If no enemy is targeted, find the closest building
-        if (furthestTarget == null)
+        return furthestEnemy;
+    }
+
+    private bool IsEnemyTargetableAndInRange(GameObject enemy, out float enemyProgress)
+    {
+        enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
+        Vector3 directionToTarget = enemy.transform.position - transform.position;
+        float dSqrToTarget = directionToTarget.sqrMagnitude;
+        Health enemyHealth = enemy.GetComponent<Health>();
+
+        return enemyHealth != null && enemyHealth.elecLives != 0 && dSqrToTarget <= (targetingRange * targetingRange);
+    }
+
+    private Transform FindClosestBuildingWithinRange()
+    {
+        Transform closestBuilding = null;
+        float closestDistanceSqr = Mathf.Infinity;
+
+        foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
         {
-            closestDistance = Mathf.Infinity; // Reset for building search
-            foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
+            Vector3 directionToBuilding = building.transform.position - transform.position;
+            float dSqrToBuilding = directionToBuilding.sqrMagnitude;
+
+            if (dSqrToBuilding < closestDistanceSqr && dSqrToBuilding <= (targetingRange * targetingRange))
             {
-                Vector3 directionToBuilding = building.transform.position - transform.position;
-                float dSqrToBuilding = directionToBuilding.sqrMagnitude;
-                if (dSqrToBuilding < closestDistance && dSqrToBuilding <= (targetingRange * targetingRange))
-                {
-                    closestDistance = dSqrToBuilding;
-                    furthestTarget = building.transform;
-                }
+                closestDistanceSqr = dSqrToBuilding;
+                closestBuilding = building.transform;
             }
         }
+
+        return closestBuilding;
     }
 }
