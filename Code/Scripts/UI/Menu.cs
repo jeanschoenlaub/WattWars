@@ -1,33 +1,78 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems; // Required for event triggers
 
 public class Menu : MonoBehaviour
 {
-    [Header("References")]
+    [Header("--------- Score and UI ---------")]
     [SerializeField] TextMeshProUGUI currencyUI;
     [SerializeField] TextMeshProUGUI livesUI;
     [SerializeField] TextMeshProUGUI waveUI;
     [SerializeField] TextMeshProUGUI waveAnim;
-    [SerializeField] Animator anim;
+    
 
+    [Header("--------- GameSpeed and Menu ---------")]
+    [SerializeField] Animator menuAnim;
+    [SerializeField] Button playPauseButton;
+    [SerializeField] Button ffButton; 
+    [SerializeField] Sprite playSprite;
+    [SerializeField] Sprite pauseSprite;
     private bool isMenuOpen = false;
-    private bool isPlaying = true; // Assuming the game starts in play mode
-    private bool isFastForwarding = false; // Track the fast-forward state
-
-    public Button playPauseButton;
-    public Button ffButton; // Reference to the Fast Forward button
-    public Sprite playSprite;
-    public Sprite pauseSprite;
+    private bool isPlaying = true; 
+    private bool isFastForwarding = false; 
+    
+    [Header("--------- GameSound ---------")]
+    [SerializeField] Button soundButton;
+    [SerializeField] GameObject volumeSlider;
+    [SerializeField] Sprite soundOnSprite;
+    [SerializeField] Sprite soundOffSprite;
 
     private WaveManager waveManager;
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }   
 
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
+
         playPauseButton.onClick.AddListener(TogglePlayPause);
         ffButton.onClick.AddListener(ToggleFastForward);
         UpdateFFButtonColor(); // Set initial FF button color
+
+        soundButton.onClick.AddListener(ToggleAudio);
+        volumeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => audioManager.SetVolume(value));
+    }
+
+    void ToggleAudio()
+    {
+        Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
+
+        // If volume is not 0, mute the sound
+        if (audioManager.GetCurrentVolume() > 0)
+        {
+            // Remember current volume to restore it later
+            PlayerPrefs.SetFloat("LastVolume", audioManager.GetCurrentVolume());
+
+            // Mute the sound
+            volumeSliderComponent.value = 0;
+            soundButton.image.sprite = soundOffSprite;
+            audioManager.SetVolume(0);
+        }
+        else
+        {
+            // Restore the previous volume, or set it to a default value if not available
+            float lastVolume = PlayerPrefs.GetFloat("LastVolume", 0.5f); // Default to 0.5 if no last volume saved
+
+            // Unmute the sound to the last volume or default
+            volumeSliderComponent.value = lastVolume;
+            soundButton.image.sprite = soundOnSprite;
+            audioManager.SetVolume(lastVolume);
+        }
     }
 
     void TogglePlayPause()
@@ -74,7 +119,7 @@ public class Menu : MonoBehaviour
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
-        anim.SetBool("MenuOpen", isMenuOpen);
+        menuAnim.SetBool("MenuOpen", isMenuOpen);
     }
 
     private void OnGUI(){

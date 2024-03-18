@@ -24,6 +24,27 @@ public class AudioManager : MonoBehaviour
         musicSource.clip = Track1;
         musicSource.Play();
     }
+
+    public void MuteAllSound()
+    {
+        musicSource.volume = 0;
+        SFXSource.volume = 0;
+    }
+
+    // Call this method to set volume for all sound
+    // Volume is expected to be between 0.0f (silent) and 1.0f (full volume)
+    public void SetVolume(float volume)
+    {
+        musicSource.volume = volume;
+        SFXSource.volume = volume;
+    }
+
+    public float GetCurrentVolume()
+    {
+        // Assuming musicSource and SFXSource are always set to the same volume,
+        // we can just return the volume of one of them.
+        return musicSource.volume;
+    }
     
     //function to call any oneshot clip
     public void PlaySFX( AudioClip clip){
