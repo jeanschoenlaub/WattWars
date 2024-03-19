@@ -7,11 +7,12 @@ public class WaveManager : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private Animator newWaveAnimator;
-    [SerializeField] private TextMeshProUGUI BannerDayIndexString;
-    [SerializeField] private TextMeshProUGUI BannerWaveIndexString;
 
     [Header("Events")]
-    public static UnityEvent onEnemyDestroy = new UnityEvent();
+    public static UnityEvent onEnemyDestroy = new UnityEvent(); // Used to notify wave managers that enemies where killed
+
+    // Special cases for tutorial
+    public bool isTutorialOn = false;
 
     // We use both an index and class to tack day and wave which contain enemy info - UpdateCurrentDayAndWave function to keep in sync
     public int currentDayIndex = 0;
@@ -45,8 +46,12 @@ public class WaveManager : MonoBehaviour {
 
     private void Start()
     {
+        if (isTutorialOn)
+        {
+            timeBetweenWaves = 0; // To start sooner
+        }
        UpdateCurrentDayAndWave();
-       if (currentDay != null && currentDay.waves.Count > 0)
+       if (currentDay != null && currentDay.waves.Count > 0 )
         {
             StartNextWave(); 
         }
@@ -61,7 +66,7 @@ public class WaveManager : MonoBehaviour {
             if (currentDay.waves.Count > currentWaveIndex)
             {
                 currentWave = currentDay.waves[currentWaveIndex];
-                TriggerWaveBannerAnimation();
+                if (!isTutorialOn){TriggerWaveBannerAnimation();}
             }
         }
     }

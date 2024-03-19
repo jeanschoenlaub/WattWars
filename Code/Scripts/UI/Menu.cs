@@ -125,10 +125,15 @@ public class Menu : MonoBehaviour
         currencyUI.text = LevelManager.main.coins.ToString();
         livesUI.text = LevelManager.main.currentScenario.Lives.ToString();
 
-        //For the following waves starts at 0 and we want to start with 1 for UI 
+        if (waveAnim && waveUI){
+             //For the following waves starts at 0 and we want to start with 1 for UI 
         waveAnim.text =  "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
         waveUI.text =   "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
                         +  waveManager.currentDay.waves.Count.ToString();
+
+        }else{
+            Debug.Log("UI Text Missing");
+        }
     }
 
     

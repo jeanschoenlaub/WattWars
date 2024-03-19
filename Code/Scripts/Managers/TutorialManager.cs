@@ -2,19 +2,27 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    public static TutorialManager Instance { get; private set; }
     private TutoPlaceTower tutoPlaceTower;
+    
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: only if you want it to persist across scenes.
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         // Get the TutoPlaceTower component attached to the same GameObject
         tutoPlaceTower = GetComponent<TutoPlaceTower>();
     }
 
     private void Start()
     {
-        // Optionally pause the game here, if that's part of your game flow
-        LevelManager.SetGameSpeed(0); // Assuming LevelManager controls the game speed
-        
         // Start the tower placement tutorial
         StartTutoPlaceTower();
     }
@@ -30,5 +38,11 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.LogError("TutoPlaceTower component is not found on the GameObject.");
         }
+    }
+
+    // Method to be called when the tutorial is finished
+    public void EndTutorial()
+    {
+        //LevelManager.SetGameSpeed(1);
     }
 }

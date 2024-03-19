@@ -9123,6 +9123,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 434563731754162041, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488374}
+    - target: {fileID: 434563731754162041, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795472418315920630, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488374}
+    - target: {fileID: 1795472418315920630, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedTower
+      objectReference: {fileID: 0}
     - target: {fileID: 2448855650830274726, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -9219,12 +9235,37 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5452962741497859000, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488374}
+    - target: {fileID: 5452962741497859000, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582819072264960874, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488374}
+    - target: {fileID: 5582819072264960874, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedBuilding
+      objectReference: {fileID: 0}
     - target: {fileID: 8355157603680347318, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9054583639782273046, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488374}
+    - target: {fileID: 9054583639782273046, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedTower
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6371401303519855951, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb39db3bdb4c4765923513a471b0cbc, type: 3}
