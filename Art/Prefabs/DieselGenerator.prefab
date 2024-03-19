@@ -248,7 +248,7 @@ MonoBehaviour:
   rangeCircle: {fileID: 7552006623699810664}
   towerType: 0
   targetingRange: 3
-  bulletPerSeconds: 1
+  bulletPerSeconds: 0
   switchOnOff: {fileID: 3908044847461150451}
   isSwitchable: 1
   conversion:
