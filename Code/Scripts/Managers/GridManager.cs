@@ -26,6 +26,7 @@ public class GridManager : MonoBehaviour
 
         InitializePlotReferences(); // Call this after initializing the grid
     }
+    
 
     void InitializePlotReferences()
     {
