@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int startingCoins ;
     [SerializeField] public Scenario currentScenario;
+    [SerializeField] public Animator cityCoinAnimator;
+     
 
     public Transform startPoint;
     public Transform[] path;
@@ -71,6 +74,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start(){
         coins = startingCoins;
+        StartCoroutine(AddCoinsAtIntervals(5f));
     }
 
     public void IncreaseCurrency( int amount ){
@@ -88,5 +92,18 @@ public class LevelManager : MonoBehaviour
             return false;
         }
         
+    }
+
+    IEnumerator AddCoinsAtIntervals(float interval)
+    {
+        while (true) // Creates an infinite loop, which is fine in a coroutine with yielding
+        {
+            yield return new WaitForSeconds(interval); // Wait for the specified interval
+            if (gameSpeed > 0) // Only add coins if the game is not paused
+            {
+                IncreaseCurrency(10); // Increase coins by 1, adjust this value as needed
+                cityCoinAnimator.SetTrigger("CoinAppear");
+            }
+        }
     }
 }

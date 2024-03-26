@@ -9,7 +9,6 @@ using System.Collections;
 public class TutoPlaceTower : MonoBehaviour
 {
     [Header("Animators References")]
-    [SerializeField] public Animator CloudAnimator; // To remove Clouds before allowing to build towers
     [SerializeField] public Animator MouseAnimator; // To make mouse move up and down to direct user
     
     [Header("Text References")]
@@ -47,8 +46,12 @@ public class TutoPlaceTower : MonoBehaviour
 
         if (isTutorialActive && (plots[0].constructable == false))
         {
-            //LevelManager.SetGameSpeed(1);
+            LevelManager.SetGameSpeed(1);
             tutoManager.EndTutorial();
+            foreach (var plot in plots)
+            {
+                plot.constructable = true;
+            }
             MouseAnimator.SetTrigger("Hide");
             TutoTextBox.SetActive(false);
             towerPlacementCircleUI.SetActive(false);
@@ -58,11 +61,9 @@ public class TutoPlaceTower : MonoBehaviour
     public void StartTutoPlaceTower()
     {
         isTutorialActive = true;
-        CloudAnimator.SetTrigger("RemoveClouds");
-
 
         // Start a coroutine to handle the delay
-        StartCoroutine(WaitForEnemyToAppear(3f)); // 3 seconds delay for first enemies to appear        
+        StartCoroutine(WaitForEnemyToAppear(2.5f)); // 1.5 seconds delay for first enemies to appear        
     }
 
     IEnumerator WaitForEnemyToAppear(float delay)
@@ -73,10 +74,8 @@ public class TutoPlaceTower : MonoBehaviour
         TutoText.text = "We must feed that scooter before it reaches the grid !!";
         TutoTextBox.SetActive(true);
 
-        //LevelManager.SetGameSpeed(0);
-
         // Start a coroutine to handle the delay
-        StartCoroutine(Task1SelectTower(3f)); // 3 seconds delay for first enemies to appear
+        StartCoroutine(Task1SelectTower(3f)); // 3 seconds delay to read text
     }
 
     IEnumerator Task1SelectTower(float delay){
@@ -85,6 +84,8 @@ public class TutoPlaceTower : MonoBehaviour
 
         TutoText.text = "Let's place a fuel tower";
         TutoTextBox.SetActive(true);
+
+        LevelManager.SetGameSpeed(0);
 
         HighlightButton();
         TowerSelectButton.onClick.AddListener(OnTowerSelectButtonClicked);

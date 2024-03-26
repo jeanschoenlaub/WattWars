@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
     [Header("--------- GameSpeed and Menu ---------")]
     [SerializeField] Animator menuAnim;
     [SerializeField] Button playPauseButton;
-    [SerializeField] Button ffButton; 
+    //[SerializeField] Button ffButton; 
     [SerializeField] Sprite playSprite;
     [SerializeField] Sprite pauseSprite;
     private bool isMenuOpen = false;
@@ -40,8 +40,8 @@ public class Menu : MonoBehaviour
         waveManager = FindObjectOfType<WaveManager>();
 
         playPauseButton.onClick.AddListener(TogglePlayPause);
-        ffButton.onClick.AddListener(ToggleFastForward);
-        UpdateFFButtonColor(); // Set initial FF button color
+//        ffButton.onClick.AddListener(ToggleFastForward);
+      //  UpdateFFButtonColor(); // Set initial FF button color
 
         soundButton.onClick.AddListener(ToggleAudio);
         volumeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => audioManager.SetVolume(value));
@@ -107,18 +107,22 @@ public class Menu : MonoBehaviour
             }
             isFastForwarding = true;
         }
-        UpdateFFButtonColor(); // Update the FF button color based on its state
+       // UpdateFFButtonColor(); // Update the FF button color based on its state
     }
 
-    void UpdateFFButtonColor()
-    {
-        // Set FF button color based on its state
-        ffButton.image.color = isFastForwarding ? new Color(0, 0, 0.5f, 1) : Color.white; // Dark navy blue or white
-    }
+    // void UpdateFFButtonColor()
+    // {
+    //     // Set FF button color based on its state
+    //     ffButton.image.color = isFastForwarding ? new Color(0, 0, 0.5f, 1) : Color.white; // Dark navy blue or white
+    // }
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
         menuAnim.SetBool("MenuOpen", isMenuOpen);
+    }
+
+    public void Debuger(){
+        Debug.Log("called");
     }
 
     private void OnGUI(){
