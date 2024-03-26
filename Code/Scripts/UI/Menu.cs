@@ -12,14 +12,12 @@ public class Menu : MonoBehaviour
     
 
     [Header("--------- GameSpeed and Menu ---------")]
-    [SerializeField] Animator menuAnim;
-    [SerializeField] Button playPauseButton;
-    //[SerializeField] Button ffButton; 
+    [SerializeField] Button menuButton;
+    [SerializeField] private GameObject menuGameObject;
     [SerializeField] Sprite playSprite;
     [SerializeField] Sprite pauseSprite;
     private bool isMenuOpen = false;
-    private bool isPlaying = true; 
-    private bool isFastForwarding = false; 
+
     
     [Header("--------- GameSound ---------")]
     [SerializeField] Button soundButton;
@@ -38,11 +36,9 @@ public class Menu : MonoBehaviour
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
+        menuGameObject.SetActive(false);
 
-        playPauseButton.onClick.AddListener(TogglePlayPause);
-//        ffButton.onClick.AddListener(ToggleFastForward);
-      //  UpdateFFButtonColor(); // Set initial FF button color
-
+        menuButton.onClick.AddListener(ToggleMenu);
         soundButton.onClick.AddListener(ToggleAudio);
         volumeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => audioManager.SetVolume(value));
     }
@@ -74,56 +70,24 @@ public class Menu : MonoBehaviour
         }
     }
 
-    void TogglePlayPause()
-    {
-        if (isPlaying)
-        {
-            playPauseButton.image.sprite = pauseSprite;
-            LevelManager.SetGameSpeed(0); // Pause the game
-        }
-        else
-        {
-            playPauseButton.image.sprite = playSprite;
-            LevelManager.SetGameSpeed(isFastForwarding ? 2 : 1); // Resume the game, consider fast-forward state
-        }
-        isPlaying = !isPlaying;
-        ToggleMenu();
-    }
-
-    void ToggleFastForward()
-    {
-        if (isFastForwarding)
-        {
-            // If currently fast forwarding, set to normal play speed
-            LevelManager.SetGameSpeed(isPlaying ? 1 : 0); // Adjust speed based on play/pause state
-            isFastForwarding = false;
-        }
-        else
-        {
-            // If not fast forwarding, set to fast forward speed
-            if (isPlaying) // Only increase speed if the game is playing
-            {
-                LevelManager.SetGameSpeed(2);
-            }
-            isFastForwarding = true;
-        }
-       // UpdateFFButtonColor(); // Update the FF button color based on its state
-    }
-
-    // void UpdateFFButtonColor()
-    // {
-    //     // Set FF button color based on its state
-    //     ffButton.image.color = isFastForwarding ? new Color(0, 0, 0.5f, 1) : Color.white; // Dark navy blue or white
-    // }
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
-        menuAnim.SetBool("MenuOpen", isMenuOpen);
+        LevelManager.SetGameSpeed(isMenuOpen ? 0 : 1);
+        
+        if (isMenuOpen)
+        {
+            // If opening the menu, just make it visible and interactable
+            menuGameObject.SetActive(true);
+        }
+        else
+        {
+            // If closing the menu, first make all buttons non-interactable,
+            // then make the menu itself inactive
+            menuGameObject.SetActive(false);
+        }
     }
 
-    public void Debuger(){
-        Debug.Log("called");
-    }
 
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
