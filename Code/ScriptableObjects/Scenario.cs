@@ -6,6 +6,7 @@ public class Scenario : ScriptableObject {
     public string scenarioName;
     public int scenarioId;
     public int Lives;
+    public int Coins;
     public List<Day> days; // Days in the scenario
     public QuestionCollection scenarioQuestions;
 }

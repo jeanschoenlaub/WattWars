@@ -86,7 +86,7 @@ public class TutoPlaceTower : MonoBehaviour
         TowerSelectButton.interactable = false;
         DieselTowerSelectButton.interactable = false;
         // Start a coroutine to handle the delay
-        StartCoroutine(WaitForEnemyToAppear(4f)); // 1.5 seconds delay for first enemies to appear        
+        StartCoroutine(WaitForEnemyToAppear(5f)); // 1.5 seconds delay for first enemies to appear        
     }
 
     IEnumerator WaitForEnemyToAppear(float delay)

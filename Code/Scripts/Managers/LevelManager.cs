@@ -15,7 +15,8 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform[] path;
 
-    public int coins;
+    public int coins; 
+    public int numberOfLives; // Taken from the Scenario SO
     private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
 
@@ -73,12 +74,21 @@ public class LevelManager : MonoBehaviour
 
 
     private void Start(){
-        coins = startingCoins;
+        coins =  currentScenario.Coins;
+        numberOfLives = currentScenario.Lives;
         StartCoroutine(AddCoinsAtIntervals(5f));
     }
 
     public void IncreaseCurrency( int amount ){
         coins += amount;
+    }
+
+    public void DecreaseLives( int amount ){
+        numberOfLives -= amount;
+    }
+
+    public int GetNumeberOfLives( ){
+       return numberOfLives;
     }
 
     public bool SpendCurrency( int amount ){

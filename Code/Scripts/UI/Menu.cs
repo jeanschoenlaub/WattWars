@@ -90,7 +90,7 @@ public class Menu : MonoBehaviour
 
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
-        livesUI.text = LevelManager.main.currentScenario.Lives.ToString();
+        livesUI.text = LevelManager.main.GetNumeberOfLives().ToString();
 
         if (waveAnim && waveUI){
              //For the following waves starts at 0 and we want to start with 1 for UI 

@@ -11,7 +11,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] public int height ; // The number of plot horizontal
     [SerializeField] private Plot[] plots; // dump of all plots
 
-    private Plot[,] gridPlots;  // plotsSorted in awake  
+    [SerializeField] public Plot[,] gridPlots;  // plots sorted in awake  
 
     void Awake()
     {
@@ -30,21 +30,25 @@ public class GridManager : MonoBehaviour
 
     void InitializePlotReferences()
     {
-        gridPlots = new Plot[width, height];
+        gridPlots = new Plot[width+1, height+1];
 
         foreach (Plot plot in plots)
         {
             Vector2Int gridPos = WorldToGridCoordinates(plot.transform.position);
-            if (gridPos.x >= 0 && gridPos.x < width && gridPos.y >= 0 && gridPos.y < height)
+            if (gridPos.x >= 0 && gridPos.x <= width && gridPos.y >= 0 && gridPos.y <= height)
             {
                 gridPlots[gridPos.x, gridPos.y] = plot;
+            }
+            else{
+                // Raise error if the level manager width, height or plots is badly initialised
+                Debug.Log("problem with initialising Plot references - Check GridManager Script");
             }
         }
     }
 
     public SpriteRenderer GetPlotSpriteRenderer(int x, int y)
     {
-        if (x >= 0 && x < width && y >= 0 && y < height && gridPlots[x, y] != null)
+        if (x >= 0 && x <= width && y >= 0 && y <= height && gridPlots[x, y] != null)
         {
             return gridPlots[x, y].GetComponent<SpriteRenderer>();
         }
@@ -56,18 +60,18 @@ public class GridManager : MonoBehaviour
         return offset;
     }
 
-
     // Check if a specific plot is available
     public bool IsPlotConstructable(int x, int y)
     {
-        if (x < 0 || x >= width || y < 0 || y >= height) return false; // Out of bounds
+        if (x < 0 || x > width || y < 0 || y > height) {
+            return false; // Out of bounds
+        }
         return gridPlots[x, y].constructable; // Return true if not occupied
     }
 
     public Vector2Int WorldToGridCoordinates(Vector3 worldPosition)
     {
-        //Not sure on why +2 and +1 just hard tested with current set-up
-        int x = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / plotSize)+2;
+        int x = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / plotSize)+1;
         int y = Mathf.FloorToInt((worldPosition.y - gridOrigin.y) / plotSize)+1;
         return new Vector2Int(x, y);
     }
@@ -79,9 +83,22 @@ public class GridManager : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                if (x < width && y < height)
+                // Check if x and y are within the bounds of the gridPlots array
+                if (x >= 0 && x < gridPlots.GetLength(0) && y >= 0 && y < gridPlots.GetLength(1))
                 {
-                    gridPlots[x, y].constructable = false; // Mark as occupied
+                    // It's now safe to access gridPlots[x, y]
+                    if (gridPlots[x, y] != null)
+                    {
+                        gridPlots[x, y].constructable = false; // Mark as occupied
+                    }
+                    else
+                    {
+                        Debug.Log("Error reserving plot, check GridManager logic");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Attempted to access gridPlots[{x}, {y}], which is out of bounds. Check GridManager logic");
                 }
             }
         }

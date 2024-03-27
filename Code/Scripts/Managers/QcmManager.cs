@@ -35,8 +35,8 @@ public class QcmManager : MonoBehaviour
 
     // Spawn and position variables for the misteryBox
     private Vector2 spawnPoint = new Vector2(-11f, 0f); 
-    private float minY = -5f; // Minimum Y offset from the spawn point
-    private float maxY = 3f; // Maximum Y offset from the spawn point
+    private float minY = -4f; // Minimum Y offset from the spawn point
+    private float maxY = 2f; // Maximum Y offset from the spawn point
 
     //AudioManager that we get using tag   
     private AudioManager audioManager;

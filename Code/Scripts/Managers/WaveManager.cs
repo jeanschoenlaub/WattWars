@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
 
 public class WaveManager : MonoBehaviour {
 
@@ -48,7 +47,7 @@ public class WaveManager : MonoBehaviour {
     {
         if (isTutorialOn)
         {
-            timeBetweenWaves = 0; // To start sooner
+            timeBetweenWaves = 10; // To make it a bit more 
         }
        UpdateCurrentDayAndWave();
        if (currentDay != null && currentDay.waves.Count > 0 )
@@ -66,7 +65,9 @@ public class WaveManager : MonoBehaviour {
             if (currentDay.waves.Count > currentWaveIndex)
             {
                 currentWave = currentDay.waves[currentWaveIndex];
-                if (!isTutorialOn){TriggerWaveBannerAnimation();}
+                //if (!isTutorialOn){
+                    TriggerWaveBannerAnimation();
+                //}
             }
         }
     }
@@ -129,12 +130,12 @@ public class WaveManager : MonoBehaviour {
     private void StartNextWave()
     {
         spawnStates.Clear();
+        UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
+
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {
             spawnStates.Add(new SpawnState(enemyInfo));
         }
-
-        UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
     }
 
     private void SpawnEnemy(GameObject enemyPrefab)
@@ -145,6 +146,7 @@ public class WaveManager : MonoBehaviour {
 
     private void EnemyDestroyed()
     {
+        LevelManager.main.DecreaseLives(1);
         enemiesAlive--;
     }
 }

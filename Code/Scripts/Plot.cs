@@ -5,10 +5,10 @@ public class Plot : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] public bool constructable;
+    [SerializeField] public bool constructable; //Flage to indicate if a plot is construblae or not (oeg. other structure already buidl)
 
-    private GameObject placedStructure; // Generalized from plotTower
-    private bool anyPlotNotConstructable = false;
+    private GameObject placedStructure; // Used to access new structure we build
+    private bool anyPlotNotConstructable = false; // Flag to check if structures larger then 1x1 have some unconstructable plots
 
     private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
 
@@ -21,11 +21,10 @@ public class Plot : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        // Generalize this to work with any selected structure, not just towers
-        var structureToBuild = BuildManager.main.GetSelectedStructure();
+        Structure structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
-        //If a structure is selected we show it with a 0.5 opacity and offest based on it's size
+        //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
         Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
         BuildManager.main.UpdatePreviewPosition(instantiationPosition);
 
@@ -47,7 +46,8 @@ public class Plot : MonoBehaviour
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
         
-        if (placedStructure != null || anyPlotNotConstructable)
+
+        if (anyPlotNotConstructable)
         {
             BuildManager.main.DeselectStructure();
             audioManager.PlaySFX(audioManager.badActionSFX);
@@ -57,41 +57,37 @@ public class Plot : MonoBehaviour
         PlaceStructureIfPossible();
     }
 
-    private void CheckPlotConstructability(object structureToBuild)
+    // Function to check that all the plots under the structure to build size are not
+    // occupied and not out of bounds
+    private void CheckPlotConstructability(Structure structureToBuild)
     {
         Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
         anyPlotNotConstructable = false;
 
-        var size = new int[] { 0, 0 };
-
-        if (structureToBuild is Tower tower)
-        {
-            size = new int[] {tower.size[0], tower.size[1]};
-        }
-        else if (structureToBuild is Building building)
-        {
-            size = new int[] {building.size[0], building.size[1]};
-        }
-
+        var size = new int[] {structureToBuild.size[0], structureToBuild.size[1]};
+        
         for (int x = 0; x < size[0]; x++)
         {
             for (int y = 0; y < size[1]; y++)
             {
                 int checkX = gridPosition.x + x;
                 int checkY = gridPosition.y + y;
+
+                // First we check that all plots are constructable and raise flag if one is not
+                bool isPlotConstructable = GridManager.Instance.IsPlotConstructable(checkX, checkY);
+                if (!isPlotConstructable) anyPlotNotConstructable = true;
+                
+                // Then color each plot red or green for visual feedback
                 SpriteRenderer plotSr = GridManager.Instance.GetPlotSpriteRenderer(checkX, checkY);
-                if (plotSr != null)
+                if (plotSr != null) // check so we don't try to color out of bounds plots
                 {
                     plotsToColor.Add(plotSr);
-                    bool isPlotConstructable = GridManager.Instance.IsPlotConstructable(checkX, checkY);
-                    plotSr.color = isPlotConstructable ? Color.green : Color.red;
-
-                    if (!isPlotConstructable) anyPlotNotConstructable = true;
+                    plotSr.color = isPlotConstructable ? Color.green : Color.red;        
                 }
             }
         }
 
-        // Finally we set the opacity of the entire structure to 50% and relevant color
+        // Finally we set the opacity of the entire structure to 50% and relevant color based on flag
         if (anyPlotNotConstructable)
         {
             BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.red);
@@ -133,6 +129,7 @@ public class Plot : MonoBehaviour
 
             //Finally we mark the plot(s) as reserved by this stuct so can't build others on top
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
+            Debug.Log("build pos "+gridPosition);
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
            
         }else {

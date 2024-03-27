@@ -5,7 +5,6 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Instance { get; private set; }
     private TutoPlaceTower tutoPlaceTower;
     
-
     private void Awake()
     {
         if (Instance == null)
