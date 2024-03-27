@@ -5,7 +5,7 @@ using TMPro;
 using System.Collections;
 
 
-// Tutorial to show the player how to place a tower
+// Tutorial to show the player how to place a fuel and a diesel generator tower 
 public class TutoPlaceTower : MonoBehaviour
 {
     [Header("Animators References")]
@@ -17,14 +17,16 @@ public class TutoPlaceTower : MonoBehaviour
 
     [Header("Tower Button References")]
     [SerializeField] public Button TowerSelectButton; 
-    [SerializeField] public UnityEvent onTowerSelectButtonClicked; // Assign a callback for what happens next
+    [SerializeField] public UnityEvent onTowerSelectButtonClicked; 
+    [SerializeField] public Button DieselTowerSelectButton; 
+    [SerializeField] public UnityEvent onDieselTowerSelectButtonClicked; 
     
     [Header("Plot References")]
-    [SerializeField] public GameObject towerPlacementCircleUI; // Arrow UI poiting to build tower plot
-    [SerializeField] private Plot[] plots; // plots availaible for tutorial [0] is the 
+    [SerializeField] private Plot[] plots; // rest of plots 
 
     public bool isTutorialActive = false;
     public bool isTowerButtonClicked = false;
+    bool firstTimechecker = true ; // flag to enter continuous check only once
 
     private TutorialManager tutoManager;
 
@@ -36,25 +38,44 @@ public class TutoPlaceTower : MonoBehaviour
 
     private void Start(){
         TutoTextBox.SetActive(false);
-        towerPlacementCircleUI.SetActive(false);
     }
 
     void Update()
     {
-        // We check if the tower was actually built by checking if the first plot 
-        // went from constructable to not (because if tower placed --> not constructable)
 
-        if (isTutorialActive && (plots[0].constructable == false))
+        //TODO - Not optimal for performance to continuously check 
+        int notConstructableCount = 0;
+
+        foreach (var plot in plots)
+        {
+            if (!plot.constructable) // If the plot is not constructable
+            {
+                notConstructableCount++; // Increment the counter
+            }
+        }
+        
+        // We check if the first tower was actually built by checking if 1 plot is taken
+        // went from constructable to not (because if tower placed --> not constructable)
+        if (isTutorialActive && notConstructableCount == 1 && firstTimechecker)
         {
             LevelManager.SetGameSpeed(1);
+
+            TutoTextBox.SetActive(false);
+
+            firstTimechecker = false; //So we don't enter this check again
+            TowerSelectButton.interactable = false; //To make sure the player doesn't spend all his money
+            StartCoroutine(Task3PlaceDieselGenTower(25f)); // 4 seconds delay for electric enemies to appear        
+        }
+
+        // We check if the diesel gen tower was actually built by checking if the first plot 
+        // went from constructable to not (because if tower placed --> not constructable)
+        if (isTutorialActive && notConstructableCount == 5)
+        {
+            LevelManager.SetGameSpeed(1);
+            TowerSelectButton.interactable = true;
             tutoManager.EndTutorial();
-            foreach (var plot in plots)
-            {
-                plot.constructable = true;
-            }
             MouseAnimator.SetTrigger("Hide");
             TutoTextBox.SetActive(false);
-            towerPlacementCircleUI.SetActive(false);
         }
     }
 
@@ -62,8 +83,10 @@ public class TutoPlaceTower : MonoBehaviour
     {
         isTutorialActive = true;
 
+        TowerSelectButton.interactable = false;
+        DieselTowerSelectButton.interactable = false;
         // Start a coroutine to handle the delay
-        StartCoroutine(WaitForEnemyToAppear(2.5f)); // 1.5 seconds delay for first enemies to appear        
+        StartCoroutine(WaitForEnemyToAppear(4f)); // 1.5 seconds delay for first enemies to appear        
     }
 
     IEnumerator WaitForEnemyToAppear(float delay)
@@ -75,7 +98,7 @@ public class TutoPlaceTower : MonoBehaviour
         TutoTextBox.SetActive(true);
 
         // Start a coroutine to handle the delay
-        StartCoroutine(Task1SelectTower(3f)); // 3 seconds delay to read text
+        StartCoroutine(Task1SelectTower(5f)); // 3 seconds delay to read text
     }
 
     IEnumerator Task1SelectTower(float delay){
@@ -87,31 +110,34 @@ public class TutoPlaceTower : MonoBehaviour
 
         LevelManager.SetGameSpeed(0);
 
-        HighlightButton();
-        TowerSelectButton.onClick.AddListener(OnTowerSelectButtonClicked);
-    }
-
-    
-
-    void HighlightButton()
-    {
+        // UI to indicate the button to click
+        TowerSelectButton.interactable = true;
         TowerSelectButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); //Scale up towerIcone
-        // Show both the Arrow UI 
         MouseAnimator.SetTrigger("AnimTower");
+
+        // Trigger for next step
+        TowerSelectButton.onClick.AddListener(Task2PlaceTower);
     }
 
-    public void OnTowerSelectButtonClicked()
+    public void Task2PlaceTower()
     {
-        // Reset scale or remove highlight effect
+        // Remove UI to indicate the button to click
+        MouseAnimator.SetTrigger("Hide");
         TowerSelectButton.transform.localScale = Vector3.one;
-        TowerSelectButton.onClick.RemoveListener(OnTowerSelectButtonClicked);
+        TowerSelectButton.onClick.RemoveListener(Task2PlaceTower);
 
-        TutoText.text = "Place Tower";
+        TutoText.text = "Place Tower anywhere";
+    }
 
-        plots[0].constructable = true;
+    IEnumerator Task3PlaceDieselGenTower(float delay){
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
 
-        // Show both the Arrow UI and Circle UI 
-        MouseAnimator.SetTrigger("AnimMousePlot");
-        towerPlacementCircleUI.SetActive(true);
+        TutoText.text = "Let's place a diesel generator tower";
+        TutoTextBox.SetActive(true);
+
+        DieselTowerSelectButton.interactable = true;
+
+        LevelManager.SetGameSpeed(0);
     }
 }

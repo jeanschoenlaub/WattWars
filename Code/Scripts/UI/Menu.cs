@@ -88,7 +88,6 @@ public class Menu : MonoBehaviour
         }
     }
 
-
     private void OnGUI(){
         currencyUI.text = LevelManager.main.coins.ToString();
         livesUI.text = LevelManager.main.currentScenario.Lives.ToString();
