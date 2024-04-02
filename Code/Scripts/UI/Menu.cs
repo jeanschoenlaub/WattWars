@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -101,6 +102,15 @@ public class Menu : MonoBehaviour
         }else{
             Debug.Log("UI Text Missing");
         }
+    }
+
+    public void BackToMenu(){
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void Restart(){
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 
     

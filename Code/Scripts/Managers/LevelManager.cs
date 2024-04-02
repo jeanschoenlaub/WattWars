@@ -59,8 +59,6 @@ public class LevelManager : MonoBehaviour
     // Load Main Menu
     public void ExitToMainMenu(bool ScenarioComplete){
 
-        
-
         // If called with level complete flag && this is the highest level unlocked we save the progression 
         if (ScenarioComplete && currentScenario.scenarioId + 1> PlayerPrefs.GetInt("UnlockedLevels")){
             PlayerPrefs.SetInt("UnlockedLevels", currentScenario.scenarioId+1);

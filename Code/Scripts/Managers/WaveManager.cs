@@ -49,8 +49,8 @@ public class WaveManager : MonoBehaviour {
         {
             timeBetweenWaves = 10; // To make it a bit more 
         }
-       UpdateCurrentDayAndWave();
-       if (currentDay != null && currentDay.waves.Count > 0 )
+        UpdateCurrentDayAndWave();
+        if (currentDay != null && currentDay.waves.Count > 0 )
         {
             StartNextWave(); 
         }
@@ -62,6 +62,7 @@ public class WaveManager : MonoBehaviour {
         if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
         {
             currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+            Debug.Log(currentDay);
             if (currentDay.waves.Count > currentWaveIndex)
             {
                 currentWave = currentDay.waves[currentWaveIndex];
@@ -81,6 +82,8 @@ public class WaveManager : MonoBehaviour {
     private void Update()
     {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
+
+        Debug.Log("shoudl spawn");
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
 
@@ -140,6 +143,7 @@ public class WaveManager : MonoBehaviour {
 
     private void SpawnEnemy(GameObject enemyPrefab)
     {
+        Debug.Log("spawn");
         Instantiate(enemyPrefab, LevelManager.main.startPoint.position, Quaternion.identity);
         enemiesAlive++;
     }

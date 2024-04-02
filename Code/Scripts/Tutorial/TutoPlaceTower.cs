@@ -4,7 +4,6 @@ using UnityEngine.Events; // For UnityEvent
 using TMPro;
 using System.Collections;
 
-
 // Tutorial to show the player how to place a fuel and a diesel generator tower 
 public class TutoPlaceTower : MonoBehaviour
 {

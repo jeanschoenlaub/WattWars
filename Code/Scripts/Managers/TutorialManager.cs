@@ -10,7 +10,6 @@ public class TutorialManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: only if you want it to persist across scenes.
         }
         else
         {
