@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
         main = this;
+        gameSpeed = 1; // Reset game speed to default upon scene load
         //DontDestroyOnLoad(gameObject); // Persist across scenes
     }
 

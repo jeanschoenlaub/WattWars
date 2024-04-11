@@ -47,11 +47,13 @@ public class WaveManager : MonoBehaviour {
     {
         if (isTutorialOn)
         {
+            Debug.Log("time between wave 10");
             timeBetweenWaves = 10; // To make it a bit more 
         }
         UpdateCurrentDayAndWave();
         if (currentDay != null && currentDay.waves.Count > 0 )
         {
+            Debug.Log("aaa");
             StartNextWave(); 
         }
     }
@@ -62,7 +64,6 @@ public class WaveManager : MonoBehaviour {
         if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
         {
             currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
-            Debug.Log(currentDay);
             if (currentDay.waves.Count > currentWaveIndex)
             {
                 currentWave = currentDay.waves[currentWaveIndex];
@@ -83,16 +84,17 @@ public class WaveManager : MonoBehaviour {
     {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
 
-        Debug.Log("shoudl spawn");
-
         int currentGameSpeed = LevelManager.GetGameSpeed();
+        Debug.Log(currentGameSpeed);
 
         foreach (var state in spawnStates)
         {
+            
             state.timeSinceLastSpawn += Time.deltaTime * currentGameSpeed;
 
             if (state.spawnedCount < state.enemyInfo.quantity && state.timeSinceLastSpawn >= state.enemyInfo.spawnInterval)
             {
+                Debug.Log("spawn");
                 SpawnEnemy(state.enemyInfo.enemyPrefab);
                 state.spawnedCount++;
                 state.timeSinceLastSpawn = 0;
@@ -137,6 +139,7 @@ public class WaveManager : MonoBehaviour {
 
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {
+            Debug.Log("populating spawn staes");
             spawnStates.Add(new SpawnState(enemyInfo));
         }
     }
