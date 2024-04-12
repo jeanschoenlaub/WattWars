@@ -7,7 +7,6 @@ public class LevelManager : MonoBehaviour
     public static LevelManager main;
 
     [Header("Attributes")]
-    [SerializeField] private int startingCoins ;
     [SerializeField] public Scenario currentScenario;
     [SerializeField] public Animator cityCoinAnimator;
      
@@ -16,6 +15,8 @@ public class LevelManager : MonoBehaviour
     public Transform[] path;
 
     public int coins; 
+    public int cityCoinGen = 10; 
+
     public int numberOfLives; // Taken from the Scenario SO
     private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
@@ -110,7 +111,7 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(interval); // Wait for the specified interval
             if (gameSpeed > 0) // Only add coins if the game is not paused
             {
-                IncreaseCurrency(10); // Increase coins by 1, adjust this value as needed
+                IncreaseCurrency(cityCoinGen); // Increase coins by 1, adjust this value as needed
                 cityCoinAnimator.SetTrigger("CoinAppear");
             }
         }
