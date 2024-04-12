@@ -31,11 +31,15 @@ public class AudioManager : MonoBehaviour
         SFXSource.volume = 0;
     }
 
-    // Call this method to set volume for all sound
     // Volume is expected to be between 0.0f (silent) and 1.0f (full volume)
-    public void SetVolume(float volume)
+    public void SetMusicVolume(float volume)
     {
         musicSource.volume = volume;
+    }
+
+    // Volume is expected to be between 0.0f (silent) and 1.0f (full volume)
+    public void SetSFXVolume(float volume)
+    {
         SFXSource.volume = volume;
     }
 

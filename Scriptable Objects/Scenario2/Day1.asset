@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Day1
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: d815dfb71c7e4497c80d330eddb4a5bf, type: 2}
+  - {fileID: 11400000, guid: 095598d48024349c88ac0982a619ea7d, type: 2}
   - {fileID: 11400000, guid: 16ac2d79f1e7f4de9bbab44d12ffb0ff, type: 2}
   - {fileID: 11400000, guid: 3e0222bdf8942440d925470734306dd5, type: 2}

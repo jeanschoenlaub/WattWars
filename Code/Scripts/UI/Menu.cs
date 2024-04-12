@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
@@ -23,6 +24,8 @@ public class Menu : MonoBehaviour
     [Header("--------- GameSound ---------")]
     [SerializeField] Button soundButton;
     [SerializeField] GameObject volumeSlider;
+    [SerializeField] Button sfxButton;
+    [SerializeField] GameObject sfxSlider;
     [SerializeField] Sprite soundOnSprite;
     [SerializeField] Sprite soundOffSprite;
 
@@ -34,41 +37,80 @@ public class Menu : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }   
 
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.Save(); // Force save PlayerPrefs on exit
+    }
+
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
         menuGameObject.SetActive(false);
 
         menuButton.onClick.AddListener(ToggleMenu);
-        soundButton.onClick.AddListener(ToggleAudio);
-        volumeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => audioManager.SetVolume(value));
+
+        
+       
+        Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
+        Slider sfxSliderComponent = sfxSlider.GetComponent<Slider>();
+
+        // Setup volume and SFX sliders && Load the saved volume
+        SetupVolumeControl(volumeSliderComponent, "SavedVolume", soundButton.image, soundOnSprite, soundOffSprite, volume => audioManager.SetMusicVolume(volume));
+        SetupVolumeControl(sfxSliderComponent, "SavedSFXVolume", sfxButton.image, soundOnSprite, soundOffSprite, volume => audioManager.SetSFXVolume(volume));
+   
+        soundButton.onClick.AddListener(() => ToggleAudio(volumeSliderComponent, "LastVolume", "SavedVolume", audioManager.SetMusicVolume, soundButton.image));
+        sfxButton.onClick.AddListener(() => ToggleAudio(sfxSliderComponent, "LastSFXVolume", "SavedSFXVolume", audioManager.SetSFXVolume, sfxButton.image));
+
     }
 
-    void ToggleAudio()
+   void ToggleAudio(Slider sliderComponent, string lastVolumeKey, string savedVolumeKey, Action<float> setVolume, Image soundButtonImage)
     {
-        Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
-
+        float currentVolume = sliderComponent.value;
         // If volume is not 0, mute the sound
-        if (audioManager.GetCurrentVolume() > 0)
+        if (currentVolume > 0)
         {
-            // Remember current volume to restore it later
-            PlayerPrefs.SetFloat("LastVolume", audioManager.GetCurrentVolume());
+            // Remember current slider volume to restore it later
+            PlayerPrefs.SetFloat(lastVolumeKey, currentVolume);
+            PlayerPrefs.SetFloat(savedVolumeKey, 0);
 
             // Mute the sound
-            volumeSliderComponent.value = 0;
-            soundButton.image.sprite = soundOffSprite;
-            audioManager.SetVolume(0);
+            sliderComponent.value = 0;
+            soundButtonImage.sprite = soundOffSprite;
+            setVolume(0);
         }
         else
         {
             // Restore the previous volume, or set it to a default value if not available
-            float lastVolume = PlayerPrefs.GetFloat("LastVolume", 0.5f); // Default to 0.5 if no last volume saved
+            float lastVolume = PlayerPrefs.GetFloat(lastVolumeKey, 0.5f); // Default to 0.5 if no last volume saved
+            PlayerPrefs.SetFloat(savedVolumeKey, lastVolume);
 
             // Unmute the sound to the last volume or default
-            volumeSliderComponent.value = lastVolume;
-            soundButton.image.sprite = soundOnSprite;
-            audioManager.SetVolume(lastVolume);
+            sliderComponent.value = lastVolume;
+            soundButtonImage.sprite = soundOnSprite;
+            setVolume(lastVolume);
         }
+    }
+
+    void SetupVolumeControl(Slider sliderComponent, string playerPrefsKey, Image soundButtonImage, Sprite soundOnSprite, Sprite soundOffSprite, Action<float> setVolumeFunc)
+    {
+        sliderComponent.onValueChanged.AddListener((value) =>
+        {
+            setVolumeFunc(value);
+            PlayerPrefs.SetFloat(playerPrefsKey, value); // Save volume immediately when changed
+            PlayerPrefs.Save();
+
+            // Update the sound button icon based on volume
+            if (value > 0){ soundButtonImage.sprite = soundOnSprite; }
+            else{ soundButtonImage.sprite = soundOffSprite; }
+        });
+
+        // Load and set initial slider value from PlayerPrefs or use a default value
+        float savedVolume = PlayerPrefs.GetFloat(playerPrefsKey, 0.5f); // Default to 0.5 if not saved
+        sliderComponent.value = savedVolume;
+        
+        // Explicitly apply settings at start to ensure correct initialization
+        setVolumeFunc(savedVolume);
+        soundButtonImage.sprite = savedVolume > 0 ? soundOnSprite : soundOffSprite;
     }
 
 
