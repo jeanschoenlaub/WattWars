@@ -31,10 +31,12 @@ public class WaveManager : MonoBehaviour {
         public EnemyWaveInfo enemyInfo;
         public float timeSinceLastSpawn = 0f;
         public int spawnedCount = 0;
+        public bool delayPassed = false;
 
         public SpawnState(EnemyWaveInfo info)
         {
             enemyInfo = info;
+            timeSinceLastSpawn = -info.spawnDelay; // Start counting from the negative spawn delay
         }
     }
 
@@ -85,20 +87,25 @@ public class WaveManager : MonoBehaviour {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
-        Debug.Log(currentGameSpeed);
 
         foreach (var state in spawnStates)
         {
-            
             state.timeSinceLastSpawn += Time.deltaTime * currentGameSpeed;
 
-            if (state.spawnedCount < state.enemyInfo.quantity && state.timeSinceLastSpawn >= state.enemyInfo.spawnInterval)
+            if (!state.delayPassed)
             {
-                Debug.Log("spawn");
+                if (state.timeSinceLastSpawn >= 0) // Check if the delay has passed
+                {
+                    state.delayPassed = true;
+                    state.timeSinceLastSpawn = 0; // Reset the timer to start interval spawning
+                }
+            }
+            else if (state.spawnedCount < state.enemyInfo.quantity && state.timeSinceLastSpawn >= state.enemyInfo.spawnInterval)
+            {
+                Debug.Log("Spawn");
                 SpawnEnemy(state.enemyInfo.enemyPrefab);
                 state.spawnedCount++;
-                state.timeSinceLastSpawn = 0;
-                // If all enemies of this type have been spawned, continue checking other types
+                state.timeSinceLastSpawn = 0; // Reset time since last spawn
             }
         }
 
