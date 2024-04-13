@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdc5c53d58284b5395b9f82976b0c13, type: 3}
   m_Name: DieselGen
   m_EditorClassIdentifier: 
-  structureName: 
-  cost: 0
-  size: 
-  prefab: {fileID: 0}
-  rangeCircle: {fileID: 0}
-  range: 0
+  structureName: DieselGenerator
+  cost: 200
+  size: 0200000002000000
+  prefab: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
+  buildCooldown: 15
+  rangeCircle: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
+  range: 3

@@ -12981,7 +12981,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   structures:
-  - {fileID: 11400000, guid: 2bca3908db9ec4cd1beea1d24d310c37, type: 2}
+  - {fileID: 11400000, guid: 3f0c69eb8cf574969a38e894932cd6f2, type: 2}
+  - {fileID: 11400000, guid: ae9646a1b106f4b56a15f1ce20b6bf93, type: 2}
   structurePreviewInstance: {fileID: 0}
 --- !u!114 &1624488375
 MonoBehaviour:
@@ -13219,8 +13220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structureButtons:
   - {fileID: 8378614644791627860}
-  cooldownOverlays: []
-  cooldownTime: 5
+  - {fileID: 1496540090}
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -18275,10 +18275,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1281966498029383475, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1624488374}
     - target: {fileID: 2121103759536171522, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -18315,10 +18311,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488378}
-    - target: {fileID: 5072264416581920654, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1624488374}
     - target: {fileID: 5093505533188218013, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

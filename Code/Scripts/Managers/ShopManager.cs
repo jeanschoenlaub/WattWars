@@ -1,48 +1,63 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+
+//TO-DO
+// Disabel component if not enough money here to prevent cool down and nno buidl
+// Get cost text and update from here
+// Wrong button bug on 2 and 3  
 
 public class ShopManager : MonoBehaviour
 {
     [Header("Shop Buttons and Cooldowns")]
-    [SerializeField] private Button[] structureButtons; // Buttons for all structures
-    [SerializeField] private Image[] cooldownOverlays; // Overlays that show cooldown
-
-    [Header("Cooldown Settings")]
-    [SerializeField] private float cooldownTime = 5f; // Time in seconds for the cooldown
+    [SerializeField] private Button[] structureButtons; // overlay image must be last child
 
     private void Awake()
     {
-        // Assign button listeners
         for (int i = 0; i < structureButtons.Length; i++)
         {
+            // Get the structure attached to each button via the StructRefShop script
+            var structureRef = structureButtons[i].GetComponent<StructRefShop>();
             int index = i; // Local copy of index for the lambda capture
-            structureButtons[i].onClick.AddListener(() => SelectStructure(index));
+
+            if (structureRef != null && structureRef.structure != null)
+            {
+               structureButtons[i].onClick.AddListener(() => SelectStructure(index, structureRef.structure));
+            }
+            else
+            {
+                Debug.LogError("No structure assigned to button " + structureButtons[i].name);
+            }
         }
     }
 
-    private void SelectStructure(int index)
+    private void SelectStructure(int index, Structure structure)
     {
         BuildManager.main.SetSelectedStructure(index); // True for tower
-        //StartCooldown(structureButtons[index], index);
+        StartCooldown(structureButtons[index], index, structure.buildCooldown);
     }
 
-    // private void StartCooldown(Button button, int index)
-    // {
-    //     StartCoroutine(CooldownRoutine(button, index));
-    // }
+    private void StartCooldown(Button button, int index, float cooldownTime)
+    {
+        // Assuming the last child is the cooldown overlay
+        Image cooldownOverlay = button.transform.GetChild(button.transform.childCount - 1).GetComponent<Image>();
+        StartCoroutine(CooldownRoutine(button, cooldownOverlay, cooldownTime));
+    }
 
-    // private IEnumerator CooldownRoutine(Button button, int index)
-    // {
-    //     button.interactable = false;
-    //     float remainingTime = cooldownTime;
-    //     while (remainingTime > 0)
-    //     {
-    //         cooldownOverlays[index].fillAmount = remainingTime / cooldownTime;
-    //         remainingTime -= Time.deltaTime;
-    //         yield return null;
-    //     }
+    private IEnumerator CooldownRoutine(Button button, Image cooldownOverlay, float cooldownTime)
+    {
+        button.interactable = false;
+        float remainingTime = cooldownTime;
 
-    //     cooldownOverlays[index].fillAmount = 0;
-    //     button.interactable = true;
-    // }
+        while (remainingTime > 0)
+        {
+            int currentGameSpeed = LevelManager.GetGameSpeed();
+            cooldownOverlay.fillAmount = remainingTime / cooldownTime;
+            remainingTime -= Time.deltaTime * currentGameSpeed;
+            yield return null;
+        }
+
+        cooldownOverlay.fillAmount = 0;
+        button.interactable = true;
+    }
 }

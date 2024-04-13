@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.EventSystems; // Required for UI event handling
-using UnityEngine.UI; // Required for working with UI components
+using UnityEngine.EventSystems; 
+using UnityEngine.UI; 
 
 // Make sure your class implements the required interfaces for pointer events
 public class HoverShaderSwitchUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Sprite defaultSprite; // Assign in the inspector
-    public Sprite hoverSprite; // Assign in the inspector
+    public Sprite defaultSprite;
+    public Sprite hoverSprite; 
 
     private Image imageComponent;
 

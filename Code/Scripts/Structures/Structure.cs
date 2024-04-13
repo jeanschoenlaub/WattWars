@@ -5,7 +5,8 @@ public abstract class Structure : ScriptableObject
 {
     public string structureName;
     public int cost;
-    public int[] size; // TO-dO change to Vector2Int
+    public int[] size; // To-Do switch to vector2int
     public GameObject prefab;
+    public float buildCooldown;  // Cooldown time in seconds for building this structure
 }
 
