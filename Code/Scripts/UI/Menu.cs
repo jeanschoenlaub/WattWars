@@ -20,7 +20,6 @@ public class Menu : MonoBehaviour
     [SerializeField] Sprite pauseSprite;
     private bool isMenuOpen = false;
 
-    
     [Header("--------- GameSound ---------")]
     [SerializeField] Button soundButton;
     [SerializeField] GameObject volumeSlider;
@@ -48,8 +47,6 @@ public class Menu : MonoBehaviour
         menuGameObject.SetActive(false);
 
         menuButton.onClick.AddListener(ToggleMenu);
-
-        
        
         Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
         Slider sfxSliderComponent = sfxSlider.GetComponent<Slider>();

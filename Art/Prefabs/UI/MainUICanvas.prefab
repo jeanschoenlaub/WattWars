@@ -330,6 +330,8 @@ MonoBehaviour:
   pauseSprite: {fileID: 1269770191, guid: 0c54a7d9279874236b653804659099c3, type: 3}
   soundButton: {fileID: 8473114718389125781}
   volumeSlider: {fileID: 1916001078117596370}
+  sfxButton: {fileID: 831677751176147668}
+  sfxSlider: {fileID: 6617751621184089318}
   soundOnSprite: {fileID: 21300000, guid: 6d3a0a7a2316848d9a19bce1dfc9c91e, type: 3}
   soundOffSprite: {fileID: 21300000, guid: b0bfab4adbc2649998521827bfe53b2e, type: 3}
 --- !u!1 &409984650689938780
@@ -2297,18 +2299,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2788146671628814736}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Debuger
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6026,18 +6016,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2788146671628814736}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Debuger
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &6024631218223546063
 GameObject:
   m_ObjectHideFlags: 0
@@ -6846,18 +6824,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2788146671628814736}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Debuger
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

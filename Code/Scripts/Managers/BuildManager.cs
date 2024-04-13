@@ -5,8 +5,7 @@ public class BuildManager : MonoBehaviour
     public static BuildManager main;
 
     [Header("References")]
-    [SerializeField] private Tower[] towers;
-    [SerializeField] private Building[] buildings; // Add an array for buildings
+    [SerializeField] private Structure[] structures;
 
     private Structure selectedStructure; // object to store either Tower or Building
     public GameObject structurePreviewInstance; // Generalized name for preview instance
@@ -31,22 +30,11 @@ public class BuildManager : MonoBehaviour
         selectedStructure=null;
     }
 
-    public void SetSelectedTower(int towerIndex)
+    public void SetSelectedStructure(int structureIndex)
     {
         ClearStructurePreview();
-        selectedStructure = towers[towerIndex];
-        CreateStructurePreview(((Tower)selectedStructure).prefab, selectedStructure);
-
-        LevelManager.PauseGame();
-        audioManager.PlaySFX(audioManager.buildSelected);
-    }
-
-    // Add a method to select a building
-    public void SetSelectedBuilding(int buildingIndex)
-    {
-        ClearStructurePreview();
-        selectedStructure = buildings[buildingIndex];
-        CreateStructurePreview(((Building)selectedStructure).prefab, selectedStructure);
+        selectedStructure = structures[structureIndex];
+        CreateStructurePreview(selectedStructure.prefab, selectedStructure);
 
         LevelManager.PauseGame();
         audioManager.PlaySFX(audioManager.buildSelected);
