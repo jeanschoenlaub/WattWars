@@ -3,9 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-// TO-DO
-// Get cost text and update from here
-
 public class ShopManager : MonoBehaviour
 {
     [Header("Shop Buttons and Cooldowns")]

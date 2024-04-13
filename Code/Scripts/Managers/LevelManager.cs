@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] public Scenario currentScenario;
     [SerializeField] public Animator cityCoinAnimator;
+    [SerializeField] public TextMeshProUGUI cityCoinAnimationText;
      
 
     public Transform startPoint;
@@ -80,6 +82,8 @@ public class LevelManager : MonoBehaviour
 
     public void IncreaseCurrency( int amount ){
         coins += amount;
+        cityCoinAnimationText.text = amount.ToString();
+        cityCoinAnimator.SetTrigger("CoinAppear");
     }
 
     public void DecreaseLives( int amount ){
@@ -115,6 +119,7 @@ public class LevelManager : MonoBehaviour
             if (gameSpeed > 0) // Only add coins if the game is not paused
             {
                 IncreaseCurrency(cityCoinGen); // Increase coins by 1, adjust this value as needed
+                cityCoinAnimationText.text = cityCoinGen.ToString();
                 cityCoinAnimator.SetTrigger("CoinAppear");
             }
         }

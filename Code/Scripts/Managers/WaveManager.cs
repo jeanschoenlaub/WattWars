@@ -55,7 +55,6 @@ public class WaveManager : MonoBehaviour {
         UpdateCurrentDayAndWave();
         if (currentDay != null && currentDay.waves.Count > 0 )
         {
-            Debug.Log("aaa");
             StartNextWave(); 
         }
     }
@@ -102,7 +101,6 @@ public class WaveManager : MonoBehaviour {
             }
             else if (state.spawnedCount < state.enemyInfo.quantity && state.timeSinceLastSpawn >= state.enemyInfo.spawnInterval)
             {
-                Debug.Log("Spawn");
                 SpawnEnemy(state.enemyInfo.enemyPrefab);
                 state.spawnedCount++;
                 state.timeSinceLastSpawn = 0; // Reset time since last spawn
@@ -146,15 +144,24 @@ public class WaveManager : MonoBehaviour {
 
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {
-            Debug.Log("populating spawn staes");
             spawnStates.Add(new SpawnState(enemyInfo));
         }
     }
 
     private void SpawnEnemy(GameObject enemyPrefab)
     {
-        Debug.Log("spawn");
-        Instantiate(enemyPrefab, LevelManager.main.startPoint.position, Quaternion.identity);
+        // Randomize y a bit
+        Vector3 originalPosition = LevelManager.main.startPoint.position;
+        float randomOffsetY = Random.Range(-0.2f, 0.3f);
+        // Apply the random offset to the original position
+        Vector3 randomizedPosition = new Vector3(
+            originalPosition.x,
+            originalPosition.y + randomOffsetY,
+            originalPosition.z // + randomOffsetZ for 3D games
+        );
+        
+        Instantiate(enemyPrefab, randomizedPosition, Quaternion.identity);
+
         enemiesAlive++;
     }
 
