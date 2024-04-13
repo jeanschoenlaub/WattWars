@@ -104,6 +104,10 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    public int GetCurrentMoney(){
+        return coins;
+    }
+
     IEnumerator AddCoinsAtIntervals(float interval)
     {
         while (true) // Creates an infinite loop, which is fine in a coroutine with yielding
