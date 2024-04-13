@@ -104,6 +104,8 @@ public class TutoPlaceTower : MonoBehaviour
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
+        LevelManager.main.IncreaseCurrency(100);
+
         TutoText.text = "Let's place a fuel tower";
         TutoTextBox.SetActive(true);
 
@@ -131,6 +133,7 @@ public class TutoPlaceTower : MonoBehaviour
     IEnumerator Task3PlaceDieselGenTower(float delay){
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
+        LevelManager.main.IncreaseCurrency(200);
 
         TutoText.text = "Let's place a diesel generator tower";
         TutoTextBox.SetActive(true);
