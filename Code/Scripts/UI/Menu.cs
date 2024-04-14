@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     [Header("--------- Score and UI ---------")]
+    public bool isInTDMode = true;
     [SerializeField] TextMeshProUGUI currencyUI;
     [SerializeField] TextMeshProUGUI livesUI;
     [SerializeField] TextMeshProUGUI waveUI;
@@ -129,22 +130,36 @@ public class Menu : MonoBehaviour
     }
 
     private void OnGUI(){
-        currencyUI.text = LevelManager.main.coins.ToString();
-        livesUI.text = LevelManager.main.GetNumeberOfLives().ToString();
+        if (isInTDMode){
+            currencyUI.text = LevelManager.main.coins.ToString();
+            livesUI.text = LevelManager.main.GetNumeberOfLives().ToString();
 
-        if (waveAnim && waveUI){
-             //For the following waves starts at 0 and we want to start with 1 for UI 
-        waveAnim.text =  "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
-        waveUI.text =   "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
-                        +  waveManager.currentDay.waves.Count.ToString();
+            if (waveAnim && waveUI){
+                //For the following waves starts at 0 and we want to start with 1 for UI 
+            waveAnim.text =  "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
+            waveUI.text =   "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
+                            +  waveManager.currentDay.waves.Count.ToString();
 
-        }else{
-            Debug.Log("UI Text Missing");
+            }else{
+                Debug.Log("UI Text Missing");
+            }
         }
     }
 
     public void BackToMenu(){
         SceneManager.LoadScene("Menu");
+    }
+
+    public void BackToIdle(){
+        SceneManager.LoadScene("Idle");
+    }
+
+    public void QuitGame(){
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
     }
 
     public void Restart(){

@@ -152,7 +152,7 @@ public class WaveManager : MonoBehaviour {
     {
         // Randomize y a bit
         Vector3 originalPosition = LevelManager.main.startPoint.position;
-        float randomOffsetY = Random.Range(-0.2f, 0.3f);
+        float randomOffsetY = Random.Range(-0.4f, 0.5f);
         // Apply the random offset to the original position
         Vector3 randomizedPosition = new Vector3(
             originalPosition.x,

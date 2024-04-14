@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012d7662243df482ebe1c691a46d7a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerConfig: {fileID: 11400000, guid: ae9646a1b106f4b56a15f1ce20b6bf93, type: 2}
   bulletPrefab: {fileID: 6012673426103185755, guid: 1bbb157a8a5634a10b7ba02ec043ff9f, type: 3}
   firingPoint: {fileID: 15090158233139985}
   enemyMask:

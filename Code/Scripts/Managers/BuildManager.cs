@@ -65,7 +65,7 @@ public class BuildManager : MonoBehaviour
             {
                 GameObject rangeCircle = rangeCircleTransform.gameObject; 
                 SetOpacity(rangeCircle,0.5f,Color.green);
-                rangeCircle.transform.localScale = new Vector3(tower.range, tower.range, 1);
+                rangeCircle.transform.localScale = new Vector3(tower.targetingRange, tower.targetingRange, 1);
             }
         }
     }

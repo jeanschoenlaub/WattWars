@@ -4,5 +4,6 @@ using UnityEngine;
 public class Tower : Structure
 {
     public GameObject rangeCircle;
-    public int range;
+    public float targetingRange;
+    public float bulletPerSeconds;
 }

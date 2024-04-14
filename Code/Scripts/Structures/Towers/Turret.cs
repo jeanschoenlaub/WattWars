@@ -11,6 +11,9 @@ public enum TowerType
 
 public class Turret : MonoBehaviour
 {
+    [Header("Tower Configuration")]
+    [SerializeField] private Tower towerConfig; // Reference to the Tower ScriptableObject
+
     [Header("--- All towers common attributes ")]
     [SerializeField] private GameObject bulletPrefab; //Either electron or fuel
     [SerializeField] private Transform firingPoint;
@@ -18,10 +21,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask buildingMask;
     [SerializeField] private GameObject rangeCircle;
     [SerializeField] public TowerType towerType;
-    [SerializeField] private float targetingRange = 5f;
-
-    [Header("--- Ressource Tower Attribute ---")]
-    [SerializeField] private float bulletPerSeconds = 0f;
     
     [Header("--- Converting Tower Attribute ---")]
     [SerializeField] private GameObject switchOnOff;
@@ -43,7 +42,7 @@ public class Turret : MonoBehaviour
                 int currentGameSpeed = LevelManager.GetGameSpeed();
                 timeUntilFire += Time.deltaTime*currentGameSpeed;
 
-                if (timeUntilFire >= 1f/ bulletPerSeconds){
+                if (timeUntilFire >= 1f/ towerConfig.bulletPerSeconds){
                     Shoot(); 
                     timeUntilFire = 0f;
                 }
@@ -124,7 +123,7 @@ public class Turret : MonoBehaviour
         Health enemyHealth = enemy.GetComponent<Health>();
 
         // Determine if the enemy is within the targeting range
-        bool isInRange = dSqrToTarget <= (targetingRange * targetingRange);
+        bool isInRange = dSqrToTarget <= (towerConfig.targetingRange * towerConfig.targetingRange);
 
         if (enemyHealth == null || !isInRange)
         {
@@ -158,7 +157,7 @@ public class Turret : MonoBehaviour
             Vector3 directionToBuilding = building.transform.position - transform.position;
             float dSqrToBuilding = directionToBuilding.sqrMagnitude;
 
-            if (dSqrToBuilding < closestDistanceSqr && dSqrToBuilding <= (targetingRange * targetingRange))
+            if (dSqrToBuilding < closestDistanceSqr && dSqrToBuilding <= (towerConfig.targetingRange * towerConfig.targetingRange))
             {
                 closestDistanceSqr = dSqrToBuilding;
                 closestBuilding = building.transform;
@@ -182,7 +181,7 @@ public class Turret : MonoBehaviour
                 Vector3 directionToSwitchableTower = tower.transform.position - transform.position;
                 float dSqrToSwitcheableTower = directionToSwitchableTower.sqrMagnitude;
 
-                if (dSqrToSwitcheableTower < closestDistanceSqr && dSqrToSwitcheableTower <= (targetingRange * targetingRange))
+                if (dSqrToSwitcheableTower < closestDistanceSqr && dSqrToSwitcheableTower <= (towerConfig.targetingRange * towerConfig.targetingRange))
                 {
                     closestDistanceSqr = dSqrToSwitcheableTower;
                     closestSwitcheableTower = tower.transform;
