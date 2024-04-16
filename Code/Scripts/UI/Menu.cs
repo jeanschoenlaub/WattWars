@@ -129,6 +129,7 @@ public class Menu : MonoBehaviour
         }
     }
 
+    //TO-DO update from onGUI to the Update() function
     private void OnGUI(){
         if (isInTDMode){
             currencyUI.text = LevelManager.main.coins.ToString();
