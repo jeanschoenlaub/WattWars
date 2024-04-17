@@ -5,39 +5,37 @@ using TMPro;
 
 public class BuildSiteManager : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] TextMeshProUGUI buildingCoinsUI;
-    [SerializeField] Sprite constructionFieldSprite;
-    [SerializeField] GameObject constructionField;
-    [SerializeField] UpgradePopUp upgradePopUp;
-    [SerializeField] BuildPopUp buildPopUp;
+    [Header("UI References")]
+    [SerializeField] private Sprite constructionFieldSprite;
+    [SerializeField] private GameObject constructionField;
+    [SerializeField] private UpgradePopUp upgradePopUp;
+    [SerializeField] private BuildPopUp buildPopUp;
+    [SerializeField] private GameObject constructionGoUI;
+    [SerializeField] private TextMeshProUGUI constructionTimeTextUI;
+    [SerializeField] private GameObject productionGoUI;
+    [SerializeField] private TextMeshProUGUI productionCoinsTextUI;
 
-    private Image imageComponent; // We get the image component programaticaly
 
-    // For saving and loading
+    [Header("Building Configuration")]
     public int buildingId;
-    
-    //For the construction mode
     public bool hasBuilding;
-    public bool isUpgrading; // Or Building
-    public DateTime buildingEndTime;
+    public bool isUpgrading;
     public IdleBuilding currentlyBuildingBuildingType;
     public IdleBuilding buildingType;
 
-    //For the spot price mode
+    [Header("Financial Management")]
+    public float coins = 0;
+    private float spotPriceRate = 5.0f;
+    private float timeIntervalForSpotPrice = 10f; 
+
+    [Header("Time Management")]
+    private DateTime lastCollectTime;
+    private DateTime buildingEndTime;
+    private DateTime contractEndTime;
+
+    private Image imageComponent;
     private bool isBuildingOn = false;
     private bool isSpotPriceMode = false;
-    public float coins = 0;
-    private float spotPriceRate = 5.0f; 
-    private DateTime lastCollectTime;
-    private float timeIntervalForSpotPrice = 10f; // Interval to add coins in spot price mode
-    
-    
-    //For the contract mode
-    private DateTime contractEndTime; 
-    private bool isContractActive = false;
-    private float futureContractCoins = 2;
-    private bool isLockInContractMode = false;
 
     void Start()
     {
@@ -65,25 +63,25 @@ public class BuildSiteManager : MonoBehaviour
 
     void Update()
     {
-        CheckConstructionCompletion();
-        if (isSpotPriceMode){
+        if (isUpgrading){
+            CheckConstructionCompletion();
+        }
+        else if (isSpotPriceMode){
             UpdateSpotPriceMode();
         }
-        if (isContractActive){
-            CheckContractStatus();
-        }
-
-        buildingCoinsUI.text = coins.ToString();
     }
 
     void CheckConstructionCompletion()
     {
-        if (isUpgrading){
-            buildingCoinsUI.text = GetRemainingTime();
-            if (buildingEndTime > DateTime.MinValue && DateTime.Now >= buildingEndTime)
-            {
-                CompleteConstruction();
-            }
+        // Deactivates the coins and shows construction UI to show time remaining
+        productionGoUI.SetActive(false);
+        constructionGoUI.SetActive(true);
+        constructionTimeTextUI.text = GetRemainingTime();
+
+
+        if (buildingEndTime > DateTime.MinValue && DateTime.Now >= buildingEndTime)
+        {
+            CompleteConstruction();
         }
     }
 
@@ -95,8 +93,9 @@ public class BuildSiteManager : MonoBehaviour
 
         imageComponent.sprite = buildingType.offSprite; 
         
+        // Resets the buildEndTime
         buildingEndTime = DateTime.MinValue;
-        SaveBuildingEndTime(buildingEndTime); // Clear the saved end time
+        SaveBuildingEndTime(buildingEndTime); 
     }
 
     public void ManagePopUp(){
@@ -108,13 +107,14 @@ public class BuildSiteManager : MonoBehaviour
         }
     }
 
-    // Save and load methods for building end time
+    // Save method for building end time
     private void SaveBuildingEndTime(DateTime endTime)
     {
         PlayerPrefs.SetString("Building" + buildingId + "_EndTime", endTime.ToString());
         PlayerPrefs.Save();
     }
 
+    // Load method for building end time
     private DateTime LoadBuildingEndTime()
     {
         string key = "Building" + buildingId + "_EndTime";
@@ -140,24 +140,12 @@ public class BuildSiteManager : MonoBehaviour
         }
     }
 
-    // Method to start a lock-in contract
-    public void StartContract(float durationInSeconds, float contractCoins)
-    {
-        if (!isContractActive)
-        {
-            futureContractCoins = contractCoins;
-            contractEndTime = DateTime.Now.AddSeconds(durationInSeconds);
-            isContractActive = true;
-            isSpotPriceMode = false;
-        }
-    }
 
     // Handles spot price mode coin generation
     public void ToggleOnOff()
     {
         if (isBuildingOn){
             isSpotPriceMode = false;
-            isContractActive = false;
             imageComponent.sprite = buildingType.offSprite;
         }
         else if (!isBuildingOn){
@@ -166,7 +154,7 @@ public class BuildSiteManager : MonoBehaviour
         }
     }
 
-    // Handles spot price mode coin generation
+   // Handles spot price mode coin generation
    private void UpdateSpotPriceMode()
     {
         // Calculate time since last update and update coins accordingly
@@ -178,6 +166,11 @@ public class BuildSiteManager : MonoBehaviour
             lastCollectTime = DateTime.Now;
             SaveLastCollectTime(lastCollectTime);
         }
+
+        // Deactivates the construction UI and shows production UI to show coins generated
+        productionGoUI.SetActive(true);
+        constructionGoUI.SetActive(false);
+        productionCoinsTextUI.text = coins.ToString();
     }
 
     // Save and load methods for persisting data
@@ -202,16 +195,6 @@ public class BuildSiteManager : MonoBehaviour
         SaveLastCollectTime(lastCollectTime);
     }
 
-    // Checks if the contract is still active
-    private void CheckContractStatus()
-    {
-        if (isContractActive && DateTime.Now >= contractEndTime)
-        {
-            isContractActive = false;
-            coins += futureContractCoins;
-        }
-    }
-
     // Optionally, a method to get the remaining production time to update the UI
     public string GetRemainingTime()
     {
@@ -220,15 +203,6 @@ public class BuildSiteManager : MonoBehaviour
             TimeSpan remaining = buildingEndTime - DateTime.Now;
             if (remaining.Ticks < 0)
                 remaining = TimeSpan.Zero; // Ensure we don't display negative time
-            return "a";
-            //return string.Format("{0:D2}:{1:D2}:{2:D2}", remaining.Hours, remaining.Minutes, remaining.Seconds);
-        }
-        if (isContractActive)
-        {
-            TimeSpan remaining = contractEndTime - DateTime.Now;
-            if (remaining.Ticks < 0)
-                remaining = TimeSpan.Zero; // Ensure we don't display negative time
-
             return string.Format("{0:D2}:{1:D2}:{2:D2}", remaining.Hours, remaining.Minutes, remaining.Seconds);
         }
         return "00:00:00";
