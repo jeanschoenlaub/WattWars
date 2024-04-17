@@ -40,8 +40,10 @@ public class BuildSiteManager : MonoBehaviour
     void Start()
     {
         imageComponent = constructionField.GetComponent<Image>();
-        
         lastCollectTime = LoadLastCollectTime();
+
+        productionGoUI.SetActive(isBuildingOn);
+        constructionGoUI.SetActive(isUpgrading);
 
         if (!hasBuilding){
             imageComponent.sprite = constructionFieldSprite;
@@ -104,6 +106,7 @@ public class BuildSiteManager : MonoBehaviour
             upgradePopUp.TogglePopUp();
         }
         else{
+            buildPopUp.SetCurrentBuildingManager(this);
             buildPopUp.TogglePopUp();
         }
     }
