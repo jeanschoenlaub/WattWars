@@ -7,14 +7,15 @@ public class BuildSiteManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Sprite constructionFieldSprite;
-    [SerializeField] private GameObject constructionField;
-    [SerializeField] private UpgradePopUp upgradePopUp;
-    [SerializeField] private BuildPopUp buildPopUp;
     [SerializeField] private GameObject constructionGoUI;
     [SerializeField] private TextMeshProUGUI constructionTimeTextUI;
     [SerializeField] private GameObject productionGoUI;
     [SerializeField] private TextMeshProUGUI productionCoinsTextUI;
+    [SerializeField] private GameObject constructionField;
 
+    [Header("Pop ups References")]
+    [SerializeField] private UpgradePopUp upgradePopUp;
+    [SerializeField] private BuildPopUp buildPopUp;
 
     [Header("Building Configuration")]
     public int buildingId;
@@ -31,9 +32,8 @@ public class BuildSiteManager : MonoBehaviour
     [Header("Time Management")]
     private DateTime lastCollectTime;
     private DateTime buildingEndTime;
-    private DateTime contractEndTime;
 
-    private Image imageComponent;
+    private Image imageComponent; //used to access the image of building
     private bool isBuildingOn = false;
     private bool isSpotPriceMode = false;
 
@@ -100,6 +100,7 @@ public class BuildSiteManager : MonoBehaviour
 
     public void ManagePopUp(){
         if (hasBuilding){
+            upgradePopUp.SetCurrentBuildingManager(this);
             upgradePopUp.TogglePopUp();
         }
         else{
