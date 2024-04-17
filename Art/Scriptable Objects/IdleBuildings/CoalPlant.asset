@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce81a08b4907a4134962b683271b104a, type: 3}
   m_Name: CoalPlant
   m_EditorClassIdentifier: 
+  buildingName: coal
   power: 1
   cost: 0
   timeToBuild: 10

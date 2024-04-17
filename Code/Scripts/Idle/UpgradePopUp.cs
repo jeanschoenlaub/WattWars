@@ -26,6 +26,14 @@ public class UpgradePopUp : MonoBehaviour
         }
     }
 
+    public void DeleteBuilding(){
+        if (currentBuildingManager != null) {
+            currentBuildingManager.DeleteBuilding();
+        }else {
+            Debug.Log("Bug linking build site and pop up");
+        }
+    }
+
     public void TogglePopUp(){
         isUpgradeOpen = !isUpgradeOpen;
         

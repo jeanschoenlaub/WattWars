@@ -26,9 +26,9 @@ public class IdleManager : MonoBehaviour
         idleCoinText.text = coins.ToString();
     }
 
-    public void IncreaseCurrency( int amount ){
+    public void IncreaseCurrency(int amount ){
         coins += amount;
-        idleCoinText.text = amount.ToString();
+        idleCoinText.text = coins.ToString();
     }
 
     public bool SpendCurrency( int amount ){
