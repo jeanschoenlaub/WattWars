@@ -31,7 +31,7 @@ public class BuildSiteManager : MonoBehaviour
     private float timeIntervalForSpotPrice = 10f; 
 
     [Header("Time Management")]
-    private DateTime lastCollectTime;
+    private DateTime lastTimeCoinsGenerated;
     private DateTime buildingEndTime;
 
     private Image imageComponent; //used to access the image of building
@@ -40,12 +40,16 @@ public class BuildSiteManager : MonoBehaviour
     void Start()
     {
         imageComponent = constructionField.GetComponent<Image>();
-        lastCollectTime = LoadLastCollectTime();
+        
+        // First we load the building state
+        LoadBuildingType();
+        LoadBuildingState();
+        LoadBuildingCoins(); //Updates with coins generated offline
+        LoadBuildingEndTime();
 
+        // Then we set the building UI to correspond to the state
         productionGoUI.SetActive(isBuildingOn);
         constructionGoUI.SetActive(isUpgrading);
-
-        LoadBuildingType();
 
         if (!hasBuilding){
             imageComponent.sprite = constructionFieldSprite;
@@ -53,7 +57,6 @@ public class BuildSiteManager : MonoBehaviour
         else if (hasBuilding && isBuildingOn)
         {
             imageComponent.sprite = buildingType.onSprite;
-            UpdateCoinsBasedOnLastCollect();
         }
         else if (!isBuildingOn)
         {
@@ -77,7 +80,6 @@ public class BuildSiteManager : MonoBehaviour
         productionGoUI.SetActive(false);
         constructionGoUI.SetActive(true);
         constructionTimeTextUI.text = GetRemainingTime();
-
 
         if (buildingEndTime > DateTime.MinValue && DateTime.Now >= buildingEndTime)
         {
@@ -105,6 +107,9 @@ public class BuildSiteManager : MonoBehaviour
         currentlyBuildingBuildingType = null; // Reset the field to null
         buildingType = null; // Reset the field to null
         imageComponent.sprite = constructionFieldSprite;
+        coins = 0;
+        productionGoUI.SetActive(false);
+        constructionGoUI.SetActive(false);
         SaveBuildingType(null);
     }
 
@@ -113,6 +118,7 @@ public class BuildSiteManager : MonoBehaviour
         IdleManager.main.IncreaseCurrency(coins);
         coins=0;
         productionGoUI.SetActive(false);
+        SaveBuildingCoins(coins);
     }
 
     public void ManagePopUp(){
@@ -126,26 +132,8 @@ public class BuildSiteManager : MonoBehaviour
         }
     }
 
-    // Save method for building end time
-    private void SaveBuildingEndTime(DateTime endTime)
-    {
-        PlayerPrefs.SetString("Building" + buildingId + "_EndTime", endTime.ToString());
-        PlayerPrefs.Save();
-    }
 
-    // Load method for building end time
-    private DateTime LoadBuildingEndTime()
-    {
-        string key = "Building" + buildingId + "_EndTime";
-        string endTimeStr = PlayerPrefs.GetString(key, "");
-        if (!string.IsNullOrEmpty(endTimeStr))
-        {
-            return DateTime.Parse(endTimeStr);
-        }
-        return DateTime.MinValue; // Return min value if nothing is saved
-    }
-
-    public void SetBuilding(IdleBuilding building)
+     public void SetBuilding(IdleBuilding building)
     {
         if (IdleManager.main.GetCurrentMoney() >= building.cost)
         {
@@ -171,24 +159,25 @@ public class BuildSiteManager : MonoBehaviour
             isBuildingOn = true;
             imageComponent.sprite = buildingType.onSprite;
         }
+        SaveBuildingState(isBuildingOn);
     }
 
     // Handles spot price mode coin generation
     private void UpdateSpotPriceMode()
     {
         // Calculate time since last update and update coins accordingly
-        TimeSpan elapsed = DateTime.Now - lastCollectTime;
+        TimeSpan elapsed = DateTime.Now - lastTimeCoinsGenerated;
         if (elapsed.TotalSeconds >= timeIntervalForSpotPrice)
         {
             int intervalsPassed = (int)(elapsed.TotalSeconds / timeIntervalForSpotPrice);
             int coinsToAdd = (int)Math.Ceiling(intervalsPassed * spotPriceRate);
             coins += coinsToAdd;
-            lastCollectTime = DateTime.Now;
-            SaveLastCollectTime(lastCollectTime);
+            lastTimeCoinsGenerated = DateTime.Now;
+            SaveLastTimeCoinsGenerated(lastTimeCoinsGenerated);
+            SaveBuildingCoins(coins);
         }
 
         // Deactivates the construction UI and shows production UI to show coins generated
-        
         if (coins > 0){
             productionGoUI.SetActive(true);
         }
@@ -196,63 +185,106 @@ public class BuildSiteManager : MonoBehaviour
         productionCoinsTextUI.text = coins.ToString();
     }
 
-    // Save and load methods for persisting data
-    private void SaveLastCollectTime(DateTime time)
+    // Save method for building end time
+    private void SaveBuildingEndTime(DateTime endTime)
     {
-        PlayerPrefs.SetString("LastCollectTime", time.ToString());
+        PlayerPrefs.SetString("Building" + buildingId + "_EndTime", endTime.ToString());
+        PlayerPrefs.Save();
+    }
+
+    // Save method for building end time
+    private void SaveBuildingState( bool isBuildingOn)
+    {
+        PlayerPrefs.SetString("Building" + buildingId + "_isBuildingOn", isBuildingOn.ToString());
+        PlayerPrefs.Save();
+    }
+
+    private void LoadBuildingState()
+    {
+        // Retrieve the string and convert it to boolean
+        string key = "Building" + buildingId + "_isBuildingOn";
+        string value = PlayerPrefs.GetString(key, "false"); // Default to "false" if the key does not exist
+        isBuildingOn = bool.Parse(value);
+    }
+
+    private void SaveBuildingCoins(int coins)
+    {
+        PlayerPrefs.SetInt("Building" + buildingId + "_Coins", coins);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadBuildingCoins()
+    {
+        // Get any uncollected coins before the game was shut
+        coins = PlayerPrefs.GetInt("Building" + buildingId + "_Coins", 0); // Default to 0 if no coins have been saved yet
+
+        //Then we add coins generaterd offline 
+        LoadLastTimeCoinsGenerated(); // Fetch and update lastTimeCoinsGenerated
+        if (isBuildingOn){
+            UpdateSpotPriceMode();
+        }
+    }
+
+    // Load method for building end time
+    private DateTime LoadBuildingEndTime()
+    {
+        string key = "Building" + buildingId + "_EndTime";
+        string endTimeStr = PlayerPrefs.GetString(key, "");
+        if (!string.IsNullOrEmpty(endTimeStr))
+        {
+            return DateTime.Parse(endTimeStr);
+        }
+        return DateTime.MinValue; // Return min value if nothing is saved
+    }
+
+    // Save time using ISO 8601 
+    private void SaveLastTimeCoinsGenerated(DateTime time)
+    {
+        string timeString = time.ToString("o"); // "o" denotes a round-trip format that includes the timezone.
+        PlayerPrefs.SetString("Building" + buildingId + "LastTimeCoinsGenerated", timeString);
         PlayerPrefs.Save();
     }
 
     // Save and load methods for persisting data
+    private void LoadLastTimeCoinsGenerated()
+    {
+        string timeString = PlayerPrefs.GetString("Building" + buildingId + "LastTimeCoinsGenerated", DateTime.Now.ToString("o"));
+        lastTimeCoinsGenerated = DateTime.Parse(timeString, null, System.Globalization.DateTimeStyles.RoundtripKind);
+    }
+
+    // Save building type to keep track accross
     private void SaveBuildingType(IdleBuilding buildingtype)
     {
-        PlayerPrefs.SetString("Building" + buildingId + "Type", buildingtype.buildingName);
+        // Check if buildingtype is null and handle appropriately
+        if (buildingtype != null)
+        {
+            Debug.Log(buildingtype.buildingName);
+            PlayerPrefs.SetString("Building" + buildingId + "Type", buildingtype.buildingName);
+        }
+        else
+        {
+            // Set a default or empty value to indicate no building
+            PlayerPrefs.SetString("Building" + buildingId + "Type", "");
+        }
         PlayerPrefs.Save();
     }
 
     private void LoadBuildingType()
     {
         string buildingName = PlayerPrefs.GetString("Building" + buildingId + "Type", "");
-        Debug.Log(buildingName);
         if (!string.IsNullOrEmpty(buildingName))
         {
             if (buildingDatabase != null)
             {
                 buildingType = buildingDatabase.GetBuildingByName(buildingName);
-                if (buildingType != null)
                 {
                     hasBuilding = true;
                 }
-                else
-                {
-                    Debug.LogError("Building type not found in database");
-                }
-            }
-            else
-            {
-                Debug.LogError("BuildingDatabase is not assigned");
             }
         }
     }
 
-
-    private DateTime LoadLastCollectTime()
-    {
-        string timeStr = PlayerPrefs.GetString("LastCollectTime", DateTime.Now.ToString());
-        return DateTime.Parse(timeStr);
-    }
-
-    private void UpdateCoinsBasedOnLastCollect()
-    {
-        TimeSpan timeSinceLast = DateTime.Now - lastCollectTime;
-        int missedIntervals = (int)(timeSinceLast.TotalSeconds / timeIntervalForSpotPrice);
-        int coinsToAdd = (int)Math.Ceiling(missedIntervals * spotPriceRate);
-        coins += coinsToAdd;
-        lastCollectTime = DateTime.Now; // Reset last collect time
-        SaveLastCollectTime(lastCollectTime);
-    }
-
-    // Optionally, a method to get the remaining production time to update the UI
+    // Method to get the remaining production time to update the UI
     public string GetRemainingTime()
     {
         if (isUpgrading)
