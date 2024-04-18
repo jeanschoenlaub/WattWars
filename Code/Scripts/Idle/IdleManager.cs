@@ -23,18 +23,44 @@ public class IdleManager : MonoBehaviour
 
     private void Start(){
         // Load  coins =  PlayerPrefs
-        idleCoinText.text = coins.ToString();
+        LoadPlayerCoins();
+        idleCoinText.text = FormatNumber(coins);
     }
+
+    public static string FormatNumber(int num)
+{
+    if (num >= 1000000000)
+        return (num / 1000000000D).ToString("0.#") + "B"; // Billion
+    if (num >= 1000000)
+        return (num / 1000000D).ToString("0.#") + "M"; // Million
+    if (num >= 1000)
+        return (num / 1000D).ToString("0.#") + "K"; // Thousand
+
+    return num.ToString(); // Less than 1000
+}
 
     public void IncreaseCurrency(int amount ){
         coins += amount;
-        idleCoinText.text = coins.ToString();
+        idleCoinText.text = FormatNumber(coins);
+        SaveCurrentCoins(coins);
+    }
+
+    private void SaveCurrentCoins(int coins)
+    {
+        PlayerPrefs.SetInt("PlayerCoins", coins);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadPlayerCoins()
+    {
+        coins = PlayerPrefs.GetInt("PlayerCoins", 0);
     }
 
     public bool SpendCurrency( int amount ){
         if (amount <= coins){
             //Buy Item
             coins -= amount;
+            SaveCurrentCoins(coins);
             return true;
         }
         else{ 
