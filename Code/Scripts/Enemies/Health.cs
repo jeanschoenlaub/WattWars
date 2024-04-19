@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class Health : MonoBehaviour
         if ( elecLives <= 0 && fuelLives <= 0 && !isDestroyed){
             WaveManager.onEnemyDestroy.Invoke();
             LevelManager.main.IncreaseCurrency(killCoins);
+
             Destroy(gameObject);
             isDestroyed = true;
         }

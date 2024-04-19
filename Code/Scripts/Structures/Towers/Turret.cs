@@ -119,11 +119,15 @@ public class Turret : MonoBehaviour
     {
         enemyProgress = enemy.GetComponent<EnemyMovement>().pathProgress;
         Vector3 directionToTarget = enemy.transform.position - transform.position;
+
         float dSqrToTarget = directionToTarget.sqrMagnitude;
         Health enemyHealth = enemy.GetComponent<Health>();
 
         // Determine if the enemy is within the targeting range
-        bool isInRange = dSqrToTarget <= (towerConfig.targetingRange * towerConfig.targetingRange);
+        // Use the enemy's scale to estimate its effective radius
+        float enemyRadius = Mathf.Max(enemy.transform.localScale.x, enemy.transform.localScale.y, enemy.transform.localScale.z) * 0.5f;
+        float adjustedRange = towerConfig.targetingRange + enemyRadius;
+        bool isInRange = dSqrToTarget <= (adjustedRange * adjustedRange);
 
         if (enemyHealth == null || !isInRange)
         {

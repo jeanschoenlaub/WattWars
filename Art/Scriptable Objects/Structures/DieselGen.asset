@@ -18,5 +18,5 @@ MonoBehaviour:
   prefab: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
   buildCooldown: 15
   rangeCircle: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
-  targetingRange: 5
+  targetingRange: 4
   bulletPerSeconds: 0
