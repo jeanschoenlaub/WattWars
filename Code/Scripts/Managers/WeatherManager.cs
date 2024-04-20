@@ -6,7 +6,8 @@ using UnityEngine;
 public class WeatherManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject Sun;
+    [SerializeField] private GameObject sunGO;
+    [SerializeField] private GameObject skyCloudGO;
     public GameObject[] cloudPrefabs; // Array to hold different cloud prefabs.
  
 
@@ -18,13 +19,15 @@ public class WeatherManager : MonoBehaviour
     //Parameters
     private float nextSpawnTime = 0f;
     private float elapsedTime = 0f;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
+    private Vector3 startPositionSun;
+    private Vector3 startPositionCloud;
+    private Vector3 endPositionSun;
 
     private void Start()
     {
-        startPosition = Sun.transform.position; // Starting at the current position
-        endPosition = new Vector3(startPosition.x + 24.66f, startPosition.y, startPosition.z); // Set the end position based on width
+        startPositionSun = sunGO.transform.position; // Starting at the current position
+        startPositionCloud = skyCloudGO.transform.position; // Starting at the current position
+        endPositionSun = new Vector3(startPositionSun.x + 24.66f, startPositionSun.y, startPositionSun.z); // Set the end position based on width
     
         if (cloudsonStart){
             Vector3 spawnPositionOnMap = new Vector3  (
@@ -46,11 +49,12 @@ public class WeatherManager : MonoBehaviour
         if (t > 1) {t = 1;} // Clamp t to prevent it from exceeding the end position}
 
         // Calculate horizontal position using linear interpolation and vertical position using a sine wave to create the arc
-        float xPosition = Mathf.Lerp(startPosition.x, endPosition.x, t);
+        float xPosition = Mathf.Lerp(startPositionSun.x, endPositionSun.x, t);
         float yPosition = Mathf.Sin(t * Mathf.PI) * 1; // Multiply by 0.95 to achieve the desired peak height of 1.9 units
 
         // Update the Sun's position
-        Sun.transform.position = new Vector3(xPosition, startPosition.y + yPosition, startPosition.z);
+        sunGO.transform.position = new Vector3(xPosition, startPositionSun.y + yPosition, startPositionSun.z);
+        skyCloudGO.transform.position = new Vector3(xPosition/2 - startPositionCloud.x, startPositionCloud.y, startPositionCloud.y);
 
         if (elapsedTime >= nextSpawnTime)
         {
@@ -61,7 +65,7 @@ public class WeatherManager : MonoBehaviour
 
     private void ResetSunPosition() {
         elapsedTime = 0; // Reset time for continuous looping, if desired
-        Sun.transform.position = startPosition; // Optionally reset to start position
+        sunGO.transform.position = startPositionSun; // Optionally reset to start position
     }
 
     void SpawnCloud(Vector3? spawnPosition = null)
