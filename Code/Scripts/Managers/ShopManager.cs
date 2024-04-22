@@ -50,6 +50,7 @@ public class ShopManager : MonoBehaviour
 
     private void SelectStructure(int index, Structure structure)
     {
+        Debug.Log(structure.structureName);
         BuildManager.main.SetSelectedStructure(index); // True for tower
         StartCooldown(structureButtons[index], index, structure.buildCooldown);
     }

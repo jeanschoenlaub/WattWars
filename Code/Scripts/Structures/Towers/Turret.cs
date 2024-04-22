@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public enum TowerType
@@ -19,7 +20,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private Transform firingPoint;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private LayerMask buildingMask;
-    [SerializeField] private GameObject rangeCircle;
     [SerializeField] public TowerType towerType;
     
     [Header("--- Converting Tower Attribute ---")]
@@ -47,6 +47,8 @@ public class Turret : MonoBehaviour
                     timeUntilFire = 0f;
                 }
             }
+
+            CheckIfInShade();
         }
     }
 
@@ -194,5 +196,22 @@ public class Turret : MonoBehaviour
         }
 
         return closestSwitcheableTower;
+    }
+
+    private void CheckIfInShade(){
+      
+        bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
+
+         SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+
+        if (isInShade)
+        {
+            Debug.Log("In Shade");
+            renderers[0].color = Color.red; // Corrected color reference
+        }
+        else
+        {
+            renderers[0].color = Color.white; // Corrected color reference
+        }
     }
 }
