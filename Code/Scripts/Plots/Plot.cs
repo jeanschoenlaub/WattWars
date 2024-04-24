@@ -9,6 +9,7 @@ public class Plot : MonoBehaviour
 
     private GameObject placedStructure; // Used to access new structure we build
     private bool anyPlotNotConstructable = false; // Flag to check if structures larger then 1x1 have some unconstructable plots
+    private bool isDragging = false;
 
     private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
 

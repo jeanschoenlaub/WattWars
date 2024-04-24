@@ -48,14 +48,24 @@ public class Turret : MonoBehaviour
                 }
             }
 
-            CheckIfInShade();
+            
         }
     }
 
     private void Shoot(){
+
+        if (towerConfig.structureName == "SolarPanel"){
+            // Check if is in Shade
+            if (CheckIfInShade()) {
+                return; //Dont' shoot
+            }        
+        }
+
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
         bulletScript.SetTarget(furthestTarget);
+
+
     }
 
     public void Convert(){
@@ -198,7 +208,7 @@ public class Turret : MonoBehaviour
         return closestSwitcheableTower;
     }
 
-    private void CheckIfInShade(){
+    private bool CheckIfInShade(){
       
         bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
 
@@ -208,10 +218,12 @@ public class Turret : MonoBehaviour
         {
             Debug.Log("In Shade");
             renderers[0].color = Color.red; // Corrected color reference
+            return true;
         }
         else
         {
             renderers[0].color = Color.white; // Corrected color reference
+            return false;
         }
     }
 }

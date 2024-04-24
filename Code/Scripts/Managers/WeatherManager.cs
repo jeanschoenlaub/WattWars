@@ -24,6 +24,7 @@ public class WeatherManager : MonoBehaviour
     private Vector3 startPositionSun;
     private Vector3 startPositionCloud;
     private Vector3 endPositionSun;
+    private bool lastRandomizeX = false; // Used to diversify cloud spawning placement
 
     private void Awake()
     {
@@ -80,8 +81,9 @@ public class WeatherManager : MonoBehaviour
     {
         GameObject cloudPrefab = cloudPrefabs[UnityEngine.Random.Range(0, cloudPrefabs.Length)];
         
-        // Determine whether to randomize the X or Y position
-        bool randomizeX = UnityEngine.Random.value > 0.5f; // Randomly choose true or false
+        // Switch to randomize the X or Y position to reduce overlap
+        bool randomizeX = !lastRandomizeX;
+        lastRandomizeX = randomizeX; // Update lastRandomizeX to current state
 
         Vector3 position;
         if (spawnPosition == null)
@@ -117,9 +119,10 @@ public class WeatherManager : MonoBehaviour
     // Public method to check if a position is in the shade of any active cloud
     public bool CheckIfInTheShadeOfAnyActiveCloud(Vector3 worldPosition)
     {
+        Vector2 position2D = new Vector2(worldPosition.x, worldPosition.y); // Convert to 2D if using 3D coordinates
         foreach (Cloud cloud in activeClouds)
         {
-            if (cloud.IsInShade(worldPosition))
+            if (cloud.GetComponent<PolygonCollider2D>().OverlapPoint(position2D))
             {
                 Debug.Log("One Cloud hit");
                 return true; // Return true if the position is within the bounds of any cloud
