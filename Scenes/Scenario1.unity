@@ -3269,7 +3269,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1385156780, guid: 40947cc77652d4d0493aee52a5b64fde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8a7fb75544594821a52896a76f83bbc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14206,7 +14206,7 @@ MonoBehaviour:
   - {fileID: 247992933867467446, guid: bdb6a36b5d5694882bc24efc70241186, type: 3}
   - {fileID: 4333271384343947164, guid: 81b8b1261543c404ca5483c63d019749, type: 3}
   sunTravelTime: 120
-  cloudSpawnRate: 30
+  cloudSpawnRate: 5
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
