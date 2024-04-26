@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a39268596854bcd95b606b8f7f303e, type: 3}
-  m_Name: Scenario1
+  m_Script: {fileID: 11500000, guid: f33de44781f76492ba6107c07e8f246b, type: 3}
+  m_Name: Day2
   m_EditorClassIdentifier: 
-  scenarioName: Scenario1
-  scenarioId: 1
-  Lives: 3
-  Coins: 200
-  days:
-  - {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
-  weather: 0
+  waves:
+  - {fileID: 11400000, guid: e7e4e642136944c2d8b87660fa0097ac, type: 2}
+  weather: 2

@@ -51,12 +51,6 @@ public class WeatherManager : MonoBehaviour
         }else {
             nextSpawnTime = cloudSpawnRate; // We set the initial cloud next spawn to spawn rate (otherwise spawns cloud straight away)
         }
-
-        if (LevelManager.main.currentScenario.weather == Weather.Sunny){
-            WeatherIcon.sprite = WeatherIconSunny;
-        }else if (LevelManager.main.currentScenario.weather == Weather.Cloudy){
-            WeatherIcon.sprite = WeatherIconSunny;
-        }
     }
 
     private void Update()
@@ -83,9 +77,17 @@ public class WeatherManager : MonoBehaviour
         }
     }
 
-    private void ResetSunPosition() {
+    public void ResetSunPosition() {
         elapsedTime = 0; // Reset time for continuous looping, if desired
         sunGO.transform.position = startPositionSun; // Optionally reset to start position
+    }
+
+    public void UpdateWeatherIcon(Day day) {
+        if (day.weather == Weather.Sunny){
+            WeatherIcon.sprite = WeatherIconSunny;
+        }else if (day.weather == Weather.Cloudy){
+            WeatherIcon.sprite = WeatherIconSunny;
+        }
     }
 
     void SpawnCloud(Vector3? spawnPosition = null)

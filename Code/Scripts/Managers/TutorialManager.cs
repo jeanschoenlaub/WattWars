@@ -3,7 +3,7 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
-    private TutoPlaceTower tutoPlaceTower;
+    public TutoPlaceTower tutoPlaceTower;
     
     private void Awake()
     {
@@ -15,14 +15,17 @@ public class TutorialManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // Get the TutoPlaceTower component attached to the same GameObject
-        tutoPlaceTower = GetComponent<TutoPlaceTower>();
+        
     }
 
     private void Start()
     {
         // Start the tower placement tutorial
-        StartTutoPlaceTower();
+        if (tutoPlaceTower){
+            // Get the TutoPlaceTower component attached to the same GameObject
+            tutoPlaceTower = GetComponent<TutoPlaceTower>();
+            StartTutoPlaceTower();
+        } 
     }
 
     public void StartTutoPlaceTower()

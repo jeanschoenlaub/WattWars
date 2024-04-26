@@ -49,29 +49,34 @@ public class WaveManager : MonoBehaviour {
     {
         if (isTutorialOn)
         {
-            Debug.Log("time between wave 10");
             timeBetweenWaves = 10; // To make it a bit more 
         }
-        UpdateCurrentDayAndWave();
-        if (currentDay != null && currentDay.waves.Count > 0 )
-        {
-            StartNextWave(); 
-        }
+        currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+        StartFirstWave(); //Special case for beginning
     }
 
     // Function to take sync Day and wave index and class and trigger banner animation
     private void UpdateCurrentDayAndWave()
     {
         if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
-        {
-            currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
-            if (currentDay.waves.Count > currentWaveIndex)
+        {     
+            //Just next wave on the same day
+            if (currentDay.waves.Count > currentWaveIndex + 1)
             {
-                currentWave = currentDay.waves[currentWaveIndex];
-                //if (!isTutorialOn){
-                    TriggerWaveBannerAnimation();
-                //}
+                Debug.LogFormat("NewWave");
+                currentWaveIndex++;
+            }else if (currentDay.waves.Count == currentWaveIndex +1){
+                currentDayIndex = currentDayIndex +1;
+                currentWaveIndex = 0;
+                Debug.Log("New Day");
+
+                WeatherManager.main.ResetSunPosition();
+                WeatherManager.main.UpdateWeatherIcon(LevelManager.main.currentScenario.days[currentDayIndex]);
             }
+
+            currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+            currentWave = currentDay.waves[currentWaveIndex];
+            TriggerWaveBannerAnimation();
         }
     }
 
@@ -116,7 +121,7 @@ public class WaveManager : MonoBehaviour {
              // If timer up and another wave in the same day --> Next wave
             if (currentWaveIndex + 1 < currentDay.waves.Count && timeSinceLastWave > timeBetweenWaves)
             {
-                currentWaveIndex++;
+                UpdateCurrentDayAndWave();
                 StartNextWave();
                 timeSinceLastWave = 0; //Reset the counter
             }
@@ -129,18 +134,37 @@ public class WaveManager : MonoBehaviour {
                     LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
                 }
                 else {
-                    currentDayIndex = currentDayIndex+1;
-                    currentWaveIndex = 0; // Reset so we start day + 1, wave 0 (of Day+1) 
+                    UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
                     StartNextWave();
                 }
             }
         }
     }
 
+    private void StartFirstWave()
+    {
+        // First we set current day and wave 
+        currentDay = LevelManager.main.currentScenario.days[0];
+        currentWave = currentDay.waves[0];
+
+        //Set the spawn states
+        spawnStates.Clear();
+        foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
+        {
+            spawnStates.Add(new SpawnState(enemyInfo));
+        }
+
+        // Then we trigger animations and update the weather
+        TriggerWaveBannerAnimation();
+        WeatherManager.main.UpdateWeatherIcon(LevelManager.main.currentScenario.days[currentDayIndex]);
+ 
+
+        
+    }
+
     private void StartNextWave()
     {
         spawnStates.Clear();
-        UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
 
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {
