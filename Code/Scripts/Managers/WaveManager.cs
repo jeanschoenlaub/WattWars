@@ -63,17 +63,14 @@ public class WaveManager : MonoBehaviour {
             //Just next wave on the same day
             if (currentDay.waves.Count > currentWaveIndex + 1)
             {
-                Debug.LogFormat("NewWave");
                 currentWaveIndex++;
             }else if (currentDay.waves.Count == currentWaveIndex +1){
                 currentDayIndex = currentDayIndex +1;
                 currentWaveIndex = 0;
-                Debug.Log("New Day");
 
                 WeatherManager.main.ResetSunPosition();
-                WeatherManager.main.UpdateWeatherIcon(LevelManager.main.currentScenario.days[currentDayIndex]);
+                WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
             }
-
             currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
             currentWave = currentDay.waves[currentWaveIndex];
             TriggerWaveBannerAnimation();
@@ -118,25 +115,25 @@ public class WaveManager : MonoBehaviour {
         {
             timeSinceLastWave += Time.deltaTime * currentGameSpeed;
 
-             // If timer up and another wave in the same day --> Next wave
-            if (currentWaveIndex + 1 < currentDay.waves.Count && timeSinceLastWave > timeBetweenWaves)
+            Debug.Log(LevelManager.main.currentScenario.days.Count);
+            Debug.Log(currentDayIndex);
+
+            // If timer up AND another wave in the same day --> Next wave
+            if (timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 < currentDay.waves.Count )
             {
                 UpdateCurrentDayAndWave();
                 StartNextWave();
                 timeSinceLastWave = 0; //Reset the counter
             }
-
-            // If all ennemy dead and last wave --> Next Day OR Menu
-            if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count)
-            {;
-                // We check if this is the last day
-                if (LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){
-                    LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
-                }
-                else {
-                    UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
-                    StartNextWave();
-                }
+            // If timer up AND last wave of day AND not last day--> Next Day OR Menu
+            else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
+            {
+                UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
+                StartNextWave();
+            }
+            // If all ennemy dead and last wave --> Menu
+            else if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){
+                LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
             }
         }
     }
@@ -156,10 +153,7 @@ public class WaveManager : MonoBehaviour {
 
         // Then we trigger animations and update the weather
         TriggerWaveBannerAnimation();
-        WeatherManager.main.UpdateWeatherIcon(LevelManager.main.currentScenario.days[currentDayIndex]);
- 
-
-        
+        WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
     }
 
     private void StartNextWave()

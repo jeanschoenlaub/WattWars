@@ -18,6 +18,8 @@ public class WeatherManager : MonoBehaviour
     public float cloudSpawnRate = 0f; // Time between spawns.
     public bool cloudsonStart = true; // Bool to control if there should be clouds at the beginning of the game
 
+    public float sunnyCloudSpawnRate = 0f;
+    public float cloudyCloudSpawnRate = 0f;
     
     // Variables used to manage Weather
     private float nextSpawnTime = 0f;
@@ -82,12 +84,15 @@ public class WeatherManager : MonoBehaviour
         sunGO.transform.position = startPositionSun; // Optionally reset to start position
     }
 
-    public void UpdateWeatherIcon(Day day) {
+    public void UpdateWeather(Day day) {
         if (day.weather == Weather.Sunny){
+            cloudSpawnRate = sunnyCloudSpawnRate;
             WeatherIcon.sprite = WeatherIconSunny;
         }else if (day.weather == Weather.Cloudy){
-            WeatherIcon.sprite = WeatherIconSunny;
+            cloudSpawnRate = cloudyCloudSpawnRate;
+            WeatherIcon.sprite = WeatherIconCloudy;
         }
+        nextSpawnTime = cloudSpawnRate; // Reset the first cloud spwan rate        
     }
 
     void SpawnCloud(Vector3? spawnPosition = null)
