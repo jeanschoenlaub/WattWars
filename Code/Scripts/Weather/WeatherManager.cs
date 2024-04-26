@@ -1,6 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
-
 
 public class WeatherManager : MonoBehaviour
 {
@@ -9,28 +9,31 @@ public class WeatherManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject sunGO;
     [SerializeField] private GameObject skyCloudGO;
-    public GameObject[] cloudPrefabs; // Array to hold different cloud prefabs.
-    private List<Cloud> activeClouds = new List<Cloud>(); // List to store active cloud instances
-
+    [SerializeField] private Image WeatherIcon;
+    [SerializeField] private Sprite WeatherIconSunny;
+    [SerializeField] private Sprite WeatherIconCloudy;
 
     [Header("Weather Parameters")]
     public float sunTravelTime = 800.0f; // Time it takes for the sun to travel across the screen under normal game speed
-    public float cloudSpawnRate = 25f; // Time between spawns.
-    private bool cloudsonStart = true; // Bool to control if there should be clouds at the beginning of the game
+    public float cloudSpawnRate = 0f; // Time between spawns.
+    public bool cloudsonStart = true; // Bool to control if there should be clouds at the beginning of the game
 
-    //Parameters
+    
+    // Variables used to manage Weather
     private float nextSpawnTime = 0f;
     private float elapsedTime = 0f;
     private Vector3 startPositionSun;
     private Vector3 startPositionCloud;
     private Vector3 endPositionSun;
     private bool lastRandomizeX = false; // Used to diversify cloud spawning placement
+    public GameObject[] cloudPrefabs; // Array to hold different cloud prefabs.
+    private List<Cloud> activeClouds = new List<Cloud>(); // List to store active cloud instances
+
 
     private void Awake()
     {
         main = this;
     }   
-
     
     private void Start()
     {
@@ -45,6 +48,14 @@ public class WeatherManager : MonoBehaviour
                 -1// Zs To be above other Game objects
             );
             SpawnCloud(spawnPositionOnMap);
+        }else {
+            nextSpawnTime = cloudSpawnRate; // We set the initial cloud next spawn to spawn rate (otherwise spawns cloud straight away)
+        }
+
+        if (LevelManager.main.currentScenario.weather == Weather.Sunny){
+            WeatherIcon.sprite = WeatherIconSunny;
+        }else if (LevelManager.main.currentScenario.weather == Weather.Cloudy){
+            WeatherIcon.sprite = WeatherIconSunny;
         }
     }
 
