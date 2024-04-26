@@ -64,6 +64,10 @@ public class WaveManager : MonoBehaviour {
             if (currentDay.waves.Count > currentWaveIndex + 1)
             {
                 currentWaveIndex++;
+                if (currentDay.waves[currentWaveIndex].night == true){
+                    WeatherManager.main.ChangeToNight();
+                }
+
             }else if (currentDay.waves.Count == currentWaveIndex +1){
                 currentDayIndex = currentDayIndex +1;
                 currentWaveIndex = 0;

@@ -14219,8 +14219,8 @@ MonoBehaviour:
   sunTravelTime: 120
   cloudSpawnRate: 35
   cloudsonStart: 0
-  sunnyCloudSpawnRate: 0
-  cloudyCloudSpawnRate: 0
+  sunnyCloudSpawnRate: 20
+  cloudyCloudSpawnRate: 5
   cloudPrefabs:
   - {fileID: 1900610288984612750, guid: ab727361ba40c49bb8f4889ffca23a3e, type: 3}
   - {fileID: 247992933867467446, guid: bdb6a36b5d5694882bc24efc70241186, type: 3}

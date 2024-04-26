@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scenario2
   m_EditorClassIdentifier: 
   scenarioName: Scenario1
-  scenarioId: 1
+  scenarioId: 2
   Lives: 3
   Coins: 500
   days:

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class WeatherManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class WeatherManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject sunGO;
     [SerializeField] private GameObject skyCloudGO;
+    [SerializeField] public GameObject daySkyGO;
+    [SerializeField] public GameObject nightSkyGO;
     [SerializeField] private Image WeatherIcon;
     [SerializeField] private Sprite WeatherIconSunny;
     [SerializeField] private Sprite WeatherIconCloudy;
+    public Animator SkyAnimator;
+    public Animator PlotAnimator;
 
     [Header("Weather Parameters")]
     public float sunTravelTime = 800.0f; // Time it takes for the sun to travel across the screen under normal game speed
@@ -42,7 +47,10 @@ public class WeatherManager : MonoBehaviour
         startPositionSun = sunGO.transform.position; // Starting at the current position
         startPositionCloud = skyCloudGO.transform.position; // Starting at the current position
         endPositionSun = new Vector3(startPositionSun.x + 24.66f, startPositionSun.y, startPositionSun.z); // Set the end position based on width
-    
+
+        nightSkyGO.SetActive(false); // Start with the night sky hidden
+
+
         if (cloudsonStart){
             Vector3 spawnPositionOnMap = new Vector3  (
                 UnityEngine.Random.Range(0, 6), // x position outside of map to the right
@@ -80,8 +88,22 @@ public class WeatherManager : MonoBehaviour
     }
 
     public void ResetSunPosition() {
-        elapsedTime = 0; // Reset time for continuous looping, if desired
-        sunGO.transform.position = startPositionSun; // Optionally reset to start position
+        elapsedTime = 0; // Reset time for continuous looping
+        sunGO.transform.position = startPositionSun; // reset to start position
+    }
+
+    public void ChangeToNight() {
+        SkyAnimator.SetTrigger("FadeToNight");
+        PlotAnimator.SetTrigger("FadeToNight");
+        StartCoroutine(EndTransition());
+    }
+
+    private IEnumerator EndTransition()
+    {
+        yield return new WaitForSeconds(SkyAnimator.GetCurrentAnimatorStateInfo(0).length); // Wait for the animation to finish
+        daySkyGO.SetActive(false);
+        sunGO.SetActive(false); 
+        nightSkyGO.SetActive(true);
     }
 
     public void UpdateWeather(Day day) {
