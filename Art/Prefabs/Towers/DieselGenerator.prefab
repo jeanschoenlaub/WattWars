@@ -246,10 +246,8 @@ MonoBehaviour:
   buildingMask:
     serializedVersion: 2
     m_Bits: 256
-  rangeCircle: {fileID: 7552006623699810664}
-  towerType: 0
-  targetingRange: 3
-  bulletPerSeconds: 0
+  bulletType: 0
+  towerType: 1
   switchOnOff: {fileID: 3908044847461150451}
   isSwitchable: 1
   conversion:

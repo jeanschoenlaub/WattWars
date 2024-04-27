@@ -2038,7 +2038,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &193118259
 RectTransform:
@@ -2717,6 +2717,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 459231605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &273990641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1900491628060302130, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &285935958 stripped
 GameObject:
@@ -11852,6 +11857,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 1216761331}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393754740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2336429717461607121, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1395050025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12766,6 +12782,7 @@ GameObject:
   - component: {fileID: 1516575311}
   - component: {fileID: 1516575310}
   - component: {fileID: 1516575312}
+  - component: {fileID: 1516575313}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -12859,8 +12876,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164b1f36b752b4084ac7d1a25efe896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameSpeedButton: {fileID: 0}
   tutoPlaceTower: {fileID: 0}
+  tutoNight: {fileID: 1516575313}
+  GameSpeedButton: {fileID: 273990641}
+--- !u!114 &1516575313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516575309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea66ad527075b4692aaca32c1e55fe82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FridgeDialogAnimator: {fileID: 2798847660548835059}
+  TutoTextBox: {fileID: 720785378}
+  DialogFridgeClickDetector: {fileID: 1393754740}
+  TutoText: {fileID: 1715211714}
+  delayFridgeAppear: 5
+  isTutorialActive: 0
 --- !u!4 &1518673428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -14184,6 +14220,8 @@ MonoBehaviour:
   - {fileID: 4333271384343947164, guid: 81b8b1261543c404ca5483c63d019749, type: 3}
   SkyAnimator: {fileID: 4437027636187829043}
   PlotAnimator: {fileID: 1457554970}
+  isNight: 0
+  isNightFalling: 0
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -19169,6 +19207,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378679840097990224, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_text
+      value: "[Frigidair]     \\n \tHehe, your solar panel won't wok at night ! How
+        will you do?   \\n \t\t\t\t\t[Click to continue]"
+      objectReference: {fileID: 0}
     - target: {fileID: 403055508072576175, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_Name
       value: Canvas

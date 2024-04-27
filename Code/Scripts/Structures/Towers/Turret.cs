@@ -9,6 +9,7 @@ public enum BulletType
 public enum TowerType
 {
     Solar,
+    NA,
 }
 
 public class Turret : MonoBehaviour
@@ -54,17 +55,20 @@ public class Turret : MonoBehaviour
 
     private void Shoot(){
 
+        // By default we take the tower config damages
+        float elecDamage = towerConfig.elecDamage;
+        float fuelDamage = towerConfig.fuelDamage;
+
+        // But if Solar type we adjust elec damage depeding on Weather
         if (towerType == TowerType.Solar){
-            // Check if is in Shade
-            if (CheckIfInShade()) {
-                return; //Dont' shoot
-            }        
+            elecDamage = adjustElecDamageSolar();
+            if (elecDamage == 0f){return;} // Don't shoot bullet visually if no damage
         }
 
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
         bulletScript.SetTarget(furthestTarget);
-        bulletScript.SetDamage(towerConfig.elecDamage, towerConfig.fuelDamage);
+        bulletScript.SetDamage(elecDamage, fuelDamage);
     }
 
     public void Convert(){
@@ -206,21 +210,26 @@ public class Turret : MonoBehaviour
         return closestSwitcheableTower;
     }
 
-    private bool CheckIfInShade(){
-      
+
+    private float adjustElecDamageSolar(){
+
+        // If it is the night return 0 damage
+        if (WeatherManager.main.isNight){
+            return 0f;
+        }
+
+        // If is in shade of cloud return base damage*0.2
         bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
-
-        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
-
         if (isInShade)
         {
-            renderers[0].color = Color.red; // Corrected color reference
-            return true;
+            return 0.2f*towerConfig.elecDamage;
         }
-        else
-        {
-            renderers[0].color = Color.white; // Corrected color reference
-            return false;
+
+        // If the night is falling 0.5x elec damage
+        if (WeatherManager.main.isNightFalling){
+            return 0.5f*towerConfig.elecDamage;
         }
+
+        else{return towerConfig.elecDamage;}
     }
 }

@@ -198,7 +198,6 @@ public class WaveManager : MonoBehaviour {
 
     private void EnemyDestroyed()
     {
-        LevelManager.main.DecreaseLives(1);
         enemiesAlive--;
     }
 }

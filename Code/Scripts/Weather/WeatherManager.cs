@@ -43,7 +43,8 @@ public class WeatherManager : MonoBehaviour
     // Variables used to manage night 
     public Animator SkyAnimator;
     public Animator PlotAnimator;
-    private bool isNight = false;
+    public bool isNight = false;
+    public bool isNightFalling = false;
 
     private void Awake()
     {
@@ -101,7 +102,7 @@ public class WeatherManager : MonoBehaviour
     }
 
     public void ChangeToNight() {
-        isNight = true;
+        isNightFalling = true;
 
         // Do some changes before the Fade animations
         // To do could also lighten cloud intensities
@@ -129,7 +130,8 @@ public class WeatherManager : MonoBehaviour
         // TO-DO this is buggy and taking the previous animation time (so I set idle to be the same length as the next one)
         float animationLength = SkyAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animationLength);
-
+        isNight = true;
+        isNightFalling = false;
         daySkyGO.SetActive(false);
         sunGO.SetActive(false); 
         nightSkyGO.SetActive(true);

@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
 
             if (pathIndex == LevelManager.main.path.Length){
+                LevelManager.main.DecreaseLives(1);
                 WaveManager.onEnemyDestroy.Invoke();
                 Destroy(gameObject);
                 return;

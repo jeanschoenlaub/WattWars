@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SolarPanel
   m_EditorClassIdentifier: 
   structureName: SolarPanel
-  cost: 100
+  cost: 60
   size: 0100000001000000
   prefab: {fileID: 6770466984534508825, guid: 02b75729e325e46c7bbcc90be25eab07, type: 3}
   buildCooldown: 10

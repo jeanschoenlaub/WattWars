@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    // If Tuto attached and first time playing level the tutorial is triggered 
+    [Header("Tutorial References - Only attach relevant one if any")]
+    [SerializeField] public TutoPlaceTower tutoPlaceTower;
+    [SerializeField] public TutoNight tutoNight;
+
     [SerializeField] GameObject GameSpeedButton;
     public static TutorialManager Instance { get; private set; }
-    public TutoPlaceTower tutoPlaceTower;
+
     
     private void Awake()
     {
@@ -21,14 +26,24 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        // Start the tower placement tutorial
+        // Start the tower placement tutorial - TODO and logic for only first time
         if (tutoPlaceTower){
-            // Get the TutoPlaceTower component attached to the same GameObject
+            // Get the TutoPlaceTower component attached to the same GameObjec
             tutoPlaceTower = GetComponent<TutoPlaceTower>();
-            StartTutoPlaceTower();
+            tutoPlaceTower.StartTutoPlaceTower();
+
+            // We also disable the game speed button to simplify tutorial logic
+            GameSpeedButton.SetActive(false);
+        } 
+
+        // Start The night tutorial - TODO and logic for only first time
+        if (tutoNight){
+            // Get the TutoPlaceTower component attached to the same GameObject
+            tutoNight = GetComponent<TutoNight>();
+            tutoNight.StartTutoNight();
 
             // We also disabel the game speed button to simplify tutorial logic
-            GameSpeedButton.SetActive(false);
+            //GameSpeedButton.SetActive(false);
         } 
     }
 
@@ -37,7 +52,7 @@ public class TutorialManager : MonoBehaviour
         // Check if the TutoPlaceTower component is available and start the tutorial
         if (tutoPlaceTower != null)
         {
-            tutoPlaceTower.StartTutoPlaceTower();
+            
         }
         else
         {

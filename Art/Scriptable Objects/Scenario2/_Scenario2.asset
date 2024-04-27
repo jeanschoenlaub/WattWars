@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88a39268596854bcd95b606b8f7f303e, type: 3}
-  m_Name: Scenario2
+  m_Name: _Scenario2
   m_EditorClassIdentifier: 
   scenarioName: Scenario1
   scenarioId: 2
   Lives: 3
-  Coins: 500
+  Coins: 60
   days:
   - {fileID: 11400000, guid: ca6a1e8fe5f244481877292b6c5515ec, type: 2}
   - {fileID: 11400000, guid: ca708ded452c44f26a89931839ca5112, type: 2}

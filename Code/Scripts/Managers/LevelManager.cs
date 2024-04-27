@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 
     public int coins; 
     public int cityCoinGen = 10; 
+    float timeSinceLastCityCoins = 0;
 
     public int numberOfLives; // Taken from the Scenario SO
     private static int gameSpeed = 1; // Default game speed
@@ -83,7 +84,17 @@ public class LevelManager : MonoBehaviour
     private void Start(){
         coins =  currentScenario.Coins;
         numberOfLives = currentScenario.Lives;
-        StartCoroutine(AddCoinsAtIntervals(5f));
+    }
+
+    private void Update() {
+        timeSinceLastCityCoins += Time.deltaTime * gameSpeed;
+        if (timeSinceLastCityCoins >  5f)
+        {
+            IncreaseCurrency(cityCoinGen); // Increase coins by 1, adjust this value as needed
+            cityCoinAnimationText.text = cityCoinGen.ToString();
+            cityCoinAnimator.SetTrigger("CoinAppear");
+            timeSinceLastCityCoins = 0f;
+        }
     }
 
     public void IncreaseCurrency( int amount ){
@@ -115,19 +126,5 @@ public class LevelManager : MonoBehaviour
 
     public int GetCurrentMoney(){
         return coins;
-    }
-
-    IEnumerator AddCoinsAtIntervals(float interval)
-    {
-        while (true) // Creates an infinite loop, which is fine in a coroutine with yielding
-        {
-            yield return new WaitForSeconds(interval); // Wait for the specified interval
-            if (gameSpeed > 0) // Only add coins if the game is not paused
-            {
-                IncreaseCurrency(cityCoinGen); // Increase coins by 1, adjust this value as needed
-                cityCoinAnimationText.text = cityCoinGen.ToString();
-                cityCoinAnimator.SetTrigger("CoinAppear");
-            }
-        }
     }
 }

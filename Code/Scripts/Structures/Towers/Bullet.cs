@@ -73,7 +73,6 @@ public class Bullet : MonoBehaviour
                 generateMoney.ReceiveEnergy(elecDamage,0); 
             }
             if (fuelDamage != 0){
-                Debug.Log("transfering fuel");
                 generateMoney.ReceiveEnergy(0,fuelDamage); 
             }
         }
