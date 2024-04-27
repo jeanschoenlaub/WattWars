@@ -19209,8 +19209,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 378679840097990224, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_text
-      value: "[Frigidair]     \\n \tHehe, your solar panel won't wok at night ! How
-        will you do?   \\n \t\t\t\t\t[Click to continue]"
+      value: "[Frigidair]     \\n \tHehe, your solar panel won't work at night !
+        How will you do?   \\n \t\t\t\t\t[Click to continue]"
       objectReference: {fileID: 0}
     - target: {fileID: 403055508072576175, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_Name

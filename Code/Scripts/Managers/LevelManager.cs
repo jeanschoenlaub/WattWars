@@ -105,6 +105,13 @@ public class LevelManager : MonoBehaviour
 
     public void DecreaseLives( int amount ){
         numberOfLives -= amount;
+        if (numberOfLives<0){
+            EndOfGame();
+        }
+    }
+
+    public void EndOfGame() { 
+        SceneManager.LoadScene("Menu");
     }
 
     public int GetNumeberOfLives( ){
