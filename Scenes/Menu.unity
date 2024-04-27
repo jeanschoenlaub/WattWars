@@ -789,7 +789,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1011,6 +1011,7 @@ PrefabInstance:
     - {fileID: 6594612153097180164, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 3660307734012553300, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 5863057710812546493, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 2642451695079826175, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 816586794568253360, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       insertIndex: -1
@@ -3267,7 +3268,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

@@ -46,7 +46,14 @@ public class Plot : MonoBehaviour
     {
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
-        
+
+        // Redo the On Mouse enter test for iphone bug
+        //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
+        Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
+        BuildManager.main.UpdatePreviewPosition(instantiationPosition);
+
+        // We set the opacity of the entire structure to 50% and relvant color based on if constructable
+        CheckPlotConstructability(structureToBuild);
 
         if (anyPlotNotConstructable)
         {

@@ -58,7 +58,6 @@ public class WeatherManager : MonoBehaviour
 
         nightSkyGO.SetActive(false); // Start with the night sky hidden
 
-
         if (cloudsonStart){
             Vector3 spawnPositionOnMap = new Vector3  (
                 UnityEngine.Random.Range(0, 6), // x position outside of map to the right

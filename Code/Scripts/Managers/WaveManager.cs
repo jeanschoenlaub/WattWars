@@ -47,10 +47,6 @@ public class WaveManager : MonoBehaviour {
 
     private void Start()
     {
-        if (isTutorialOn)
-        {
-            timeBetweenWaves = 10; // To make it a bit more 
-        }
         currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
         StartFirstWave(); //Special case for beginning
     }
@@ -127,15 +123,26 @@ public class WaveManager : MonoBehaviour {
             // If timer up AND another wave in the same day --> Next wave
             if (timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 < currentDay.waves.Count )
             {
-                UpdateCurrentDayAndWave();
-                StartNextWave();
-                timeSinceLastWave = 0; //Reset the counter
+                if (!isTutorialOn){
+                    UpdateCurrentDayAndWave();
+                    StartNextWave();
+                    timeSinceLastWave = 0; //Reset the counter
+                }
+                // Special case for tutorial we only spawn next wave if all enemies dead
+                else if (isTutorialOn){
+                    if (enemiesAlive == 0){
+                        UpdateCurrentDayAndWave();
+                        StartNextWave();
+                        timeSinceLastWave = 0; //Reset the counter
+                    }
+                }
             }
             // If timer up AND last wave of day AND not last day--> Next Day OR Menu
             else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
                 StartNextWave();
+                timeSinceLastWave = 0; //Reset the counter
             }
             // If all ennemy dead and last wave --> Menu
             else if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){

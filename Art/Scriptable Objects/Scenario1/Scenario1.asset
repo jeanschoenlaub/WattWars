@@ -15,7 +15,6 @@ MonoBehaviour:
   scenarioName: Scenario1
   scenarioId: 1
   Lives: 3
-  Coins: 200
+  Coins: 0
   days:
   - {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
-  weather: 0
