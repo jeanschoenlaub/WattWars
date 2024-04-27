@@ -64,15 +64,20 @@ public class WaveManager : MonoBehaviour {
             if (currentDay.waves.Count > currentWaveIndex + 1)
             {
                 currentWaveIndex++;
+                // Also if this is a night wave --> Fade to night
+                // To-Do if multiple night waves change logic
                 if (currentDay.waves[currentWaveIndex].night == true){
                     WeatherManager.main.ChangeToNight();
                 }
-
-            }else if (currentDay.waves.Count == currentWaveIndex +1){
+            }
+            
+            // New Day 
+            else if (currentDay.waves.Count == currentWaveIndex +1){
                 currentDayIndex = currentDayIndex +1;
                 currentWaveIndex = 0;
 
                 WeatherManager.main.ResetSunPosition();
+                WeatherManager.main.ChangeToDay();
                 WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
             }
             currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
@@ -118,9 +123,6 @@ public class WaveManager : MonoBehaviour {
         if (spawnStates.TrueForAll(s => s.spawnedCount >= s.enemyInfo.quantity))
         {
             timeSinceLastWave += Time.deltaTime * currentGameSpeed;
-
-            Debug.Log(LevelManager.main.currentScenario.days.Count);
-            Debug.Log(currentDayIndex);
 
             // If timer up AND another wave in the same day --> Next wave
             if (timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 < currentDay.waves.Count )

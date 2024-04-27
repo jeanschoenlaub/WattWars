@@ -13,10 +13,14 @@ public class WeatherManager : MonoBehaviour
     [SerializeField] public GameObject daySkyGO;
     [SerializeField] public GameObject nightSkyGO;
     [SerializeField] private Image WeatherIcon;
+
+    [Header("Weather Icons")]
     [SerializeField] private Sprite WeatherIconSunny;
     [SerializeField] private Sprite WeatherIconCloudy;
-    public Animator SkyAnimator;
-    public Animator PlotAnimator;
+    [SerializeField] private Sprite WeatherIconOvercast;
+    [SerializeField] private Sprite WeatherIconNight;
+
+
 
     [Header("Weather Parameters")]
     public float sunTravelTime = 800.0f; // Time it takes for the sun to travel across the screen under normal game speed
@@ -26,7 +30,7 @@ public class WeatherManager : MonoBehaviour
     public float sunnyCloudSpawnRate = 0f;
     public float cloudyCloudSpawnRate = 0f;
     
-    // Variables used to manage Weather
+    // Variables used to manage Clouds
     private float nextSpawnTime = 0f;
     private float elapsedTime = 0f;
     private Vector3 startPositionSun;
@@ -36,6 +40,10 @@ public class WeatherManager : MonoBehaviour
     public GameObject[] cloudPrefabs; // Array to hold different cloud prefabs.
     private List<Cloud> activeClouds = new List<Cloud>(); // List to store active cloud instances
 
+    // Variables used to manage night 
+    public Animator SkyAnimator;
+    public Animator PlotAnimator;
+    private bool isNight = false;
 
     private void Awake()
     {
@@ -87,34 +95,61 @@ public class WeatherManager : MonoBehaviour
         }
     }
 
+    // For a new day, reset the sun position's to the left edge of Canvas
     public void ResetSunPosition() {
         elapsedTime = 0; // Reset time for continuous looping
         sunGO.transform.position = startPositionSun; // reset to start position
     }
 
     public void ChangeToNight() {
+        isNight = true;
+
+        // Do some changes before the Fade animations
+        // To do could also lighten cloud intensities
+        WeatherIcon.sprite = WeatherIconNight;
+
+        // Then state the animation 
         SkyAnimator.SetTrigger("FadeToNight");
         PlotAnimator.SetTrigger("FadeToNight");
-        StartCoroutine(EndTransition());
+
+        StartCoroutine(EndTransitionNight());
     }
 
-    private IEnumerator EndTransition()
+    public void ChangeToDay() {
+        isNight = false;
+        SkyAnimator.SetTrigger("FadeToDay");
+        PlotAnimator.SetTrigger("FadeToDay");
+        
+        daySkyGO.SetActive(!isNight);
+        sunGO.SetActive(!isNight); 
+        nightSkyGO.SetActive(isNight);
+    }
+
+    private IEnumerator EndTransitionNight()
     {
-        yield return new WaitForSeconds(SkyAnimator.GetCurrentAnimatorStateInfo(0).length); // Wait for the animation to finish
+        // TO-DO this is buggy and taking the previous animation time (so I set idle to be the same length as the next one)
+        float animationLength = SkyAnimator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(animationLength);
+
         daySkyGO.SetActive(false);
         sunGO.SetActive(false); 
         nightSkyGO.SetActive(true);
     }
 
+
     public void UpdateWeather(Day day) {
+
         if (day.weather == Weather.Sunny){
             cloudSpawnRate = sunnyCloudSpawnRate;
             WeatherIcon.sprite = WeatherIconSunny;
-        }else if (day.weather == Weather.Cloudy){
+        }
+        
+        else if (day.weather == Weather.Cloudy){
             cloudSpawnRate = cloudyCloudSpawnRate;
             WeatherIcon.sprite = WeatherIconCloudy;
         }
-        nextSpawnTime = cloudSpawnRate; // Reset the first cloud spwan rate        
+
+        nextSpawnTime = cloudSpawnRate; // Reset the first cloud spawn rate        
     }
 
     void SpawnCloud(Vector3? spawnPosition = null)
@@ -164,13 +199,13 @@ public class WeatherManager : MonoBehaviour
         {
             if (cloud.GetComponent<PolygonCollider2D>().OverlapPoint(position2D))
             {
-                Debug.Log("One Cloud hit");
                 return true; // Return true if the position is within the bounds of any cloud
             }
         }
         return false; // Return false if no clouds shade the position
     }
 
+    // When destroying clouds also remove them from a list of active clouds 
     public void RemoveCloudFromActiveClouds(Cloud cloud)
     {
         if (activeClouds.Contains(cloud))
