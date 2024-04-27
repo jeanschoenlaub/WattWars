@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] GameObject GameSpeedButton;
     public static TutorialManager Instance { get; private set; }
     public TutoPlaceTower tutoPlaceTower;
     
@@ -25,6 +26,9 @@ public class TutorialManager : MonoBehaviour
             // Get the TutoPlaceTower component attached to the same GameObject
             tutoPlaceTower = GetComponent<TutoPlaceTower>();
             StartTutoPlaceTower();
+
+            // We also disabel the game speed button to simplify tutorial logic
+            GameSpeedButton.SetActive(false);
         } 
     }
 

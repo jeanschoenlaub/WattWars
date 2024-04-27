@@ -54,6 +54,12 @@ public class LevelManager : MonoBehaviour
         SetGameSpeed(0); // Pause the game
     }
 
+    // Method to pause the game (set speed to 0)
+    public static void SaveGameSpeed()
+    {
+        savedGameSpeed = gameSpeed; // Save the current speed
+    }
+
     // Method to resume the game at previously saved speed
     public static void ResumeGame()
     {

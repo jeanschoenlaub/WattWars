@@ -1,13 +1,14 @@
-using System.ComponentModel.Design;
 using UnityEngine;
 
-public enum TowerType
+public enum BulletType
 {
     Elec,
     Fuel,
-    Gas,
-    Coal,
-    // Add more types as needed
+}
+
+public enum TowerType
+{
+    Solar,
 }
 
 public class Turret : MonoBehaviour
@@ -20,6 +21,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private Transform firingPoint;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private LayerMask buildingMask;
+    [SerializeField] public BulletType bulletType;
     [SerializeField] public TowerType towerType;
     
     [Header("--- Converting Tower Attribute ---")]
@@ -47,14 +49,12 @@ public class Turret : MonoBehaviour
                     timeUntilFire = 0f;
                 }
             }
-
-            
         }
     }
 
     private void Shoot(){
 
-        if (towerConfig.structureName == "SolarPanel"){
+        if (towerType == TowerType.Solar){
             // Check if is in Shade
             if (CheckIfInShade()) {
                 return; //Dont' shoot
@@ -64,8 +64,7 @@ public class Turret : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
         bulletScript.SetTarget(furthestTarget);
-
-
+        bulletScript.SetDamage(towerConfig.elecDamage, towerConfig.fuelDamage);
     }
 
     public void Convert(){
@@ -147,17 +146,16 @@ public class Turret : MonoBehaviour
         }
 
         // Targeting logic based on tower's abilities
-        if ( towerType == TowerType.Elec && enemyHealth.elecLives > 0)
+        if (bulletType == BulletType.Elec && enemyHealth.elecLives > 0f)
         {
             // Tower can target enemies with elec lives
             return true;
         }
-        else if (towerType == TowerType.Fuel && enemyHealth.fuelLives > 0)
+        else if (bulletType == BulletType.Fuel && enemyHealth.fuelLives > 0f)
         {
             // Tower can target enemies with fuel lives
             return true;
         }
-
         // If none of the conditions are met, the enemy is not targetable
         return false;
     }
@@ -193,7 +191,7 @@ public class Turret : MonoBehaviour
             // We only consider towers that are switcheable
             Turret turretScript = tower.GetComponent<Turret>();
             // Check if the tower is switchable, switched on, and matches the required input type
-            if (turretScript.isSwitchable && turretScript.isSwitchedOn && turretScript.conversion.inputType == towerType){
+            if (turretScript.isSwitchable && turretScript.isSwitchedOn && turretScript.conversion.inputType == bulletType){
                 Vector3 directionToSwitchableTower = tower.transform.position - transform.position;
                 float dSqrToSwitcheableTower = directionToSwitchableTower.sqrMagnitude;
 
@@ -212,11 +210,10 @@ public class Turret : MonoBehaviour
       
         bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
 
-         SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
 
         if (isInShade)
         {
-            Debug.Log("In Shade");
             renderers[0].color = Color.red; // Corrected color reference
             return true;
         }

@@ -4,10 +4,10 @@ using TMPro;
 public class Health : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] public int elecLives = 2;
-    [SerializeField] public int fuelLives = 2;
-    [SerializeField] private int maxElecLives = 2;
-    [SerializeField] private int maxFuelLives = 2;
+    [SerializeField] public float elecLives = 2;
+    [SerializeField] public float fuelLives = 2;
+    [SerializeField] private float maxElecLives = 2;
+    [SerializeField] private float maxFuelLives = 2;
     [SerializeField] private int killCoins = 5;
 
     [Header("UI References")]
@@ -20,14 +20,14 @@ public class Health : MonoBehaviour
         UpdateHUD(); // Initial HUD update
     }
 
-    public void TakeElecDamage(int dmg){
+    public void TakeElecDamage(float dmg){
         elecLives = Mathf.Max(elecLives - dmg, 0);
         UpdateHUD();
 
         CheckIfDestroyed();
     }
 
-    public void TakeFuelDamage(int dmg){
+    public void TakeFuelDamage(float dmg){
         fuelLives = Mathf.Max(fuelLives - dmg, 0);
         UpdateHUD();
 
@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
         if (elecLivesBar != null) {
             Vector3 scale = elecLivesBar.localScale;
             if (elecLives == 0){scale.x = 0;}
-            else { scale.x = (float)elecLives / maxElecLives;}
+            else { scale.x = elecLives / maxElecLives;}
             elecLivesBar.localScale = scale;
         }
         
@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
         if (fuelLivesBar != null) {
             Vector3 scale = fuelLivesBar.localScale;
             if (fuelLives == 0){scale.x = 0;}
-            else { scale.x = (float)fuelLives / maxFuelLives;}
+            else { scale.x = fuelLives / maxFuelLives;}
             fuelLivesBar.localScale = scale;
         }
     }

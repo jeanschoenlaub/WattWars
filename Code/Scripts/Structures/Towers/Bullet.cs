@@ -5,14 +5,20 @@ public class Bullet : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private float bulletSpeed = 5f;
-    [SerializeField] private int elecDamage = 1;
-    [SerializeField] private int fuelDamage = 1;
-    
+
+    //Variables 
+    private float elecDamage = 0; //Set Using method by tower script
+    private float fuelDamage = 0; //Set Using method by tower script
     private Transform target;
     private float proximityDetectionRange = 0.1f; // If a bullet is closer than this to ennemy interacts
 
     public void SetTarget(Transform _target){
         target = _target; 
+    }
+
+    public void SetDamage(float _elecDamag, float _fuelDamage){
+        elecDamage = _elecDamag; 
+        fuelDamage = _fuelDamage;
     }
 
     private void Update() {

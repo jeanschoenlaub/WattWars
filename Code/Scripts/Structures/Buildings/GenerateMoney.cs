@@ -8,12 +8,12 @@ public class GenerateMoney : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private int moneyGenerated;
-    [SerializeField] private int fuelRequired;
-    [SerializeField] private int elecRequired;
+    [SerializeField] private float fuelRequired;
+    [SerializeField] private float elecRequired;
     
     //Counter which when is equal energyRequired generates money
-    private int elecReceived;
-    private int fuelReceived;
+    private float elecReceived;
+    private float fuelReceived;
 
     private AudioManager audioManager;
 
@@ -22,7 +22,7 @@ public class GenerateMoney : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    public void ReceiveEnergy(int elecAmount, int fuelAmount)
+    public void ReceiveEnergy(float elecAmount, float fuelAmount)
     {
         
         if (elecAmount != 0) {

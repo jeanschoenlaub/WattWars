@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 7753436983663317480}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -1.37, z: 0}
+  m_LocalPosition: {x: 1.6465578, y: -2.4866624, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -223,10 +223,8 @@ MonoBehaviour:
   buildingMask:
     serializedVersion: 2
     m_Bits: 256
-  rangeCircle: {fileID: 3938702787384931124}
+  bulletType: 1
   towerType: 1
-  targetingRange: 2
-  bulletPerSeconds: 1
   switchOnOff: {fileID: 0}
   isSwitchable: 0
   conversion:

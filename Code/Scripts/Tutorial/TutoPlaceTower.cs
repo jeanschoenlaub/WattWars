@@ -18,9 +18,7 @@ public class TutoPlaceTower : MonoBehaviour
 
     [Header("Tower Button References")]
     [SerializeField] public Button TowerSelectButton; 
-    [SerializeField] public UnityEvent onTowerSelectButtonClicked; 
     [SerializeField] public Button DieselTowerSelectButton; 
-    [SerializeField] public UnityEvent onDieselTowerSelectButtonClicked; 
     
     [Header("Plot References")]
     [SerializeField] private Plot[] plots; // rest of plots 

@@ -13,12 +13,10 @@ public class Menu : MonoBehaviour
     [SerializeField] TextMeshProUGUI waveUI;
     [SerializeField] TextMeshProUGUI waveAnim;
     
-
     [Header("--------- GameSpeed and Menu ---------")]
     [SerializeField] Button menuButton;
     [SerializeField] private GameObject menuGameObject;
-    [SerializeField] Sprite playSprite;
-    [SerializeField] Sprite pauseSprite;
+    [SerializeField] TextMeshProUGUI gameSpeedText;
     private bool isMenuOpen = false;
 
     [Header("--------- GameSound ---------")]
@@ -114,18 +112,19 @@ public class Menu : MonoBehaviour
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
-        LevelManager.SetGameSpeed(isMenuOpen ? 0 : 1);
         
         if (isMenuOpen)
         {
             // If opening the menu, just make it visible and interactable
             menuGameObject.SetActive(true);
+            LevelManager.SaveGameSpeed();
         }
         else
         {
             // If closing the menu, first make all buttons non-interactable,
             // then make the menu itself inactive
             menuGameObject.SetActive(false);
+            LevelManager.ResumeGame(); // Uses the save game speed to resume
         }
     }
 
@@ -137,8 +136,8 @@ public class Menu : MonoBehaviour
 
             if (waveAnim && waveUI){
                 //For the following waves starts at 0 and we want to start with 1 for UI 
-            waveAnim.text =  "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
-            waveUI.text =   "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
+            waveAnim.text = "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
+            waveUI.text = "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
                             +  waveManager.currentDay.waves.Count.ToString();
 
             }else{
@@ -168,6 +167,14 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(currentScene.name);
     }
 
-    
-
+    public void ToggleGameSpeed(){
+        int currentSpeed = LevelManager.GetGameSpeed();
+        if (currentSpeed == 1){
+            LevelManager.SetGameSpeed(2);
+            gameSpeedText.text = "x2";
+        } else if (currentSpeed == 2){
+            LevelManager.SetGameSpeed(1);
+            gameSpeedText.text = "x1";
+        }
+    }
 }
