@@ -7,14 +7,12 @@ public class MenuLevelManager : MonoBehaviour
     public Button[] Level1SelectionButtons;
     public Sprite onImage;
     public Sprite offImage;
-    public Button resetButton; 
 
     private void Awake() {
         UpdateLevelButtons();
     }
 
     private void Start() {
-        resetButton.onClick.AddListener(ResetProgress);
     }
     
     public void OpenScenario(int scenarioId){
@@ -45,6 +43,14 @@ public class MenuLevelManager : MonoBehaviour
 
         // Update UI
         UpdateLevelButtons();
+    }
+
+     public void BackToMenu(){
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void BackToIdle(){
+        SceneManager.LoadScene("MainMenu");
     }
 }
 

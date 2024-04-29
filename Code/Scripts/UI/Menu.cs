@@ -42,7 +42,9 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
-        waveManager = FindObjectOfType<WaveManager>();
+        if (isInTDMode){
+            waveManager = FindObjectOfType<WaveManager>();
+        }
         menuGameObject.SetActive(false);
 
         menuButton.onClick.AddListener(ToggleMenu);
@@ -151,7 +153,7 @@ public class Menu : MonoBehaviour
     }
 
     public void BackToIdle(){
-        SceneManager.LoadScene("Idle");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame(){
