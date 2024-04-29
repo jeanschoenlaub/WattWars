@@ -69,7 +69,7 @@ public class TutoNight : MonoBehaviour
     IEnumerator Task1SelectDieselGen(float delay){
 
         // Wait before showing text
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         TutoText.text = "We can use the diesel generator to profuce <color=#F5FF00>electricity</color> at night";
         TutoTextBox.SetActive(true);
 

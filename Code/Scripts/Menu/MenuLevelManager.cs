@@ -18,7 +18,6 @@ public class MenuLevelManager : MonoBehaviour
     }
     
     public void OpenScenario(int scenarioId){
-        Debug.Log("a");
         string sceneName = "Scenario"+scenarioId;
         SceneManager.LoadScene(sceneName);
     }
