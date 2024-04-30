@@ -30,24 +30,43 @@ public class Turret : MonoBehaviour
     [SerializeField] public bool isSwitchable = false;
     [SerializeField] public ConversionAttribute conversion;
     [SerializeField] private Animator SwitchButtonAnim;
-
-    private Transform furthestTarget;
-    private float timeUntilFire;
+    private float currentCharge = 0f; // Starts false but when we click down to build turns On
     public bool isSwitchedOn = false; // Starts false but when we click down to build turns On
 
+    // Internal variables
+    private Transform furthestTarget;
+    private float timeUntilFire;
+   
     private void Update(){
         // This is the shoot method only for ressource towers
-        if (!isSwitchable ){
+        int currentGameSpeed = LevelManager.GetGameSpeed();
+
+        if (!isSwitchable){
             
-            FindTarget();
-
-            if (furthestTarget){
-                int currentGameSpeed = LevelManager.GetGameSpeed();
-                timeUntilFire += Time.deltaTime*currentGameSpeed;
-
-                if (timeUntilFire >= 1f/ towerConfig.bulletPerSeconds){
+            timeUntilFire += Time.deltaTime*currentGameSpeed;
+            if (timeUntilFire >= 1f/ towerConfig.bulletPerSeconds){
+                FindTarget();
+                if (furthestTarget){
                     Shoot(); 
                     timeUntilFire = 0f;
+                }
+            }
+        }
+
+        // For battery towers
+        else if (isSwitchable && isSwitchedOn) {
+            // To do change this to just damage
+            if (currentCharge > towerConfig.elecDamage){
+                FindTarget();
+                if (furthestTarget){
+                    timeUntilFire += Time.deltaTime*currentGameSpeed;
+
+                    if (timeUntilFire >= 1f/ towerConfig.bulletPerSeconds){
+                        Shoot(); ;
+                        currentCharge = currentCharge -1;
+                        UpdateBatterySprite();
+                        timeUntilFire = 0f;
+                    }
                 }
             }
         }
@@ -59,7 +78,7 @@ public class Turret : MonoBehaviour
         float elecDamage = towerConfig.elecDamage;
         float fuelDamage = towerConfig.fuelDamage;
 
-        // But if Solar type we adjust elec damage depeding on Weather
+        // But if Solar type we adjust elec damage depending on Weather
         if (towerType == TowerType.Solar){
             elecDamage = adjustElecDamageSolar();
             if (elecDamage == 0f){return;} // Don't shoot bullet visually if no damage
@@ -71,9 +90,28 @@ public class Turret : MonoBehaviour
         bulletScript.SetDamage(elecDamage, fuelDamage);
     }
 
-    public void Convert(){
-        FindTarget();
-        Shoot(); 
+    public void Charge(float elecDamage, float fuelDamage){
+        if (currentCharge < towerConfig.maxCharge){
+            Debug.Log("Charging");
+            currentCharge = currentCharge + elecDamage + fuelDamage;
+            UpdateBatterySprite();
+        }
+    }
+
+    public void UpdateBatterySprite(){
+        Battery batteryScript = transform.GetComponent<Battery>();
+
+        // Check if the Battery script was found
+        if (batteryScript != null)
+        {
+            // Battery script found, set the sprite
+            batteryScript.SetSprite(currentCharge, towerConfig.maxCharge);
+        }
+        else
+        {
+            // Battery script not found, log a warning message
+            Debug.LogWarning("Battery script not found on GameObject: " + gameObject.name);
+        }
     }
 
     private void OnMouseDown()
@@ -189,20 +227,30 @@ public class Turret : MonoBehaviour
     {
         Transform closestSwitcheableTower = null;
         float closestDistanceSqr = Mathf.Infinity;
+        Transform currentTowerTransform = transform; // Store the current tower's transform
 
-        foreach (GameObject tower in GameObject.FindGameObjectsWithTag("Tower"))
+        foreach (GameObject towerObject in GameObject.FindGameObjectsWithTag("Tower"))
         {
+            // Get the transform of the tower
+            Transform towerTransform = towerObject.transform;
+
+            // Skip the current tower (the one this script is attached to)
+            if (towerTransform == currentTowerTransform)
+            {
+                continue;
+            }
+            
             // We only consider towers that are switcheable
-            Turret turretScript = tower.GetComponent<Turret>();
+            Turret turretScript = towerObject.GetComponent<Turret>();
             // Check if the tower is switchable, switched on, and matches the required input type
-            if (turretScript.isSwitchable && turretScript.isSwitchedOn && turretScript.conversion.inputType == bulletType){
-                Vector3 directionToSwitchableTower = tower.transform.position - transform.position;
+            if (turretScript.isSwitchable && turretScript.conversion.inputType == bulletType){
+                Vector3 directionToSwitchableTower = towerTransform.position - transform.position;
                 float dSqrToSwitcheableTower = directionToSwitchableTower.sqrMagnitude;
 
                 if (dSqrToSwitcheableTower < closestDistanceSqr && dSqrToSwitcheableTower <= (towerConfig.targetingRange * towerConfig.targetingRange))
                 {
                     closestDistanceSqr = dSqrToSwitcheableTower;
-                    closestSwitcheableTower = tower.transform;
+                    closestSwitcheableTower = towerTransform;
                 }
             }
         }

@@ -8,4 +8,5 @@ public class Tower : Structure
     public float bulletPerSeconds;
     public float elecDamage;
     public float fuelDamage;
+    public float maxCharge; // For batteries only
 }
