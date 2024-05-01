@@ -6,7 +6,7 @@ public class Tower : Structure
     public GameObject rangeCircle;
     public float targetingRange;
     public float bulletPerSeconds;
-    public float elecDamage;
-    public float fuelDamage;
+    public BulletType bulletType;
+    public float bulletDamage;
     public float maxCharge; // For batteries only
 }

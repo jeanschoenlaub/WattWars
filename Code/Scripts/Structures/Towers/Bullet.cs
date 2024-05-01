@@ -1,14 +1,21 @@
 using UnityEngine;
 
+public enum BulletType
+{
+    Elec,
+    Fuel,
+}
+
 public class Bullet : MonoBehaviour
 {
 
     [Header("Attributes")]
     [SerializeField] private float bulletSpeed = 5f;
+    [SerializeField] public BulletType bulletType;
 
     //Variables 
-    private float elecDamage = 0; //Set Using method by tower script
-    private float fuelDamage = 0; //Set Using method by tower script
+    private float bulletDamage = 0; //Set Using method by tower script
+    
     private Transform target;
     private float proximityDetectionRange = 0.1f; // If a bullet is closer than this to ennemy interacts
 
@@ -16,9 +23,12 @@ public class Bullet : MonoBehaviour
         target = _target; 
     }
 
-    public void SetDamage(float _elecDamag, float _fuelDamage){
-        elecDamage = _elecDamag; 
-        fuelDamage = _fuelDamage;
+    public void SetDamage(float _bulletDamage){
+        bulletDamage = _bulletDamage; 
+    }
+
+    public void SetBulletType(BulletType _bulletType){
+        bulletType = _bulletType; 
     }
 
     private void Update() {
@@ -56,31 +66,36 @@ public class Bullet : MonoBehaviour
         }
     }
 
-
+    // To-Do change health to take damage regardless of type
     private void DealDamageToEnemy() {
         Health health = target.GetComponent<Health>();
         if (health != null) {
-            health.TakeElecDamage(elecDamage);
-            health.TakeFuelDamage(fuelDamage);
+            health.TakeDamage(bulletDamage);
+        }else {
+            Debug.Log("Trying to deal health damage, but couldn't find script");
         }
     }
 
-
+    // To-Do change health to take damage regardless of type
     private void TransferEnergyToBuilding() {
         GenerateMoney generateMoney = target.GetComponent<GenerateMoney>();
         if (generateMoney != null) {
-            if (elecDamage != 0){
-                generateMoney.ReceiveEnergy(elecDamage,0); 
+            if (bulletType == BulletType.Elec){
+                generateMoney.ReceiveEnergy(bulletDamage,0); 
             }
-            if (fuelDamage != 0){
-                generateMoney.ReceiveEnergy(0,fuelDamage); 
+            if (bulletType == BulletType.Fuel){
+                generateMoney.ReceiveEnergy(0,bulletDamage); 
             }
         }
     }
 
     private void TransferEnergyToBatteryTower() {
         Turret tower = target.GetComponent<Turret>();
-        tower.Charge(elecDamage, fuelDamage);
+        if (tower != null) {
+            tower.Charge(bulletDamage);
+        } else {
+            Debug.Log("Trying to charge tower, but couldn't find scritp");
+        }
     }
 
 }

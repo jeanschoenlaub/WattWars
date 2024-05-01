@@ -19,15 +19,13 @@ public class Health : MonoBehaviour
         UpdateHUD(); // Initial HUD update
     }
 
-    public void TakeElecDamage(float dmg){
-        elecLives = Mathf.Max(elecLives - dmg, 0);
-        UpdateHUD();
-
-        CheckIfDestroyed();
-    }
-
-    public void TakeFuelDamage(float dmg){
-        fuelLives = Mathf.Max(fuelLives - dmg, 0);
+    public void TakeDamage(float dmg){
+        if (elecLives >0){
+            elecLives = Mathf.Max(elecLives - dmg, 0);
+        }
+        else if (fuelLives >0){
+            fuelLives = Mathf.Max(fuelLives - dmg, 0);
+        }
         UpdateHUD();
 
         CheckIfDestroyed();

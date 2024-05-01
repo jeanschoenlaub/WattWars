@@ -1,11 +1,5 @@
 using UnityEngine;
 
-public enum BulletType
-{
-    Elec,
-    Fuel,
-}
-
 public enum TowerType
 {
     Solar,
@@ -36,13 +30,6 @@ public class Turret : MonoBehaviour
     // Internal variables
     private Transform furthestTarget;
     private float timeUntilFire;
-
-    void Start(){
-        Debug.Log("TowerStart");
-        if (isSwitchable){
-            UpdateBatterySprite();
-        }
-    }
    
     private void Update(){
         // This is the shoot method only for ressource towers
@@ -62,8 +49,7 @@ public class Turret : MonoBehaviour
 
         // For battery towers
         else if (isSwitchable && isSwitchedOn) {
-            // To do change this to just damage
-            if (currentCharge >= towerConfig.elecDamage){
+            if (currentCharge >= towerConfig.bulletDamage){
                 FindTarget();
                 if (furthestTarget){
                     timeUntilFire += Time.deltaTime*currentGameSpeed;
@@ -81,25 +67,24 @@ public class Turret : MonoBehaviour
 
     private void Shoot(){
 
-        // By default we take the tower config damages
-        float elecDamage = towerConfig.elecDamage;
-        float fuelDamage = towerConfig.fuelDamage;
+        float bulletDamage = towerConfig.bulletDamage;
 
         // But if Solar type we adjust elec damage depending on Weather
         if (towerType == TowerType.Solar){
-            elecDamage = adjustElecDamageSolar();
-            if (elecDamage == 0f){return;} // Don't shoot bullet visually if no damage
+            bulletDamage = adjustElecDamageSolar();
+            if (bulletDamage == 0f){return;} // Don't shoot bullet visually if no damage, which can happen during night
         }
 
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
         bulletScript.SetTarget(furthestTarget);
-        bulletScript.SetDamage(elecDamage, fuelDamage);
+        bulletScript.SetBulletType(towerConfig.bulletType);
+        bulletScript.SetDamage(bulletDamage);
     }
 
-    public void Charge(float elecDamage, float fuelDamage){
+    public void Charge(float bulletDamage){
         if (currentCharge < towerConfig.maxCharge){
-            currentCharge = currentCharge + elecDamage + fuelDamage;
+            currentCharge = currentCharge + bulletDamage;
             UpdateBatterySprite();
         }
     }
@@ -277,14 +262,14 @@ public class Turret : MonoBehaviour
         bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
         if (isInShade)
         {
-            return 0.2f*towerConfig.elecDamage;
+            return 0.2f*towerConfig.bulletDamage;
         }
 
         // If the night is falling 0.5x elec damage
         if (WeatherManager.main.isNightFalling){
-            return 0.5f*towerConfig.elecDamage;
+            return 0.5f*towerConfig.bulletDamage;
         }
 
-        else{return towerConfig.elecDamage;}
+        else{return towerConfig.bulletDamage;}
     }
 }
