@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
     }
 
     private void Update() {
+
+        // Currently we can target an enemy that will get destroyed so if no target destroy 
         if (!target) {
             Destroy(gameObject); // Destroy the projectile if the target is null
             return;
@@ -66,7 +68,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    // To-Do change health to take damage regardless of type
     private void DealDamageToEnemy() {
         Health health = target.GetComponent<Health>();
         if (health != null) {
@@ -78,14 +79,9 @@ public class Bullet : MonoBehaviour
 
     // To-Do change health to take damage regardless of type
     private void TransferEnergyToBuilding() {
-        GenerateMoney generateMoney = target.GetComponent<GenerateMoney>();
-        if (generateMoney != null) {
-            if (bulletType == BulletType.Elec){
-                generateMoney.ReceiveEnergy(bulletDamage,0); 
-            }
-            if (bulletType == BulletType.Fuel){
-                generateMoney.ReceiveEnergy(0,bulletDamage); 
-            }
+        BuildingTower building = target.GetComponent<BuildingTower>();
+        if (building != null) {
+            building.ReceiveEnergy(bulletDamage); 
         }
     }
 

@@ -198,17 +198,26 @@ public class Turret : MonoBehaviour
         Transform closestBuilding = null;
         float closestDistanceSqr = Mathf.Infinity;
 
-        //TO-DO only target building of same types
-        foreach (GameObject building in GameObject.FindGameObjectsWithTag("Building"))
+        // We use the BUILDING TAG to FINd the buildingTower objects
+        foreach (GameObject buildingObject in GameObject.FindGameObjectsWithTag("Building"))
         {
-            Vector3 directionToBuilding = building.transform.position - transform.position;
-            float dSqrToBuilding = directionToBuilding.sqrMagnitude;
+            BuildingTower buildingTower = buildingObject.GetComponent<BuildingTower>();
 
-            if (dSqrToBuilding < closestDistanceSqr && dSqrToBuilding <= (towerConfig.targetingRange * towerConfig.targetingRange))
+            // Check if the BuildingTower component was found
+            if (buildingTower != null)
             {
-                closestDistanceSqr = dSqrToBuilding;
-                closestBuilding = building.transform;
-            }
+                // Only target the building if it is ON and of the same type
+                if (buildingTower.isSwitchedOn && buildingTower.buildingConfig.bulletType == towerConfig.bulletType){
+                    Vector3 directionToBuilding = buildingObject.transform.position - transform.position;
+                    float dSqrToBuilding = directionToBuilding.sqrMagnitude;
+
+                    if (dSqrToBuilding < closestDistanceSqr && dSqrToBuilding <= (towerConfig.targetingRange * towerConfig.targetingRange))
+                    {
+                        closestDistanceSqr = dSqrToBuilding;
+                        closestBuilding = buildingObject.transform;
+                    }
+                }
+            } 
         }
 
         return closestBuilding;
