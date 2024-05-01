@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 212ad75a8790f49468b1ef66346aad13, type: 3}
+  m_Sprite: {fileID: -971514473, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -292,13 +292,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7528054fbdab24d46be5f3bc9132dc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite0: {fileID: -1016748118, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite15: {fileID: -1602203023, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite30: {fileID: -1695731979, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite50: {fileID: 1598076986, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite70: {fileID: 867266370, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite85: {fileID: 85614674, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
-  sprite90: {fileID: -509674001, guid: a509a5ea84635424287e5d0957c3b7e1, type: 3}
+  sprite0: {fileID: -971514473, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite10: {fileID: 705234327, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite20: {fileID: -1899598319, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite30: {fileID: -378476002, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite40: {fileID: 238960862, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite50: {fileID: -790449278, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite60: {fileID: -934967056, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite70: {fileID: -1553814738, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite80: {fileID: -2066394126, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite90: {fileID: 1328042506, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
+  sprite100: {fileID: 1556373059, guid: 0e6adc3c8eba94a56bab29f41a83c7d1, type: 3}
   SpriteToReplace: {fileID: 2382372606117918222}
 --- !u!1001 &941961766876047289
 PrefabInstance:
@@ -334,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093136368916558393, guid: ace6759e035ae4d46b7330d22d6525d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 3093136368916558393, guid: ace6759e035ae4d46b7330d22d6525d1, type: 3}
       propertyPath: m_LocalPosition.z

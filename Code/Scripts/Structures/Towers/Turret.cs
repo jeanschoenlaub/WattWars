@@ -36,6 +36,13 @@ public class Turret : MonoBehaviour
     // Internal variables
     private Transform furthestTarget;
     private float timeUntilFire;
+
+    void Start(){
+        Debug.Log("TowerStart");
+        if (isSwitchable){
+            UpdateBatterySprite();
+        }
+    }
    
     private void Update(){
         // This is the shoot method only for ressource towers
@@ -56,7 +63,7 @@ public class Turret : MonoBehaviour
         // For battery towers
         else if (isSwitchable && isSwitchedOn) {
             // To do change this to just damage
-            if (currentCharge > towerConfig.elecDamage){
+            if (currentCharge >= towerConfig.elecDamage){
                 FindTarget();
                 if (furthestTarget){
                     timeUntilFire += Time.deltaTime*currentGameSpeed;
@@ -92,7 +99,6 @@ public class Turret : MonoBehaviour
 
     public void Charge(float elecDamage, float fuelDamage){
         if (currentCharge < towerConfig.maxCharge){
-            Debug.Log("Charging");
             currentCharge = currentCharge + elecDamage + fuelDamage;
             UpdateBatterySprite();
         }
@@ -242,8 +248,9 @@ public class Turret : MonoBehaviour
             
             // We only consider towers that are switcheable
             Turret turretScript = towerObject.GetComponent<Turret>();
+
             // Check if the tower is switchable, switched on, and matches the required input type
-            if (turretScript.isSwitchable && turretScript.conversion.inputType == bulletType){
+            if (turretScript.isSwitchable && turretScript.conversion.inputType == bulletType && turretScript.currentCharge < turretScript.towerConfig.maxCharge){
                 Vector3 directionToSwitchableTower = towerTransform.position - transform.position;
                 float dSqrToSwitcheableTower = directionToSwitchableTower.sqrMagnitude;
 

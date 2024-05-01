@@ -137,7 +137,6 @@ public class Plot : MonoBehaviour
 
             //Finally we mark the plot(s) as reserved by this stuct so can't build others on top
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
-            Debug.Log("build pos "+gridPosition);
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
            
         }else {

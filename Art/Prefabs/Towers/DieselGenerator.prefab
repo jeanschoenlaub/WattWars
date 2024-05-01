@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 228627555, guid: 7a3a2fb93c9924da48297af146b8060c, type: 3}
+  m_Sprite: {fileID: -1888783769, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 4306807270003993691}
   - component: {fileID: 5654015207017925718}
   - component: {fileID: 3270516109918731573}
+  - component: {fileID: 8258623977192925797}
   m_Layer: 8
   m_Name: DieselGenerator
   m_TagString: Tower
@@ -252,9 +253,33 @@ MonoBehaviour:
   isSwitchable: 1
   conversion:
     inputType: 1
-    conversionRatio: 2
+    conversionRatio: 1
   SwitchButtonAnim: {fileID: 1106878833754128565}
   isSwitchedOn: 0
+--- !u!114 &8258623977192925797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277949304545418155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7528054fbdab24d46be5f3bc9132dc28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite0: {fileID: -1888783769, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite10: {fileID: -649110659, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite20: {fileID: -764690663, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite30: {fileID: -1008963463, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite40: {fileID: 299484000, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite50: {fileID: 284070545, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite60: {fileID: -1295929372, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite70: {fileID: 196161623, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite80: {fileID: -1262270443, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite90: {fileID: -1309658794, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  sprite100: {fileID: 68868188, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}
+  SpriteToReplace: {fileID: 7839895100464399480}
 --- !u!1001 &5265699058055171057
 PrefabInstance:
   m_ObjectHideFlags: 0

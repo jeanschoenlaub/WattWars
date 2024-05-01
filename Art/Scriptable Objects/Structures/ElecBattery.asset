@@ -18,8 +18,8 @@ MonoBehaviour:
   prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
   buildCooldown: 15
   rangeCircle: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
-  targetingRange: 4
-  bulletPerSeconds: 0
+  targetingRange: 6
+  bulletPerSeconds: 3
   elecDamage: 1
   fuelDamage: 0
-  maxCharge: 0
+  maxCharge: 10
