@@ -20,50 +20,6 @@ public class Plot : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }   
 
-    // void Update()
-    // {
-    //     HandleMouseInput();
-    //     HandleTouchInput();
-    // }
-
-    // private void HandleMouseInput()
-    // {
-    //     if (Input.GetMouseButton(0)) // You could use GetMouseButtonDown for single click detection
-    //     {
-    //         Debug.Log("mouse imput");
-    //         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //         mousePosition.z = 0; // Adjust z-coordinate as needed
-    //         ProcessInput(mousePosition);
-    //     }
-    // }
-
-    // private void HandleTouchInput()
-    // {
-    //     if (Input.touchCount > 0)
-    //     {
-    //         Touch touch = Input.GetTouch(0);
-    //         if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
-    //         {
-    //             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-    //             touchPosition.z = 0; // Adjust z-coordinate as needed
-    //             ProcessInput(touchPosition);
-    //         }
-    //     }
-    // }
-
-    // private void ProcessInput(Vector3 position)
-    // {
-    //     Structure structureToBuild = BuildManager.main.GetSelectedStructure();
-    //     if (structureToBuild == null) return;
-
-    //     //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
-    //     Vector3 instantiationPosition = position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
-        
-    //     BuildManager.main.UpdatePreviewPosition(instantiationPosition);
-    //     // We set the opacity of the entire structure to 50% and relvant color based on if constructable
-    //     CheckPlotConstructability(structureToBuild);
-    // }
-
     private void OnMouseEnter()
     {
         Structure structureToBuild = BuildManager.main.GetSelectedStructure();
@@ -79,11 +35,21 @@ public class Plot : MonoBehaviour
 
     private void OnMouseExit()
     {
+        RemovePlotsColor();
+    }
+
+    private void RemovePlotsColor(){
         foreach (var plotSr in plotsToColor)
         {
             plotSr.color = Color.white;
         }
         plotsToColor.Clear();
+        
+    }
+
+    public void ClearStructurePreview(){
+        BuildManager.main.DeselectStructure();
+        RemovePlotsColor();
     }
 
     private void OnMouseDown()
@@ -95,7 +61,6 @@ public class Plot : MonoBehaviour
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
-        // Redo the On Mouse enter test for iphone bug
         //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
         Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
         BuildManager.main.UpdatePreviewPosition(instantiationPosition);
@@ -107,6 +72,7 @@ public class Plot : MonoBehaviour
         {
             BuildManager.main.DeselectStructure();
             audioManager.PlaySFX(audioManager.badActionSFX);
+            RemovePlotsColor();
             return;
         }
 
@@ -186,10 +152,14 @@ public class Plot : MonoBehaviour
             //Finally we mark the plot(s) as reserved by this stuct so can't build others on top
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
+
+            //Trigger Cooldown:
+            ShopManager.main.StartCooldown(structureToBuild);
+            ClearStructurePreview();
            
         }else {
             // If not enough money we deselect and play error sound
-            BuildManager.main.DeselectStructure();
+            ClearStructurePreview();
             audioManager.PlaySFX(audioManager.badActionSFX);
         }
     }

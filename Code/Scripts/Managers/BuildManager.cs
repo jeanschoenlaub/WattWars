@@ -54,6 +54,8 @@ public class BuildManager : MonoBehaviour
     private void CreateStructurePreview(GameObject prefab, Structure structure)
     {
         structurePreviewInstance = Instantiate(prefab);
+        structurePreviewInstance.transform.position = new Vector2(-100, -100); // Move it outside the map
+
         SetOpacity(structurePreviewInstance, 0.5f, Color.white);
         DisableComponents(structurePreviewInstance);
 

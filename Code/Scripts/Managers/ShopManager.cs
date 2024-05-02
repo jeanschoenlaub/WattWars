@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 using TMPro;
 using UnityEngine.EventSystems;
 
 public class ShopManager : MonoBehaviour
 {
+    public static ShopManager main;
+
     [Header("Shop Buttons and Cooldowns")]
     [SerializeField] private Button[] structureButtons; // overlay image must be last child
 
@@ -13,6 +16,8 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
+        main = this;
+
         isOnCooldown = new bool[structureButtons.Length];
         for (int i = 0; i < structureButtons.Length; i++)
         {
@@ -21,14 +26,11 @@ public class ShopManager : MonoBehaviour
             // And the cost test that is placed on child -2 pos (overlay is last child)
             TextMeshProUGUI towerCostTextUI = structureButtons[i].transform.GetChild(structureButtons[i].transform.childCount - 2).GetComponent<TextMeshProUGUI>();
 
-
             if (structureRef != null && towerCostTextUI != null && structureRef.structure != null)
             {
                 towerCostTextUI.text = structureRef.structure.cost.ToString();
-                
                 SetupButtonInteractions(structureButtons[i], i, structureRef.structure);
             }
-
             else
             {
                 Debug.LogError("No structure assigned to button " + structureButtons[i].name + "or missing cost text");
@@ -51,17 +53,21 @@ public class ShopManager : MonoBehaviour
 
     private void SelectStructure(int index, Structure structure)
     {
-        Debug.Log(structure.structureName);
         BuildManager.main.SetSelectedStructure(index); // True for tower
-        StartCooldown(structureButtons[index], index, structure.buildCooldown);
     }
 
-    private void StartCooldown(Button button, int index, float cooldownTime)
+    public void StartCooldown(Structure structure)
     {
-        // the last child of each button is the cooldown overlay
+        // Find the corresponding button and index for the given structure
+        int index = Array.FindIndex(structureButtons, b => b.GetComponent<StructRefShop>().structure == structure);
+        if (index == -1){
+            Debug.LogError("Structure not found in structureButtons array.");
+            return;
+        }
+        Button button = structureButtons[index];
         Image cooldownOverlay = button.transform.GetChild(button.transform.childCount - 1).GetComponent<Image>();
         isOnCooldown[index] = true; // Set the cooldown state to true
-        StartCoroutine(CooldownRoutine(button, cooldownOverlay, cooldownTime, index));
+        StartCoroutine(CooldownRoutine(button, cooldownOverlay, structure.buildCooldown, index));
     }
 
     private IEnumerator CooldownRoutine(Button button, Image cooldownOverlay, float cooldownTime, int index)
@@ -84,13 +90,6 @@ public class ShopManager : MonoBehaviour
 
     void SetupButtonInteractions(Button button, int buttonIndex, Structure structure)
     {
-        // Local index for lambda func
-        int localIndex = buttonIndex;
-        Structure localStructure = structure;
-        // Assign the select function directly for clicks
-        //button.onClick.AddListener(() => SelectStructure(localIndex, localStructure));
-
-        // Assign the event trigger with direct capture of parameters
         AddEventTriggers(button, buttonIndex, structure);
     }
 
@@ -99,26 +98,32 @@ public class ShopManager : MonoBehaviour
         EventTrigger trigger = button.GetComponent<EventTrigger>() ?? button.gameObject.AddComponent<EventTrigger>();
         trigger.triggers.Clear(); // Clear previous triggers to avoid duplicate actions
 
-        EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
-        pointerDownEntry.eventID = EventTriggerType.PointerDown;
+        EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry 
+        {
+            eventID = EventTriggerType.PointerDown,
+            callback = new EventTrigger.TriggerEvent()
+        };
         pointerDownEntry.callback.AddListener((data) => {
-            Debug.Log($"Pointer down on structure: {structure.name}");
-            SelectStructure(index, structure);
+            if (LevelManager.main.GetCurrentMoney() >= structure.cost){
+                if (!isOnCooldown[index]){
+                    SelectStructure(index, structure);
+                }
+            }        
         });
         trigger.triggers.Add(pointerDownEntry);
 
-        // Add Pointer Up event
-        EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
-        pointerUpEntry.eventID = EventTriggerType.PointerUp;
+        // Add a Pointer Up that will be triggereing build on release
+        EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry 
+        {
+            eventID = EventTriggerType.PointerUp,
+            callback = new EventTrigger.TriggerEvent()
+        };
+        // We use pointer up world position to trigger Grid to fetch the correct Plot script
         pointerUpEntry.callback.AddListener((data) => {
             PointerEventData eventData = (PointerEventData)data;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(eventData.position);
-            worldPosition.z = 0; // Assuming your game is 2D and plots are on z = 0
-            Debug.Log($"Pointer up on structure: {structure.name}, world position: {worldPosition}");
-
-            GridManager.Instance.PlaceStructureAtPosition(worldPosition, structure);
+            GridManager.Instance.PlaceStructureAtPosition(worldPosition);
         });
         trigger.triggers.Add(pointerUpEntry);
     }
-
 }
