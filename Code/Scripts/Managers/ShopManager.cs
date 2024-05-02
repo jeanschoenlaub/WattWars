@@ -10,6 +10,7 @@ public class ShopManager : MonoBehaviour
     public static ShopManager main;
 
     [Header("Shop Buttons and Cooldowns")]
+    // Even if use buttons, we use triggers on pointer up and down for drag and drop functionalities
     [SerializeField] private Button[] structureButtons; // overlay image must be last child
 
     private bool[] isOnCooldown;
@@ -51,28 +52,29 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void SelectStructure(int index, Structure structure)
+    // Function to let building manager create a stucture preview, also used by plot script
+    private void SelectStructure(int index)
     {
         BuildManager.main.SetSelectedStructure(index); // True for tower
     }
 
+    // Function to set a flag 
     public void StartCooldown(Structure structure)
     {
         // Find the corresponding button and index for the given structure
         int index = Array.FindIndex(structureButtons, b => b.GetComponent<StructRefShop>().structure == structure);
-        if (index == -1){
-            Debug.LogError("Structure not found in structureButtons array.");
-            return;
-        }
+        if (index == -1){ Debug.LogError("Structure not found in structureButtons array."); return;}
         Button button = structureButtons[index];
-        Image cooldownOverlay = button.transform.GetChild(button.transform.childCount - 1).GetComponent<Image>();
+
+        //And then starts a coroutine to visually show the cooldown poeriod over the shop image
         isOnCooldown[index] = true; // Set the cooldown state to true
+        Image cooldownOverlay = button.transform.GetChild(button.transform.childCount - 1).GetComponent<Image>();
         StartCoroutine(CooldownRoutine(button, cooldownOverlay, structure.buildCooldown, index));
     }
 
     private IEnumerator CooldownRoutine(Button button, Image cooldownOverlay, float cooldownTime, int index)
     {
-        button.interactable = false;
+        button.interactable = false; // Not used functionally, but visually to color the button
         float remainingTime = cooldownTime;
 
         while (remainingTime > 0)
@@ -85,7 +87,7 @@ public class ShopManager : MonoBehaviour
 
         cooldownOverlay.fillAmount = 0;
         isOnCooldown[index] = false; // Reset the cooldown state
-        button.interactable = true;
+        button.interactable = true; // Visaually color the button back
     }
 
     void SetupButtonInteractions(Button button, int buttonIndex, Structure structure)
@@ -106,7 +108,7 @@ public class ShopManager : MonoBehaviour
         pointerDownEntry.callback.AddListener((data) => {
             if (LevelManager.main.GetCurrentMoney() >= structure.cost){
                 if (!isOnCooldown[index]){
-                    SelectStructure(index, structure);
+                    SelectStructure(index);
                 }
             }        
         });

@@ -5,13 +5,12 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     [Header("References")]
-    [SerializeField] public Vector2 gridOrigin = new Vector2(); // World position of the grid's origin (bottom-left corner)
+    [SerializeField] public Vector2 gridOrigin = new Vector2(); // World position of the grid's origin (bottom-left corner) adjusted with the plot size (-0.5 x and y from plot parent)
     [SerializeField] public float plotSize; // The size of a plot in world units
-    [SerializeField] public int width ; // The number of plot horizontal
-    [SerializeField] public int height ; // The number of plot horizontal
+    [SerializeField] public int width ; // The number of plot horizontal -1 (list starts at 0)
+    [SerializeField] public int height ; // The number of plot horizontal -1 (list starts at 0)
     [SerializeField] private Plot[] plots; // dump of all plots
-
-    [SerializeField] public Plot[,] gridPlots;  // plots sorted in awake  
+    [SerializeField] public Plot[,] gridPlots;  // plots sorted into a [x,y] array based on their world positions
 
     void Awake()
     {
@@ -23,10 +22,10 @@ public class GridManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        InitializePlotReferences(); // Call this after initializing the grid
+        InitializePlotReferences(); // Sort the grid so I can dump plots in any order in inspector
     }
 
+    // Function to build the selected structure at plot under the given world position (from a pointerUp event)
     public void PlaceStructureAtPosition(Vector3 worldPosition)
     {
         Vector2Int gridPos = WorldToGridCoordinates(worldPosition);
@@ -45,7 +44,7 @@ public class GridManager : MonoBehaviour
         }
     }
     
-
+    // Sort the grid so I can dump plots in any order in inspector
     void InitializePlotReferences()
     {
         gridPlots = new Plot[width+1, height+1];
@@ -64,6 +63,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    // Returns the sprite of the given plot reference 
     public SpriteRenderer GetPlotSpriteRenderer(int x, int y)
     {
         if (x >= 0 && x <= width && y >= 0 && y <= height && gridPlots[x, y] != null)
@@ -73,6 +73,7 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    // Function to center buildings at the middle of their plot size (for example if 2x2 at the middle of 4 plots)
     public Vector3 CalculateStructureOffsetPosition(int structureSizeX, int structureSizeY){
         Vector3 offset = new Vector3((structureSizeX - 1) *  plotSize/2, (structureSizeY - 1) *  plotSize/2, 0);
         return offset;
@@ -89,6 +90,7 @@ public class GridManager : MonoBehaviour
         return gridPlots[x, y].constructable; // Return true if not occupied
     }
 
+    // Form verctor 3 to x,y of the order plot list 
     public Vector2Int WorldToGridCoordinates(Vector3 worldPosition)
     {
         int x = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / plotSize)+1;
@@ -96,7 +98,7 @@ public class GridManager : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
-    // Reserve plots for a tower
+    // Reserve plots for a tower so that other towers can't be build over it
     public void ReservePlots(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
@@ -123,6 +125,4 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-
-    
 }

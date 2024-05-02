@@ -1,25 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Each constructibe square in the game get's assigned a plot script
 public class Plot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private SpriteRenderer sr;
-    [SerializeField] public bool constructable; //Flage to indicate if a plot is construblae or not (oeg. other structure already buidl)
+    [SerializeField] private SpriteRenderer sr; // The plots sprite to color green and red to show wehre player can build
+    [SerializeField] public bool constructable; //Flag to indicate if a plot is constructable or not (oeg. other structure already build)
 
     private GameObject placedStructure; // Used to access new structure we build
     private bool anyPlotNotConstructable = false; // Flag to check if structures larger then 1x1 have some unconstructable plots
-
-    private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
+    private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>(); // We sometimes need to color multiple plots and decolor them from one place
 
     private AudioManager audioManager;
-
 
     private void Awake()
     {
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }   
 
+    //When dragging structures we display previews of tower over the plot we are dragging over
     private void OnMouseEnter()
     {
         Structure structureToBuild = BuildManager.main.GetSelectedStructure();
@@ -44,7 +45,6 @@ public class Plot : MonoBehaviour
             plotSr.color = Color.white;
         }
         plotsToColor.Clear();
-        
     }
 
     public void ClearStructurePreview(){
@@ -57,26 +57,19 @@ public class Plot : MonoBehaviour
         HandleConstruction(); 
     }
 
+    // If the structure is in a constructable spot and the player has enough moeny --> Build, else clear previewx
     public void HandleConstruction(){
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
-        //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
-        Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
-        BuildManager.main.UpdatePreviewPosition(instantiationPosition);
-
-        // We set the opacity of the entire structure to 50% and relvant color based on if constructable
-        CheckPlotConstructability(structureToBuild);
-
-        if (anyPlotNotConstructable)
+        if (!anyPlotNotConstructable && LevelManager.main.SpendCurrency(structureToBuild.cost))
         {
-            BuildManager.main.DeselectStructure();
+            PlaceStructure(structureToBuild);
+        }else{
             audioManager.PlaySFX(audioManager.badActionSFX);
-            RemovePlotsColor();
+            ClearStructurePreview();
             return;
         }
-
-        PlaceStructureIfPossible();
     }
 
     // Function to check that all the plots under the structure to build size are not
@@ -118,23 +111,20 @@ public class Plot : MonoBehaviour
         }
     }
 
-    private void PlaceStructureIfPossible()
+    private void PlaceStructure(Structure structureToBuild)
     {
-        Structure structureToBuild = BuildManager.main.GetSelectedStructure();
-
         GameObject prefab = structureToBuild.prefab; // Declare prefab as GameObject
         int [] size = structureToBuild.size;
 
-        // If prefab and player has enough money then we build
-        if (prefab != null && LevelManager.main.SpendCurrency(structureToBuild.cost))
+        // If prefab
+        if (prefab != null)
         {
             // First we calculate the actual position which is the center of current plot +  offet based on structure size
             Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
             
-            // Then we place structure, play sound, change from a transparent preview opac and deselect struct
+            // Then we place structure, play sound
             placedStructure = Instantiate(prefab, instantiationPosition , Quaternion.identity);
             audioManager.PlaySFX(audioManager.buildSFX);
-
 
             // Then set the opacity (base only) to 1
             Transform BaseTransform = placedStructure.transform.Find("Base");
@@ -143,8 +133,8 @@ public class Plot : MonoBehaviour
                 GameObject Base = BaseTransform.gameObject; 
                 BuildManager.main.SetOpacity(Base, 1f, Color.white);
             }
-
-            BuildManager.main.DeselectStructure();
+            
+            // Make sure a building tag is assigned to building structures
             if (structureToBuild is Building) { 
                 placedStructure.tag = "Building";
             }
@@ -153,14 +143,11 @@ public class Plot : MonoBehaviour
             Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
             GridManager.Instance.ReservePlots(gridPosition[0],gridPosition[1],size[0],size[1]);
 
-            //Trigger Cooldown:
+            //Trigger Cooldownand clear preview
             ShopManager.main.StartCooldown(structureToBuild);
             ClearStructurePreview();
-           
         }else {
-            // If not enough money we deselect and play error sound
-            ClearStructurePreview();
-            audioManager.PlaySFX(audioManager.badActionSFX);
+            Debug.Log("Error fetcing structure prefab, make sure to assign in inspector");
         }
     }
 }
