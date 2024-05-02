@@ -9,16 +9,60 @@ public class Plot : MonoBehaviour
 
     private GameObject placedStructure; // Used to access new structure we build
     private bool anyPlotNotConstructable = false; // Flag to check if structures larger then 1x1 have some unconstructable plots
-    private bool isDragging = false;
 
     private static List<SpriteRenderer> plotsToColor = new List<SpriteRenderer>();
 
     private AudioManager audioManager;
 
+
     private void Awake()
     {
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }   
+
+    // void Update()
+    // {
+    //     HandleMouseInput();
+    //     HandleTouchInput();
+    // }
+
+    // private void HandleMouseInput()
+    // {
+    //     if (Input.GetMouseButton(0)) // You could use GetMouseButtonDown for single click detection
+    //     {
+    //         Debug.Log("mouse imput");
+    //         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //         mousePosition.z = 0; // Adjust z-coordinate as needed
+    //         ProcessInput(mousePosition);
+    //     }
+    // }
+
+    // private void HandleTouchInput()
+    // {
+    //     if (Input.touchCount > 0)
+    //     {
+    //         Touch touch = Input.GetTouch(0);
+    //         if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+    //         {
+    //             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+    //             touchPosition.z = 0; // Adjust z-coordinate as needed
+    //             ProcessInput(touchPosition);
+    //         }
+    //     }
+    // }
+
+    // private void ProcessInput(Vector3 position)
+    // {
+    //     Structure structureToBuild = BuildManager.main.GetSelectedStructure();
+    //     if (structureToBuild == null) return;
+
+    //     //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
+    //     Vector3 instantiationPosition = position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
+        
+    //     BuildManager.main.UpdatePreviewPosition(instantiationPosition);
+    //     // We set the opacity of the entire structure to 50% and relvant color based on if constructable
+    //     CheckPlotConstructability(structureToBuild);
+    // }
 
     private void OnMouseEnter()
     {
@@ -44,6 +88,10 @@ public class Plot : MonoBehaviour
 
     private void OnMouseDown()
     {
+        HandleConstruction(); 
+    }
+
+    public void HandleConstruction(){
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 

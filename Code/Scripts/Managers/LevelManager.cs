@@ -64,7 +64,9 @@ public class LevelManager : MonoBehaviour
     // Method to resume the game at previously saved speed
     public static void ResumeGame()
     {
-        SetGameSpeed(savedGameSpeed); // Resume at saved speed
+        // TO-DO proper fix of game speed issue
+        if (savedGameSpeed == 2){SetGameSpeed(savedGameSpeed);}
+        else { SetGameSpeed(1);} 
     }
 
     // Load Main Menu
@@ -79,7 +81,6 @@ public class LevelManager : MonoBehaviour
         string sceneName = "Menu";
         SceneManager.LoadScene(sceneName);
     }
-
 
     private void Start(){
         coins =  currentScenario.Coins;

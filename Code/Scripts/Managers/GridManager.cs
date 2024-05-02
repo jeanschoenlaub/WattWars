@@ -26,6 +26,21 @@ public class GridManager : MonoBehaviour
 
         InitializePlotReferences(); // Call this after initializing the grid
     }
+
+    public void PlaceStructureAtPosition(Vector3 worldPosition, Structure structure)
+    {
+        Vector2Int gridPos = WorldToGridCoordinates(worldPosition);
+        if (gridPos.x >= 0 && gridPos.x <= width && gridPos.y >= 0 && gridPos.y <= height)
+        {
+            Plot targetPlot = gridPlots[gridPos.x, gridPos.y];
+            if (targetPlot != null && targetPlot.constructable)
+            {
+                 targetPlot.HandleConstruction();
+            }
+            else{Debug.Log($"Plot at ({gridPos.x}, {gridPos.y}) is not constructable.");}
+        }
+        else{Debug.Log("Pointer up position is out of grid bounds.");}
+    }
     
 
     void InitializePlotReferences()

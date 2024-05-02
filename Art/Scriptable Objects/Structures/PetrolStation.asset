@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3faa8432af8ea42be9eca0ea556bb927, type: 3}
   m_Name: PetrolStation
   m_EditorClassIdentifier: 
-  structureName: DataCenter
+  structureName: PetrolStation
   cost: 200
   size: 0200000002000000
   prefab: {fileID: 8277949304545418155, guid: c96cfe7fdf06b4364ad4df56118af01e, type: 3}
   buildCooldown: 12
+  bulletType: 0
+  energyRequired: 0
+  moneyGenerated: 0
