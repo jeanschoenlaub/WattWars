@@ -64,9 +64,10 @@ public class TutoPlaceTower : MonoBehaviour
             LevelManager.SetGameSpeed(1);
 
             TutoTextBox.SetActive(false);
+            MouseAnimator.SetTrigger("Hide");
+            TowerSelectButton.transform.localScale = new Vector3(1f, 1f, 1f); //Scale up towerIcone
 
             firstTimechecker = false; //So we don't enter this check again
-            TowerSelectButton.interactable = false; //To make sure the player doesn't spend all his money
             StartCoroutine(WaitForFridgeEnemyToAppear(secondDelayFridgeAppear)); // 4 seconds delay for electric enemies to appear        
         }
 
@@ -78,6 +79,7 @@ public class TutoPlaceTower : MonoBehaviour
 
             TowerSelectButton.interactable = true;
             MouseAnimator.SetTrigger("Hide");
+            DieselTowerSelectButton.transform.localScale = new Vector3(1f, 1f, 1f); //Scale up towerIcone
             TutoTextBox.SetActive(false);
 
             StartCoroutine(Task5ToggleGen());
@@ -110,6 +112,7 @@ public class TutoPlaceTower : MonoBehaviour
         StartCoroutine(Task1SelectTower(5f)); // 5 seconds delay to read text
     }
 
+    // TO-DO Change this to a tuto on dragging
     IEnumerator Task1SelectTower(float delay){
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
@@ -125,19 +128,6 @@ public class TutoPlaceTower : MonoBehaviour
         TowerSelectButton.interactable = true;
         TowerSelectButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); //Scale up towerIcone
         MouseAnimator.SetTrigger("AnimTower");
-
-        // Trigger for next step
-        TowerSelectButton.onClick.AddListener(Task2PlaceTower);
-    }
-
-    public void Task2PlaceTower()
-    {
-        // Remove UI to indicate the button to click
-        MouseAnimator.SetTrigger("Hide");
-        TowerSelectButton.transform.localScale = Vector3.one;
-        TowerSelectButton.onClick.RemoveListener(Task2PlaceTower);
-
-        TutoText.text = "Place the tower on any grass square";
     }
 
     IEnumerator WaitForFridgeEnemyToAppear(float delay){
@@ -166,6 +156,7 @@ public class TutoPlaceTower : MonoBehaviour
         StartCoroutine(Task3SelectDieselGen(5f)); // 5 seconds delay to read text
     }
 
+    // TO-DO Change this to a tuto on draggings
     IEnumerator Task3SelectDieselGen(float delay){
 
         // Wait before showing text
@@ -187,20 +178,8 @@ public class TutoPlaceTower : MonoBehaviour
         DieselTowerSelectButton.interactable = true;
         DieselTowerSelectButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); //Scale up towerIcone
         MouseAnimator.SetTrigger("AnimDiesel");
-
-        // Trigger for next step
-        DieselTowerSelectButton.onClick.AddListener(Task4PlaceDieselGenerator);
     }
 
-    public void Task4PlaceDieselGenerator()
-    {
-        // Remove UI to indicate the button to click
-        MouseAnimator.SetTrigger("Hide");
-        DieselTowerSelectButton.transform.localScale = Vector3.one;
-        DieselTowerSelectButton.onClick.RemoveListener(Task4PlaceDieselGenerator);
-
-        TutoText.text = "Place the generator next to a fuel tower";
-    }
 
     IEnumerator Task5ToggleGen(){
         LevelManager.SetGameSpeed(1);

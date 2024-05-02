@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
