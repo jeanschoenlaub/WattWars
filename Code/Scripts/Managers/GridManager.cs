@@ -78,6 +78,8 @@ public class GridManager : MonoBehaviour
     // Check if a specific plot is available
     public bool IsPlotConstructable(int x, int y)
     {
+        Debug.Log(x);
+        Debug.Log(y);
         if (x < 0 || x > width || y < 0 || y > height) {
             return false; // Out of bounds
         }
