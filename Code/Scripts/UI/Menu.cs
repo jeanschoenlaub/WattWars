@@ -44,10 +44,12 @@ public class Menu : MonoBehaviour
     {
         if (isInTDMode){
             waveManager = FindObjectOfType<WaveManager>();
+            menuButton.onClick.AddListener(ToggleMenu);
         }
+        Debug.Log("ßstatting");
         menuGameObject.SetActive(false);
 
-        menuButton.onClick.AddListener(ToggleMenu);
+        
        
         Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
         Slider sfxSliderComponent = sfxSlider.GetComponent<Slider>();
@@ -114,19 +116,24 @@ public class Menu : MonoBehaviour
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
-        
+        Debug.Log("menu toggle");
         if (isMenuOpen)
         {
             // If opening the menu, just make it visible and interactable
+            Debug.Log("menu open");
             menuGameObject.SetActive(true);
-            LevelManager.SaveGameSpeed();
+            if (isInTDMode){
+                LevelManager.SaveGameSpeed();
+            }
         }
         else
         {
             // If closing the menu, first make all buttons non-interactable,
             // then make the menu itself inactive
             menuGameObject.SetActive(false);
-            LevelManager.ResumeGame(); // Uses the save game speed to resume
+            if (isInTDMode){
+                LevelManager.ResumeGame(); // Uses the save game speed to resume
+            }
         }
     }
 

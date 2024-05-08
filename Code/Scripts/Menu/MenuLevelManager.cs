@@ -45,11 +45,16 @@ public class MenuLevelManager : MonoBehaviour
         UpdateLevelButtons();
     }
 
-     public void BackToMenu(){
-        SceneManager.LoadScene("Menu");
+     public void BackToLevelSelection(){
+        Debug.Log("levelselection");
+        SceneManager.LoadScene("LvlSelection");
     }
 
-    public void BackToIdle(){
+    public void BackToMap(){
+        SceneManager.LoadScene("Map");
+    }
+
+    public void BackToMainMenu(){
         SceneManager.LoadScene("MainMenu");
     }
 }

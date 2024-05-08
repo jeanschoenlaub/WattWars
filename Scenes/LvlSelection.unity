@@ -1577,7 +1577,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2005181963}
         m_TargetAssemblyTypeName: MenuLevelManager, Assembly-CSharp
-        m_MethodName: BackToIdle
+        m_MethodName: BackToMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
