@@ -46,10 +46,8 @@ public class Menu : MonoBehaviour
             waveManager = FindObjectOfType<WaveManager>();
             menuButton.onClick.AddListener(ToggleMenu);
         }
-        Debug.Log("ßstatting");
-        menuGameObject.SetActive(false);
 
-        
+        menuGameObject.SetActive(false);
        
         Slider volumeSliderComponent = volumeSlider.GetComponent<Slider>();
         Slider sfxSliderComponent = sfxSlider.GetComponent<Slider>();
@@ -60,7 +58,6 @@ public class Menu : MonoBehaviour
    
         soundButton.onClick.AddListener(() => ToggleAudio(volumeSliderComponent, "LastVolume", "SavedVolume", audioManager.SetMusicVolume, soundButton.image));
         sfxButton.onClick.AddListener(() => ToggleAudio(sfxSliderComponent, "LastSFXVolume", "SavedSFXVolume", audioManager.SetSFXVolume, sfxButton.image));
-
     }
 
    void ToggleAudio(Slider sliderComponent, string lastVolumeKey, string savedVolumeKey, Action<float> setVolume, Image soundButtonImage)
@@ -160,6 +157,10 @@ public class Menu : MonoBehaviour
 
     public void BackToIdle(){
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void TestFinishLevel(){
+        LevelManager.main.ExitToMainMenu(true); 
     }
 
     public void QuitGame(){

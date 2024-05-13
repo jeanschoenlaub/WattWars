@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour
         if (ScenarioComplete && currentScenario.scenarioId + 1> PlayerPrefs.GetInt("UnlockedLevels")){
             PlayerPrefs.SetInt("UnlockedLevels", currentScenario.scenarioId+1);
             PlayerPrefs.SetInt("CompletedLevels", currentScenario.scenarioId);
+            PlayerPrefs.SetInt("UnlockedLevelAnimation", 1);
         }
 
         string sceneName = "LvlSelection";
