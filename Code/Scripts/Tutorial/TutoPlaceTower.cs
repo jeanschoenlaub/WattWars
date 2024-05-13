@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI; // Required for UI elements
-using UnityEngine.Events; // For UnityEvent
 using TMPro;
 using System.Collections;
 
@@ -193,6 +192,5 @@ public class TutoPlaceTower : MonoBehaviour
 
         TowerSelectButton.interactable = false;
         TutoTextBox.SetActive(false);
-        tutoManager.EndTutorial();
     }
 }

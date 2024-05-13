@@ -28,16 +28,16 @@ public class IdleManager : MonoBehaviour
     }
 
     public static string FormatNumber(int num)
-{
-    if (num >= 1000000000)
-        return (num / 1000000000D).ToString("0.#") + "B"; // Billion
-    if (num >= 1000000)
-        return (num / 1000000D).ToString("0.#") + "M"; // Million
-    if (num >= 1000)
-        return (num / 1000D).ToString("0.#") + "K"; // Thousand
+    {
+        if (num >= 1000000000)
+            return (num / 1000000000D).ToString("0.#") + "B"; // Billion
+        if (num >= 1000000)
+            return (num / 1000000D).ToString("0.#") + "M"; // Million
+        if (num >= 1000)
+            return (num / 1000D).ToString("0.#") + "K"; // Thousand
 
-    return num.ToString(); // Less than 1000
-}
+        return num.ToString(); // Less than 1000
+    }
 
     public void IncreaseCurrency(int amount ){
         coins += amount;
@@ -51,7 +51,7 @@ public class IdleManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void LoadPlayerCoins()
+    public void LoadPlayerCoins()
     {
         coins = PlayerPrefs.GetInt("PlayerCoins", 0);
     }

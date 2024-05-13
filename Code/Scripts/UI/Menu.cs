@@ -156,7 +156,7 @@ public class Menu : MonoBehaviour
     }
 
     public void BackToMenu(){
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void BackToIdle(){

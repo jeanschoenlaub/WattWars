@@ -37,16 +37,18 @@ public class MenuLevelManager : MonoBehaviour
     }
 
     public void ResetProgress() {
+        // Resetting level progression
         PlayerPrefs.SetInt("UnlockedLevels", 1);
         PlayerPrefs.SetInt("CompletedLevels", 0);
         PlayerPrefs.Save();
-
-        // Update UI
         UpdateLevelButtons();
+
+        // Resetting Idle coins
+        PlayerPrefs.SetInt("PlayerCoins", 0);
+        IdleManager.main.LoadPlayerCoins();
     }
 
      public void BackToLevelSelection(){
-        Debug.Log("levelselection");
         SceneManager.LoadScene("LvlSelection");
     }
 

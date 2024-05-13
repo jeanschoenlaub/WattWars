@@ -258,7 +258,6 @@ public class BuildSiteManager : MonoBehaviour
         // Check if buildingtype is null and handle appropriately
         if (buildingtype != null)
         {
-            Debug.Log(buildingtype.buildingName);
             PlayerPrefs.SetString("Building" + buildingId + "Type", buildingtype.buildingName);
         }
         else
