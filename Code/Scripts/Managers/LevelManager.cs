@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetInt("CompletedLevels", currentScenario.scenarioId);
         }
 
-        string sceneName = "Menu";
+        string sceneName = "LvlSelection";
         SceneManager.LoadScene(sceneName);
     }
 

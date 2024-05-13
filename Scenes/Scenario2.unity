@@ -2718,11 +2718,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 459231605}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &273990641 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1900491628060302130, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-  m_PrefabInstance: {fileID: 4437027636187829041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &285935958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 746758163238847162, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
@@ -5024,6 +5019,150 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 788668239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &513502280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513502281}
+  - component: {fileID: 513502284}
+  - component: {fileID: 513502283}
+  - component: {fileID: 513502282}
+  m_Layer: 5
+  m_Name: SolarPanel (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &513502281
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513502280}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4437027636187829042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &513502282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513502280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 513502283}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: SetSelectedTower
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1466052952}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: Debuger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &513502283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513502280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f4512913acf944ec0a6c1ca0c5897e94, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &513502284
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513502280}
+  m_CullTransparentMesh: 1
 --- !u!4 &514149299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -13022,7 +13161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutoPlaceTower: {fileID: 0}
   tutoNight: {fileID: 1516575313}
-  GameSpeedButton: {fileID: 273990641}
+  tutoPopUp: {fileID: 0}
+  gameSpeedButton: {fileID: 0}
 --- !u!114 &1516575313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19680,10 +19820,14 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6120614983858364986, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 1886197140068773632, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 4449083743414638140, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      insertIndex: 4
+      insertIndex: 3
       addedObject: {fileID: 350175790}
+    - targetCorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 513502281}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
 --- !u!224 &4437027636187829042 stripped

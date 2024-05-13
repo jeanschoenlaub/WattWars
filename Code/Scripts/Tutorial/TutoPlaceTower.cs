@@ -168,7 +168,7 @@ public class TutoPlaceTower : MonoBehaviour
 
         LevelManager.main.IncreaseCurrency(200);
 
-        TutoText.text = "Select the diesel generator tower";
+        TutoText.text = "Place a diesel generator next to the fuel tower";
         TutoTextBox.SetActive(true);
 
         LevelManager.SetGameSpeed(0);

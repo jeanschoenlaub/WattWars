@@ -2718,11 +2718,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 459231605}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &273990641 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1900491628060302130, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-  m_PrefabInstance: {fileID: 4437027636187829041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &285935958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 746758163238847162, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
@@ -12889,7 +12884,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutoPlaceTower: {fileID: 0}
   tutoNight: {fileID: 1516575313}
-  GameSpeedButton: {fileID: 273990641}
+  tutoPopUp: {fileID: 0}
+  gameSpeedButton: {fileID: 0}
 --- !u!114 &1516575313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19716,9 +19712,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3522600776559542629, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 4449083743414638140, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      insertIndex: 5
+      insertIndex: 4
       addedObject: {fileID: 1971662168}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}

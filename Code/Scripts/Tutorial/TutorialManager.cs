@@ -44,7 +44,8 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator WaitForPopUpToClose()
     {
-        // Show the first pop-up (assuming you want to show it at the start)
+        // Wait 4 seconds for the wave banner to show before showing tutorial pop=up
+        yield return new WaitForSeconds(4f); 
         tutoPopUp.ShowPopUp1();
 
         // Wait until the pop-ups are closed

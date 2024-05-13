@@ -116,14 +116,13 @@ public class Menu : MonoBehaviour
 
     public void ToggleMenu(){
         isMenuOpen = !isMenuOpen;
-        Debug.Log("menu toggle");
         if (isMenuOpen)
         {
             // If opening the menu, just make it visible and interactable
-            Debug.Log("menu open");
             menuGameObject.SetActive(true);
             if (isInTDMode){
                 LevelManager.SaveGameSpeed();
+                LevelManager.SetGameSpeed(0);
             }
         }
         else
