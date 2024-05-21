@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuLevelManager : MonoBehaviour
+public class BreakerBoxManager : MonoBehaviour
 {
     public Button[] Level1SelectionButtons;
+    public GameObject[] RewardBoards;
+    public GameObject[] RewardTowers;
     public Sprite onImage;
     public Sprite offImage;
+    public Sprite rewardGreenImage;
+    public Sprite rewardRedImage;
 
     private void Awake() {
         UpdateLevelButtons();
@@ -26,10 +30,19 @@ public class MenuLevelManager : MonoBehaviour
         int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
 
         for (int i = 0; i < Level1SelectionButtons.Length; i++) {
-            if (i < completedLevels) {Level1SelectionButtons[i].GetComponent<Image>().sprite = onImage;}
-            else { Level1SelectionButtons[i].GetComponent<Image>().sprite = offImage; }
+            // If the levels are completed we show it visually
+            if (i < completedLevels) {
+                Level1SelectionButtons[i].GetComponent<Image>().sprite = onImage;
+                RewardBoards[i].GetComponent<Image>().sprite = rewardGreenImage;
+                RewardTowers[i].GetComponent<Image>().color = Color.white;
+            }
+            else { 
+                Level1SelectionButtons[i].GetComponent<Image>().sprite = offImage; 
+                RewardBoards[i].GetComponent<Image>().sprite = rewardRedImage;
+                RewardTowers[i].GetComponent<Image>().color = Color.black;
+            }
 
-            // If the levels are locked we disable them
+            // If the levels are locked we disable them (can be unlocked and completed or not)
             if (i < unlockedLevel) {Level1SelectionButtons[i].interactable = true;}
             else {Level1SelectionButtons[i].interactable = false;}
         }
