@@ -63,7 +63,7 @@ public class BreakerBoxManager : MonoBehaviour
         IdleManager.main.LoadPlayerCoins();
     }
 
-     public void BackToLevelSelection(){
+    public void BackToLevelSelection(){
         SceneManager.LoadScene("LvlSelection");
     }
 
