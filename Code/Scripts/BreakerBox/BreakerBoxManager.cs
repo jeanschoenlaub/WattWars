@@ -6,11 +6,14 @@ public class BreakerBoxManager : MonoBehaviour
 {
     public Button[] Level1SelectionButtons;
     public GameObject[] RewardBoards;
+    public GameObject Scenario;
     public GameObject[] RewardTowers;
     public Sprite onImage;
     public Sprite offImage;
     public Sprite rewardGreenImage;
     public Sprite rewardRedImage;
+
+    private Animator rewardAnimator;
 
     private void Awake() {
         UpdateLevelButtons();
@@ -70,6 +73,14 @@ public class BreakerBoxManager : MonoBehaviour
 
     public void BackToMainMenu(){
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void AnimateReward(int buttonIndex){
+        
+        rewardAnimator = Scenario.GetComponent<Animator>();
+        rewardAnimator.enabled = true; // Enable the Animator component
+
+        rewardAnimator.SetTrigger("Test");
     }
 }
 
