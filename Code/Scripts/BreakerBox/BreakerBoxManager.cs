@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ public class BreakerBoxManager : MonoBehaviour
 {
     public Button[] Level1SelectionButtons;
     public GameObject[] RewardBoards;
-    public GameObject Scenario;
+    public GameObject[] Scenarios;
     public GameObject[] RewardTowers;
     public Sprite onImage;
     public Sprite offImage;
@@ -50,8 +49,9 @@ public class BreakerBoxManager : MonoBehaviour
             if (i < unlockedLevel) {Level1SelectionButtons[i].interactable = true;}
             else {Level1SelectionButtons[i].interactable = false;}
 
+            //If a level has been completed for the first time, trigger reward
             if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) == 1){
-                AnimateReward(1);
+                AnimateReward(completedLevels-1);
             }
         }
     }
@@ -81,9 +81,8 @@ public class BreakerBoxManager : MonoBehaviour
     }
 
     public void AnimateReward(int buttonIndex){
-        Debug.Log("s");
         
-        rewardAnimator = Scenario.GetComponent<Animator>();
+        rewardAnimator = Scenarios[buttonIndex].GetComponent<Animator>();
         rewardAnimator.enabled = true; // Enable the Animator component
 
         rewardAnimator.SetTrigger("Test");

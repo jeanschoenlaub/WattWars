@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Scenario1Reward : MonoBehaviour
+public class Scenario2Reward : MonoBehaviour
 {
     public GameObject objectToActivate;
     
