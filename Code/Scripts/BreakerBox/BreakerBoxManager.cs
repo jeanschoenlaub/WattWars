@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -48,6 +49,10 @@ public class BreakerBoxManager : MonoBehaviour
             // If the levels are locked we disable them (can be unlocked and completed or not)
             if (i < unlockedLevel) {Level1SelectionButtons[i].interactable = true;}
             else {Level1SelectionButtons[i].interactable = false;}
+
+            if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) == 1){
+                AnimateReward(1);
+            }
         }
     }
 
@@ -76,11 +81,19 @@ public class BreakerBoxManager : MonoBehaviour
     }
 
     public void AnimateReward(int buttonIndex){
+        Debug.Log("s");
         
         rewardAnimator = Scenario.GetComponent<Animator>();
         rewardAnimator.enabled = true; // Enable the Animator component
 
         rewardAnimator.SetTrigger("Test");
+
+        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0);
+    }
+
+    public void TestRestFlag(){
+        PlayerPrefs.SetInt("UnlockedLevelAnimation", 1);
+        UpdateLevelButtons();
     }
 }
 

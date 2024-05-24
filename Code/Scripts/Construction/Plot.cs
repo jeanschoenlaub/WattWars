@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 // Each constructibe square in the game get's assigned a plot script
 public class Plot : MonoBehaviour
 {

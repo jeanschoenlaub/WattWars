@@ -58,6 +58,6 @@ public class TutorialManager : MonoBehaviour
         tutoPlaceTower.StartTutoPlaceTower();
 
         // We also disable the game speed button to simplify tutorial logic
-        gameSpeedButton.SetActive(false);
+        //gameSpeedButton.SetActive(false);
     }
 }

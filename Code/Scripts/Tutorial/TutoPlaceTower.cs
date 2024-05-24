@@ -92,9 +92,6 @@ public class TutoPlaceTower : MonoBehaviour
         TowerSelectButton.interactable = false;
         DieselTowerSelectButton.interactable = false;
 
-        TutoText.text = "Your in charge of City xxxx";
-        TutoTextBox.SetActive(true);
-
         // Start a coroutine to handle the delay
         StartCoroutine(WaitForEnemyToAppear(firstDelayScooterAppear)); // delay for first enemies to appear        
     }
