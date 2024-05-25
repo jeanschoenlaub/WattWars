@@ -30,6 +30,9 @@ public class Menu : MonoBehaviour
     private WaveManager waveManager;
     private AudioManager audioManager;
 
+    private int currentWaveIndex;
+    private int currentDayIndex;
+
     private void Awake()
     {
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
@@ -136,16 +139,30 @@ public class Menu : MonoBehaviour
     //TO-DO update from onGUI to the Update() function
     private void OnGUI(){
         if (isInTDMode){
+
+            //shortcut variables
+            currentWaveIndex = waveManager.currentWaveIndex;
+            currentDayIndex = waveManager.currentDayIndex;
+
+            //Updating the bottom UI bar
             currencyUI.text = LevelManager.main.coins.ToString();
             livesUI.text = LevelManager.main.GetNumeberOfLives().ToString();
-
-            if (waveAnim && waveUI){
-                //For the following waves starts at 0 and we want to start with 1 for UI 
-            waveAnim.text = "Day "+ (waveManager.currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
-            waveUI.text = "Wave " + (waveManager.currentWaveIndex + 1).ToString() + "/" 
+            waveUI.text = "Wave " + (currentWaveIndex + 1).ToString() + "/" 
                             +  waveManager.currentDay.waves.Count.ToString();
 
-            }else{
+            // Updating the Banner 
+
+            // If this is the first wave of the day we just display the day nb and weather
+            if (waveAnim && waveUI && currentWaveIndex == 0){
+                waveAnim.text = "Day "+ (currentDayIndex + 1).ToString() +
+                 " - Weather: " +  LevelManager.main.currentScenario.days[currentDayIndex].weather;
+            }
+            // If not first wave of the day we  display the wave and day nb 
+            if (waveAnim && waveUI && currentWaveIndex != 0){
+                waveAnim.text = "Day "+ (currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
+            }
+
+            else{
                 Debug.Log("UI Text Missing");
             }
         }

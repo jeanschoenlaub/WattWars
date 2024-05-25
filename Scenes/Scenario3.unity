@@ -12882,7 +12882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutoPlaceTower: {fileID: 0}
-  tutoNight: {fileID: 1516575313}
+  tutoNight: {fileID: 0}
   tutoPopUp: {fileID: 0}
   gameSpeedButton: {fileID: 0}
 --- !u!114 &1516575313

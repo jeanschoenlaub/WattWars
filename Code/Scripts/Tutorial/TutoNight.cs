@@ -70,7 +70,7 @@ public class TutoNight : MonoBehaviour
 
         // Wait before showing text
         yield return new WaitForSeconds(2f);
-        TutoText.text = "We can use the diesel generator to profuce <color=#F5FF00>electricity</color> at night";
+        TutoText.text = "We can use the diesel generator to produce <color=#F5FF00>electricity</color> at night";
         TutoTextBox.SetActive(true);
 
         LevelManager.SetGameSpeed(0);

@@ -251,7 +251,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 10
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -382,6 +382,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3660991343100716052, guid: ace6759e035ae4d46b7330d22d6525d1, type: 3}
       propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660991343100716052, guid: ace6759e035ae4d46b7330d22d6525d1, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3660991343100716052, guid: ace6759e035ae4d46b7330d22d6525d1, type: 3}

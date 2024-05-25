@@ -50,7 +50,7 @@ public class BreakerBoxManager : MonoBehaviour
             else {Level1SelectionButtons[i].interactable = false;}
 
             //If a level has been completed for the first time, trigger reward
-            if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) == 1){
+            if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) != 0){
                 AnimateReward(completedLevels-1);
             }
         }
@@ -86,8 +86,6 @@ public class BreakerBoxManager : MonoBehaviour
         rewardAnimator.enabled = true; // Enable the Animator component
 
         rewardAnimator.SetTrigger("Test");
-
-        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0);
     }
 
     public void TestRestFlag(){

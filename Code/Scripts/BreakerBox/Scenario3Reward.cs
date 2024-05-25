@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scenario3Reward : MonoBehaviour
 {
@@ -13,5 +14,6 @@ public class Scenario3Reward : MonoBehaviour
     public void DeActivateLvlRewardUI()
     {
         objectToActivate.SetActive(false);
+        SceneManager.LoadScene("Map"); // To animate the new tower on the map
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class IdleManager : MonoBehaviour
 {
@@ -7,6 +9,14 @@ public class IdleManager : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] public TextMeshProUGUI idleCoinText;
+
+
+    [SerializeField] public Sprite[] Maps;
+    [SerializeField] public GameObject MapBackground;
+
+    // For animating building  
+    [SerializeField] public Transform[] buildingPositions;
+    [SerializeField] public GameObject BuildingAnimGO;
      
     public int coins; 
     
@@ -22,8 +32,8 @@ public class IdleManager : MonoBehaviour
 
 
     private void Start(){
-        // Load  coins =  PlayerPrefs
         LoadPlayerCoins();
+        LoadMap();
         idleCoinText.text = FormatNumber(coins);
     }
 
@@ -56,6 +66,30 @@ public class IdleManager : MonoBehaviour
         coins = PlayerPrefs.GetInt("PlayerCoins", 0);
     }
 
+    //Based on what the player as unlocked, load a different map
+    public void LoadMap()
+    {
+        int completedLvls = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
+        MapBackground.GetComponent<Image>().sprite = Maps[completedLvls];
+
+        int BuildingAinmationLoc = PlayerPrefs.GetInt("UnlockedLevelAnimation", 0); 
+
+        if (BuildingAinmationLoc != 0){
+            TriggerBuildingAnimation(BuildingAinmationLoc);
+            PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the flag 
+        }
+    }
+
+    public void TriggerBuildingAnimation(int locationIndex){
+        BuildingAnimGO.SetActive(true);
+        Animator buildingAnimator = BuildingAnimGO.GetComponent<Animator>();
+
+        // Position the BuildingAnimGO at the specified location
+        BuildingAnimGO.transform.position = buildingPositions[locationIndex-1].position;
+
+        buildingAnimator.SetTrigger("Building");
+    }
+
     public bool SpendCurrency( int amount ){
         if (amount <= coins){
             //Buy Item
@@ -72,5 +106,9 @@ public class IdleManager : MonoBehaviour
 
     public int GetCurrentMoney(){
         return coins;
+    }
+
+    public void GoToLevelSelection(){
+        SceneManager.LoadScene("LvlSelection");
     }
 }
