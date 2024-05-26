@@ -15,7 +15,7 @@ MonoBehaviour:
   scenarioName: Scenario2
   scenarioId: 2
   Lives: 5
-  Coins: 200
+  Coins: 100
   days:
   - {fileID: 11400000, guid: f1433f1396f014f6fa6c0d216f38d958, type: 2}
   - {fileID: 11400000, guid: 8782471c7b2824247a4dc63c08ca4962, type: 2}
