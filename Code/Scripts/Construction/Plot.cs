@@ -61,7 +61,7 @@ public class Plot : MonoBehaviour
         var structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 
-        if (!anyPlotNotConstructable && LevelManager.main.SpendCurrency(structureToBuild.cost))
+        if (!anyPlotNotConstructable && constructable==true && LevelManager.main.SpendCurrency(structureToBuild.cost))
         {
             PlaceStructure(structureToBuild);
         }else{

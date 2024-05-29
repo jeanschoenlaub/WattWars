@@ -163,7 +163,7 @@ public class Menu : MonoBehaviour
             }
 
             else{
-                Debug.Log("UI Text Missing");
+                // Debug.Log("UI Text Missing");
             }
         }
     }

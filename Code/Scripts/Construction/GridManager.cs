@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
     [Header("References")]
     [SerializeField] public Vector2 gridOrigin = new Vector2(); // World position of the grid's origin (bottom-left corner) adjusted with the plot size (-0.5 x and y from plot parent)
     [SerializeField] public float plotSize; // The size of a plot in world units
-    [SerializeField] public int width ; // The number of plot horizontal -1 (list starts at 0)
+    [SerializeField] public int width ; // The number of plot vertical -1 (list starts at 0)
     [SerializeField] public int height ; // The number of plot horizontal -1 (list starts at 0)
     [SerializeField] private Plot[] plots; // dump of all plots
     [SerializeField] public Plot[,] gridPlots;  // plots sorted into a [x,y] array based on their world positions

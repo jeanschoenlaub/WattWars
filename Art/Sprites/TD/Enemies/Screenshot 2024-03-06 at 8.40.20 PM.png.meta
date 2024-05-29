@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: c33a5a97910434ef6b98217e64a48bc4
+guid: ac8e61576627c4d8caa731f6d9c1a534
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -124,7 +124,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Scooter_0
+      name: Screenshot 2024-03-06 at 8.40.20 PM_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 84
+        y: 128
         width: 64
-        height: 42
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06eff63498da04544bf71a41132b8f86
-      internalID: -1806183844
+      spriteID: 9c33fab9b38b64f078bd347315ab43a9
+      internalID: 1680975148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scooter_1
+      name: Screenshot 2024-03-06 at 8.40.20 PM_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 42
+        x: 64
+        y: 128
         width: 64
-        height: 42
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +171,104 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc0a55cde0dd74fd4a6e3e5681d9f29a
-      internalID: -496905139
+      spriteID: 5108277249ca54fb2ab522b6e1af7abd
+      internalID: 1407830937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Scooter_2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96054357851f5401e9b14053aa85631e
+      internalID: 1045250017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc88496b61b04af791271b7c0666a24
+      internalID: -1814697062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2baec138038f44ddcbd6321ccc92ad4c
+      internalID: 573856570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b618ac161ea5420bb1096b54178309f
+      internalID: 25478789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
-        height: 42
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,8 +276,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6c08980f9fd640b396c354631153723
-      internalID: 824002816
+      spriteID: 5eb567f399e07433aaf568b9379359fc
+      internalID: 655858745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Screenshot 2024-03-06 at 8.40.20 PM_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01f59857d10314066aa7db124758399d
+      internalID: -265097737
       vertices: []
       indices: 
       edges: []
@@ -209,9 +314,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Scooter_0: -1806183844
-      Scooter_1: -496905139
-      Scooter_2: 824002816
+      Screenshot 2024-03-06 at 8.40.20 PM_0: 1680975148
+      Screenshot 2024-03-06 at 8.40.20 PM_1: 1407830937
+      Screenshot 2024-03-06 at 8.40.20 PM_2: 1045250017
+      Screenshot 2024-03-06 at 8.40.20 PM_3: -1814697062
+      Screenshot 2024-03-06 at 8.40.20 PM_4: 573856570
+      Screenshot 2024-03-06 at 8.40.20 PM_5: 25478789
+      Screenshot 2024-03-06 at 8.40.20 PM_6: 655858745
+      Screenshot 2024-03-06 at 8.40.20 PM_7: -265097737
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

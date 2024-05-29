@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 3becbd43f34f64396a83a918895669c2
+guid: c690b11a18fc6402f9b8d1be45dc2a6d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Battery_0
+      name: DiselGenFuelLevels_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5902317075ecb4ce892f7756c9046e22
-      internalID: -276129406
+      spriteID: f7de39de31e094c4ca12fa94b31b10e4
+      internalID: -1888783769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_1
+      name: DiselGenFuelLevels_1
       rect:
         serializedVersion: 2
         x: 64
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f20b0cd12daf4c9cbeefc13f12dd417
-      internalID: 770441640
+      spriteID: 63a7a28048b5d49c2a9892cdd61ced6a
+      internalID: -649110659
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_2
+      name: DiselGenFuelLevels_2
       rect:
         serializedVersion: 2
         x: 128
@@ -192,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d569b4aa7cb03485a86612378561e8ff
-      internalID: 643814692
+      spriteID: 759bc140913c84fd0a560bb0bf38779f
+      internalID: -764690663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_3
+      name: DiselGenFuelLevels_3
       rect:
         serializedVersion: 2
         x: 0
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c240ecce9d7b42ccadf5ddd5d7f5f02
-      internalID: 140664767
+      spriteID: a461bde403ec84e58ac9a6cf30b79272
+      internalID: -1008963463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_4
+      name: DiselGenFuelLevels_4
       rect:
         serializedVersion: 2
         x: 64
@@ -234,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0df23220f3e3448f9c618ddbb826030
-      internalID: 803410538
+      spriteID: b6e4d26340da74248b64789fb0a0c551
+      internalID: 299484000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_5
+      name: DiselGenFuelLevels_5
       rect:
         serializedVersion: 2
         x: 128
@@ -255,14 +255,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f395d5b9bd574db3bea19cb13bc6c1a
-      internalID: 1157054190
+      spriteID: 976c33961f9b048d8ba0fbe5d5cc5f93
+      internalID: 284070545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_6
+      name: DiselGenFuelLevels_6
       rect:
         serializedVersion: 2
         x: 0
@@ -276,14 +276,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55e0e843bfd614f7ea6baed9b1a3645f
-      internalID: 1113246215
+      spriteID: aac23f7df454c419f9460f43af803f34
+      internalID: -1295929372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_7
+      name: DiselGenFuelLevels_7
       rect:
         serializedVersion: 2
         x: 64
@@ -297,14 +297,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 608d1f7434bb0487ba2ddd8a0bcae318
-      internalID: -493969110
+      spriteID: 92933fe51d8244048b28e4a3b072b6d9
+      internalID: 196161623
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_8
+      name: DiselGenFuelLevels_8
       rect:
         serializedVersion: 2
         x: 128
@@ -318,14 +318,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86c3050422c8944b593ffcb4aa887727
-      internalID: -685133407
+      spriteID: 82a0b3c44923d48f5bb496950127f2db
+      internalID: -1262270443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_9
+      name: DiselGenFuelLevels_9
       rect:
         serializedVersion: 2
         x: 0
@@ -339,14 +339,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed84dddc0c4a546b8b667060ecc71e9c
-      internalID: -886191312
+      spriteID: d3c539022c23e4565a2e86b242a4d8d3
+      internalID: -1309658794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Battery_10
+      name: DiselGenFuelLevels_10
       rect:
         serializedVersion: 2
         x: 64
@@ -360,8 +360,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 204f829523a6541ae9fea9df0ca816d1
-      internalID: -966436258
+      spriteID: ee6a70ebaccf8423b9a55fa0791f75e5
+      internalID: 68868188
       vertices: []
       indices: 
       edges: []
@@ -377,17 +377,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Battery_0: -276129406
-      Battery_1: 770441640
-      Battery_10: -966436258
-      Battery_2: 643814692
-      Battery_3: 140664767
-      Battery_4: 803410538
-      Battery_5: 1157054190
-      Battery_6: 1113246215
-      Battery_7: -493969110
-      Battery_8: -685133407
-      Battery_9: -886191312
+      DiselGenFuelLevels_0: -1888783769
+      DiselGenFuelLevels_1: -649110659
+      DiselGenFuelLevels_10: 68868188
+      DiselGenFuelLevels_2: -764690663
+      DiselGenFuelLevels_3: -1008963463
+      DiselGenFuelLevels_4: 299484000
+      DiselGenFuelLevels_5: 284070545
+      DiselGenFuelLevels_6: -1295929372
+      DiselGenFuelLevels_7: 196161623
+      DiselGenFuelLevels_8: -1262270443
+      DiselGenFuelLevels_9: -1309658794
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

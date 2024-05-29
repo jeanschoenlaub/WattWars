@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: d2b4d72e788f44e0f88a20ffaf6e5291
+guid: c33a5a97910434ef6b98217e64a48bc4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -107,19 +107,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -132,17 +119,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 3
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LvLSelectionReward (1)_0
+      name: Scooter_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 92
-        width: 148
-        height: 92
+        y: 84
+        width: 64
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab2075473a8424f259b9f716f424fbe0
-      internalID: 1193583015
+      spriteID: 06eff63498da04544bf71a41132b8f86
+      internalID: -1806183844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LvLSelectionReward (1)_1
+      name: Scooter_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 148
-        height: 92
+        y: 42
+        width: 64
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,8 +171,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f02b8e1431f45472691e1b22adc362ba
-      internalID: -60777964
+      spriteID: bc0a55cde0dd74fd4a6e3e5681d9f29a
+      internalID: -496905139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Scooter_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c08980f9fd640b396c354631153723
+      internalID: 824002816
       vertices: []
       indices: 
       edges: []
@@ -188,8 +209,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LvLSelectionReward (1)_0: 1193583015
-      LvLSelectionReward (1)_1: -60777964
+      Scooter_0: -1806183844
+      Scooter_1: -496905139
+      Scooter_2: 824002816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
