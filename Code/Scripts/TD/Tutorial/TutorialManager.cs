@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
     [Header("Tutorial References - Only attach relevant one if any")]
     [SerializeField] public TutoPlaceTower tutoPlaceTower;
     [SerializeField] public TutoNight tutoNight;
+    [SerializeField] public TutoBuilding tutoBuilding;
     [SerializeField] public TutoPopUp tutoPopUp;
     [SerializeField] GameObject gameSpeedButton;
    
@@ -39,6 +40,13 @@ public class TutorialManager : MonoBehaviour
             // Get the TutoPlaceTower component attached to the same GameObject
             tutoNight = GetComponent<TutoNight>();
             tutoNight.StartTutoNight();
+        } 
+
+        // Start The night tutorial - TODO and logic for only first time
+        if (tutoBuilding){
+            // Get the TutoPlaceTower component attached to the same GameObject
+            tutoBuilding = GetComponent<TutoBuilding>();
+            tutoBuilding.StartTutoBuilding();
         } 
     }
 

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a39268596854bcd95b606b8f7f303e, type: 3}
   m_Name: _Scenario4
   m_EditorClassIdentifier: 
-  scenarioName: Scenario3
+  scenarioName: Scenario4
   scenarioId: 4
   Lives: 5
-  Coins: 150
+  Coins: 0
   days:
-  - {fileID: 11400000, guid: a5c4a9504ff7a4dd49f52a7159df6ef3, type: 2}
-  - {fileID: 11400000, guid: 8782471c7b2824247a4dc63c08ca4962, type: 2}
+  - {fileID: 11400000, guid: 587dbd97650374a148215fe4209eeca6, type: 2}
+  - {fileID: 11400000, guid: 368997f22424441a18b71e38605d78a1, type: 2}
