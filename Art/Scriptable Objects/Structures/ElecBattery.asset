@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ElecBattery
   m_EditorClassIdentifier: 
   structureName: ElecBattery
-  cost: 150
+  cost: 120
   size: 0100000002000000
   prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
   buildCooldown: 15

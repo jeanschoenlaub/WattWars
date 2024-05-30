@@ -32,6 +32,8 @@ public class BreakerBoxManager : MonoBehaviour
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevels", 1);
         int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
 
+        
+
         for (int i = 0; i < Level1SelectionButtons.Length; i++) {
             // If the levels are completed we show it visually
             if (i < completedLevels) {
@@ -64,8 +66,8 @@ public class BreakerBoxManager : MonoBehaviour
         UpdateLevelButtons();
 
         // Resetting Idle coins
-        PlayerPrefs.SetInt("PlayerCoins", 0);
-        IdleManager.main.LoadPlayerCoins();
+        // PlayerPrefs.SetInt("PlayerCoins", 0);
+        // IdleManager.main.LoadPlayerCoins();
     }
 
     public void BackToLevelSelection(){

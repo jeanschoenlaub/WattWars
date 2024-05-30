@@ -17,6 +17,7 @@ public class IdleManager : MonoBehaviour
     // For animating building  
     [SerializeField] public Transform[] buildingPositions;
     [SerializeField] public GameObject BuildingAnimGO;
+    [SerializeField] public GameObject UnlockAnimGO;
      
     public int coins; 
     
@@ -75,9 +76,23 @@ public class IdleManager : MonoBehaviour
         int BuildingAinmationLoc = PlayerPrefs.GetInt("UnlockedLevelAnimation", 0); 
 
         if (BuildingAinmationLoc != 0){
-            TriggerBuildingAnimation(BuildingAinmationLoc);
+            // Each Level's last unlock triggers unlocking the next level 
+            if (BuildingAinmationLoc % 4 == 0){
+                TriggerUnlockAnimation(BuildingAinmationLoc);
+            }
+            else{
+                TriggerBuildingAnimation(BuildingAinmationLoc);
+            }
             PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the flag 
         }
+    }
+
+    public void TriggerUnlockAnimation(int locationIndex){
+        Debug.Log("unlock anim2");
+        UnlockAnimGO.SetActive(true);
+        Animator unlockAnimator = UnlockAnimGO.GetComponent<Animator>();
+
+        unlockAnimator.SetTrigger("UnlockNextBreaker");
     }
 
     public void TriggerBuildingAnimation(int locationIndex){
