@@ -150,8 +150,12 @@ public class Menu : MonoBehaviour
             waveUI.text = "Wave " + (currentWaveIndex + 1).ToString() + "/" 
                             +  waveManager.currentDay.waves.Count.ToString();
 
-            // Updating the Banner 
+            //TO-DO Change this to somehwer else
+            if (LevelManager.GetGameSpeed() ==1){
+                gameSpeedText.text = "x1";
+            }
 
+            // Updating the Banner 
             // If this is the first wave of the day we just display the day nb and weather
             if (waveAnim && waveUI && currentWaveIndex == 0){
                 waveAnim.text = "Day "+ (currentDayIndex + 1).ToString() +
