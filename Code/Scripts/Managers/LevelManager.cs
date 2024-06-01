@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public Scenario currentScenario;
     [SerializeField] public Animator cityCoinAnimator;
     [SerializeField] public TextMeshProUGUI cityCoinAnimationText;
+    [SerializeField] public GameObject dangerEnemyTouchGrid;
      
 
     public Transform startPoint;
@@ -108,8 +110,24 @@ public class LevelManager : MonoBehaviour
         numberOfLives -= amount;
         if (numberOfLives<0){
             EndOfGame();
+        }else
+        {
+            StartCoroutine(ChangeDangerGridColor());
         }
     }
+
+    private IEnumerator ChangeDangerGridColor()
+    {
+        SpriteRenderer spriteRenderer = dangerEnemyTouchGrid.GetComponent<SpriteRenderer>();
+
+        // Change color to red with no transparency before changing back after 1 sec
+        spriteRenderer.color = new Color(0f, 0f, 0f, 0.55f);
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = new Color(1f, 0f, 0f, 1f);
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.color = new Color(0f, 0f, 0f, 0.55f);
+    }
+
 
     public void EndOfGame() { 
         SceneManager.LoadScene("Menu");
