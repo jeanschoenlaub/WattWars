@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DataCenter
   m_EditorClassIdentifier: 
   structureName: DataCenter
+  isBuilding: 1
   cost: 200
   size: 0200000002000000
   prefab: {fileID: 6755700715668276687, guid: db8dda2ba160b44d58ae93e5f0e03911, type: 3}

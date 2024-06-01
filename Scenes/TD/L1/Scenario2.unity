@@ -13265,6 +13265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FridgeDialogAnimator: {fileID: 2798847660548835059}
+  FFbutton: {fileID: 4437027636187829045}
   TutoTextBox: {fileID: 720785378}
   DialogFridgeClickDetector: {fileID: 1393754740}
   TutoText: {fileID: 1715211714}
@@ -19941,6 +19942,11 @@ Animator:
 --- !u!1 &4437027636187829044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8969230400165073382, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4437027636187829045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1900491628060302130, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
   m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5872890465688544767 stripped

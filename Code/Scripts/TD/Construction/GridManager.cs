@@ -85,8 +85,18 @@ public class GridManager : MonoBehaviour
         if (x < 0 || x > width || y < 0 || y > height) {
             return false; // Out of bounds
         }
-        return gridPlots[x, y].constructable; // Return true if not occupied
+        return (gridPlots[x, y].constructable && !gridPlots[x, y].buildingOnly); // Return true if not occupied
     }
+
+    // Check if a specific plot is constructable for a building 
+    public bool IsPlotBuildingConstructable(int x, int y)
+    {
+        if (x < 0 || x > width || y < 0 || y > height) {
+            return false; // Out of bounds
+        }
+        return (gridPlots[x, y].constructable && gridPlots[x, y].buildingOnly); // Return true if not occupied
+    }
+
 
     // Form verctor 3 to x,y of the order plot list 
     public Vector2Int WorldToGridCoordinates(Vector3 worldPosition)

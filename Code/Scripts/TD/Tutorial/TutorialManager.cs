@@ -30,6 +30,9 @@ public class TutorialManager : MonoBehaviour
     {
         // Start the tower placement tutorial - TODO and logic for only first time
         if (tutoPlaceTower){
+            // We also disable the game speed button to simplify tutorial logic
+            gameSpeedButton.SetActive(false);
+
             // Start the coroutine to wait for the tutorial pop-up to close
             StartCoroutine(WaitForPopUpToClose());
             // Get the TutoPlaceTower component attached to the same GameObjec
@@ -64,8 +67,5 @@ public class TutorialManager : MonoBehaviour
 
         // Proceed with the tower placement tutorial
         tutoPlaceTower.StartTutoPlaceTower();
-
-        // We also disable the game speed button to simplify tutorial logic
-        //gameSpeedButton.SetActive(false);
     }
 }

@@ -8,9 +8,11 @@ public class TutoNight : MonoBehaviour
 {
     [Header("Animators References")]
     [SerializeField] public Animator FridgeDialogAnimator; // To make mouse move up and down to direct user
+    [SerializeField] public GameObject FFbutton; // To make mouse move up and down to direct user
     [SerializeField] public GameObject TutoTextBox;
     [SerializeField] public Button DialogFridgeClickDetector;
     [SerializeField] TextMeshProUGUI TutoText; 
+    
 
     public float delayFridgeAppear = 25f;
     
@@ -27,6 +29,7 @@ public class TutoNight : MonoBehaviour
 
     private void Start(){
         TutoTextBox.SetActive(false);
+        StartCoroutine(ShowFFButton());
     }
 
     void Update()
@@ -44,6 +47,22 @@ public class TutoNight : MonoBehaviour
     public void StartTutoNight()
     {
         isTutorialActive = true;
+    }
+
+    IEnumerator ShowFFButton(){
+        yield return new WaitForSeconds(5f);
+        TutoTextBox.SetActive(true);
+
+        TutoText.text = "You can speed up the level";
+
+        yield return new WaitForSeconds(1f);
+        FFbutton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); //Scale up towerIcone
+       
+        yield return new WaitForSeconds(3f);
+        FFbutton.transform.localScale = new Vector3(1f, 1f, 1f); //Scale up towerIcone
+        TutoTextBox.SetActive(false);
+        // TutoText.text = "We must feed <color=#85282B>oil</color> 
+
     }
 
     IEnumerator WaitForFridgeEnemyToAppear(){

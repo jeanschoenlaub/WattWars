@@ -7,6 +7,8 @@ public class Plot : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer sr; // The plots sprite to color green and red to show wehre player can build
     [SerializeField] public bool constructable; //Flag to indicate if a plot is constructable or not (oeg. other structure already build)
+    [SerializeField] public bool buildingOnly; //Flag to indicate if a plot is constructable or not (oeg. other structure already build)
+
 
     private GameObject placedStructure; // Used to access new structure we build
     private bool anyPlotNotConstructable = false; // Flag to check if structures larger then 1x1 have some unconstructable plots
@@ -29,8 +31,17 @@ public class Plot : MonoBehaviour
         Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
         BuildManager.main.UpdatePreviewPosition(instantiationPosition);
 
-        // We set the opacity of the entire structure to 50% and relvant color based on if constructable
-        CheckPlotConstructability(structureToBuild);
+        // Check if any plot is occupied or off grid and color plot red if so
+        // If it is a Building we also need to color based on if plot allows building
+        anyPlotNotConstructable = CheckPlotConstructability(structureToBuild);
+
+        // Finally we set the opacity of the entire structure to 50% and relevant color based on flag
+        if (anyPlotNotConstructable)
+        {
+            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.red);
+        }else {
+            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.green);
+        }
     }
 
     private void OnMouseExit()
@@ -71,9 +82,9 @@ public class Plot : MonoBehaviour
         }
     }
 
-    // Function to check that all the plots under the structure to build size are not
-    // occupied and not out of bounds
-    private void CheckPlotConstructability(Structure structureToBuild)
+    // Function to check that all the plots under the structure to build size are not occupied and not out of bounds
+    // colors each plot accordingly and return true if any plot not constructable 
+    private bool CheckPlotConstructability(Structure structureToBuild)
     {
         Vector2Int gridPosition = GridManager.Instance.WorldToGridCoordinates(transform.position);
         anyPlotNotConstructable = false;
@@ -88,8 +99,15 @@ public class Plot : MonoBehaviour
                 int checkY = gridPosition.y + y;
 
                 // First we check that all plots are constructable and raise flag if one is not
-                bool isPlotConstructable = GridManager.Instance.IsPlotConstructable(checkX, checkY);
-                if (!isPlotConstructable) anyPlotNotConstructable = true;
+                bool isPlotConstructable = false;
+                if (structureToBuild is Building) {
+                    isPlotConstructable = GridManager.Instance.IsPlotBuildingConstructable(checkX, checkY);
+                }
+                else{
+                   isPlotConstructable = GridManager.Instance.IsPlotConstructable(checkX, checkY);
+                }
+                
+                if (!isPlotConstructable) {anyPlotNotConstructable = true;}
                 
                 // Then color each plot red or green for visual feedback
                 SpriteRenderer plotSr = GridManager.Instance.GetPlotSpriteRenderer(checkX, checkY);
@@ -101,13 +119,7 @@ public class Plot : MonoBehaviour
             }
         }
 
-        // Finally we set the opacity of the entire structure to 50% and relevant color based on flag
-        if (anyPlotNotConstructable)
-        {
-            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.red);
-        }else {
-            BuildManager.main.SetOpacity(BuildManager.main.structurePreviewInstance, 0.5f, Color.green);
-        }
+        return anyPlotNotConstructable;
     }
 
     private void PlaceStructure(Structure structureToBuild)

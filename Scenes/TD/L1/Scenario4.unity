@@ -859,6 +859,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+      propertyPath: buildingOnly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: constructable
       value: 1
       objectReference: {fileID: 0}
@@ -7917,6 +7921,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+      propertyPath: buildingOnly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: constructable
       value: 1
       objectReference: {fileID: 0}
@@ -8880,6 +8888,10 @@ PrefabInstance:
     - target: {fileID: 4352846411947730267, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+      propertyPath: buildingOnly
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: constructable
@@ -11207,6 +11219,10 @@ PrefabInstance:
     - target: {fileID: 4352846411947730267, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+      propertyPath: buildingOnly
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4860111158233950497, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
       propertyPath: constructable
@@ -19404,6 +19420,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2625131852654341091, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2640897953892574086, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -19829,9 +19849,9 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1963127849}
   - {fileID: 1624488372}
+  - {fileID: 4437027636187829041}
   - {fileID: 1516575311}
   - {fileID: 193118259}
-  - {fileID: 4437027636187829041}
   - {fileID: 935464193}
   - {fileID: 1039834257}
   - {fileID: 801835769}
