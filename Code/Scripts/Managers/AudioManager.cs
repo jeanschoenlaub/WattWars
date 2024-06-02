@@ -41,6 +41,7 @@ public class AudioManager : MonoBehaviour
     void InitializeAudio()
     {
         musicSource.clip = Track1;
+        musicSource.loop = true; // Enable looping
         musicSource.Play();
     }
     
@@ -70,7 +71,7 @@ public class AudioManager : MonoBehaviour
     }
     
     //function to call any oneshot clip
-    public void PlaySFX( AudioClip clip){
+    public void PlaySFX(AudioClip clip){
         SFXSource.PlayOneShot(clip);
     }
 

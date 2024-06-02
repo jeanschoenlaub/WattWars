@@ -1209,56 +1209,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164206041}
   m_CullTransparentMesh: 1
---- !u!1 &171683650
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 171683652}
-  - component: {fileID: 171683651}
-  m_Layer: 0
-  m_Name: IdleManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &171683651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171683650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 110d72e86e1a8444dae9762de250f97e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleCoinText: {fileID: 1163828215}
-  Maps: []
-  MapBackground: {fileID: 0}
-  buildingPositions: []
-  BuildingAnimGO: {fileID: 0}
-  coins: 0
---- !u!4 &171683652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171683650}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8194867, y: -0.054949645, z: 7.6959996}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &174654000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 411207084}
   SFXSource: {fileID: 568025685}
-  Track1: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}
+  Track1: {fileID: 8300000, guid: ff87ed6f9868648fa988e088fc53e5e5, type: 3}
   QuizTrack: {fileID: 8300000, guid: 458dd8822518c4f37bc3edba9b6c57d9, type: 3}
   coinsSFX: {fileID: 8300000, guid: b72d3026305554cdab9d02fe53284de5, type: 3}
   coinsPouringSFX: {fileID: 8300000, guid: a43ff936ef6b148aa83edf4f2724a38a, type: 3}
@@ -4953,7 +4903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &851021654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9331,7 +9281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1481069806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14004,4 +13954,3 @@ SceneRoots:
   - {fileID: 1091258725}
   - {fileID: 592489189}
   - {fileID: 231539499}
-  - {fileID: 171683652}

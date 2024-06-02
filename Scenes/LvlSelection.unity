@@ -528,8 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1712463777}
   SFXSource: {fileID: 1963187691}
-  Track1: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}
-  QuizTrack: {fileID: 8300000, guid: 458dd8822518c4f37bc3edba9b6c57d9, type: 3}
+  Track1: {fileID: 8300000, guid: ff87ed6f9868648fa988e088fc53e5e5, type: 3}
+  QuizTrack: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}
   coinsSFX: {fileID: 8300000, guid: b72d3026305554cdab9d02fe53284de5, type: 3}
   coinsPouringSFX: {fileID: 8300000, guid: a43ff936ef6b148aa83edf4f2724a38a, type: 3}
   dialogNextSFX: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}

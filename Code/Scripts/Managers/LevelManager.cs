@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour
     private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
 
+    private AudioManager audioManager;
+
     private void Awake()
     {
         if (main != null && main != this)
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour
         main = this;
         gameSpeed = 1; // Reset game speed to default upon scene load
         //DontDestroyOnLoad(gameObject); // Persist across scenes
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Public method to set game speed
@@ -87,6 +90,7 @@ public class LevelManager : MonoBehaviour
     private void Start(){
         coins =  currentScenario.Coins;
         numberOfLives = currentScenario.Lives;
+        audioManager.PlayTrack(audioManager.QuizTrack);
     }
 
     private void Update() {
@@ -130,6 +134,7 @@ public class LevelManager : MonoBehaviour
 
 
     public void EndOfGame() { 
+        audioManager.PlayTrack(audioManager.Track1);
         SceneManager.LoadScene("Menu");
     }
 
