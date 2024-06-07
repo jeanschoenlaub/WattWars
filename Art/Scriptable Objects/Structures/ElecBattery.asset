@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdc5c53d58284b5395b9f82976b0c13, type: 3}
+  m_Name: ElecBattery
+  m_EditorClassIdentifier: 
+  structureName: ElecBattery
+  cost: 120
+  size: 0100000002000000
+  prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
+  buildCooldown: 15
+  rangeCircle: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
+  targetingRange: 6
+  bulletPerSeconds: 3
+  bulletType: 0
+  bulletDamage: 1
+  maxCharge: 10

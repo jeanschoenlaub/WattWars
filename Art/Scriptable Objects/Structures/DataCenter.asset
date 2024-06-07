@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3faa8432af8ea42be9eca0ea556bb927, type: 3}
+  m_Name: DataCenter
+  m_EditorClassIdentifier: 
+  structureName: DataCenter
+  isBuilding: 1
+  cost: 200
+  size: 0200000002000000
+  prefab: {fileID: 6755700715668276687, guid: db8dda2ba160b44d58ae93e5f0e03911, type: 3}
+  buildCooldown: 12
+  bulletType: 0
+  energyRequired: 10
+  moneyGenerated: 20

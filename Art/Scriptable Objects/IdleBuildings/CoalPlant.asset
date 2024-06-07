@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce81a08b4907a4134962b683271b104a, type: 3}
+  m_Name: CoalPlant
+  m_EditorClassIdentifier: 
+  buildingName: coal
+  power: 1
+  cost: 0
+  timeToBuild: 10
+  onSprite: {fileID: 21300000, guid: 8bf467bc3883d4ff98112b80264a2124, type: 3}
+  offSprite: {fileID: 21300000, guid: eda0514b890c44aa996377affdab4339, type: 3}
