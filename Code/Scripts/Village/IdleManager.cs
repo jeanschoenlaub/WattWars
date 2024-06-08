@@ -77,16 +77,15 @@ public class IdleManager : MonoBehaviour
         StartCoroutine(GoToLevelSelectionAnimation());
     }
 
-
     IEnumerator GoToLevelSelectionAnimation(){
         // Play the Transition
         audioManager.playButtonClickSFX();
         SceneTransitionAnimator.SetTrigger("Start");
 
-        //Wait f
+        //Wait for animation to play
         yield return new WaitForSeconds(sceneTransitionTime);
 
-        //Load the scene
+        //Then Load the Level selection BreakerBox
         SceneManager.LoadScene("LvlSelection");
     }
 }

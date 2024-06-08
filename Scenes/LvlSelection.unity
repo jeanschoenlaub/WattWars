@@ -4791,6 +4791,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+--- !u!95 &1528897912 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7745553307594679044, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+  m_PrefabInstance: {fileID: 1528897911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1595349335
 GameObject:
   m_ObjectHideFlags: 0
@@ -7429,6 +7434,8 @@ MonoBehaviour:
   offImage: {fileID: 1158829610, guid: becfaee843bdd47879588aead8b5aaf9, type: 3}
   rewardGreenImage: {fileID: -1996045625, guid: a7df13596f9314e3090c668f36dbe54b, type: 3}
   rewardRedImage: {fileID: 1747448093, guid: a7df13596f9314e3090c668f36dbe54b, type: 3}
+  sceneTransitionAnimator: {fileID: 1528897912}
+  sceneTransitionTime: 1.5
 --- !u!4 &2005181964
 Transform:
   m_ObjectHideFlags: 0

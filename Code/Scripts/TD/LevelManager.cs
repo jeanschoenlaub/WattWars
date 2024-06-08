@@ -132,7 +132,6 @@ public class LevelManager : MonoBehaviour
         spriteRenderer.color = new Color(0f, 0f, 0f, 0.55f);
     }
 
-
     public void EndOfGame() { 
         audioManager.StartMusicForVillageMode();
         SceneManager.LoadScene("Menu");

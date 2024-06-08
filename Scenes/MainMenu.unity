@@ -3616,21 +3616,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710515480}
-        m_TargetAssemblyTypeName: MenuLevelManager, Assembly-CSharp
-        m_MethodName: BackToMap
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 231539498}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: playButtonClickSFX
+      - m_Target: {fileID: 1617794173}
+        m_TargetAssemblyTypeName: splashScreenManager, Assembly-CSharp
+        m_MethodName: GoToMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7804,6 +7792,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600440234}
   m_CullTransparentMesh: 1
+--- !u!1 &1617794172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1617794174}
+  - component: {fileID: 1617794173}
+  - component: {fileID: 1617794175}
+  m_Layer: 0
+  m_Name: SplashScreenManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1617794173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617794172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b59a371b1464a319d8f465a6333382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1617794174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617794172}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.7105668, y: 1.6948004, z: 126.13927}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1617794175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617794172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f550f51c746474ea34e332d9ede514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInTDMode: 0
+  currencyUI: {fileID: 0}
+  livesUI: {fileID: 0}
+  waveUI: {fileID: 0}
+  waveAnim: {fileID: 0}
+  menuButton: {fileID: 0}
+  menuGameObject: {fileID: 103761962}
+  gameSpeedText: {fileID: 0}
+  soundButton: {fileID: 1195482381}
+  volumeSlider: {fileID: 1689667889}
+  sfxButton: {fileID: 596127359}
+  sfxSlider: {fileID: 572124092}
+  soundOnSprite: {fileID: 0}
+  soundOffSprite: {fileID: 0}
 --- !u!1 &1620123060
 GameObject:
   m_ObjectHideFlags: 0
@@ -8445,8 +8504,6 @@ GameObject:
   - component: {fileID: 1710515477}
   - component: {fileID: 1710515476}
   - component: {fileID: 1710515475}
-  - component: {fileID: 1710515479}
-  - component: {fileID: 1710515480}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -8538,52 +8595,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1710515479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710515474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f550f51c746474ea34e332d9ede514, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInTDMode: 0
-  currencyUI: {fileID: 0}
-  livesUI: {fileID: 0}
-  waveUI: {fileID: 0}
-  waveAnim: {fileID: 0}
-  menuButton: {fileID: 1917620102}
-  menuGameObject: {fileID: 103761962}
-  gameSpeedText: {fileID: 0}
-  soundButton: {fileID: 1195482381}
-  volumeSlider: {fileID: 1689667889}
-  sfxButton: {fileID: 596127359}
-  sfxSlider: {fileID: 572124092}
-  soundOnSprite: {fileID: 21300000, guid: 6d3a0a7a2316848d9a19bce1dfc9c91e, type: 3}
-  soundOffSprite: {fileID: 21300000, guid: b0bfab4adbc2649998521827bfe53b2e, type: 3}
---- !u!114 &1710515480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710515474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d61811cccb3484bad357e91e2b5187, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Level1SelectionButtons: []
-  RewardBoards: []
-  Scenarios: []
-  RewardTowers: []
-  onImage: {fileID: 0}
-  offImage: {fileID: 0}
-  rewardGreenImage: {fileID: 0}
-  rewardRedImage: {fileID: 0}
 --- !u!1 &1715729249
 GameObject:
   m_ObjectHideFlags: 0
@@ -8876,7 +8887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710515479}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: ToggleMenu
         m_Mode: 1
@@ -10591,7 +10602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2037512408}
   m_Layer: 5
-  m_Name: BottomRight
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11459,6 +11470,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 678848083}
+  - {fileID: 1617794174}
   - {fileID: 1710515478}
   - {fileID: 1091258725}
   - {fileID: 592489189}

@@ -1,32 +1,35 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class BreakerBoxManager : MonoBehaviour
 {
-    public Button[] Level1SelectionButtons;
-    public GameObject[] RewardBoards;
-    public GameObject[] Scenarios;
-    public GameObject[] RewardTowers;
-    public Sprite onImage;
-    public Sprite offImage;
-    public Sprite rewardGreenImage;
-    public Sprite rewardRedImage;
+    [Header("---    Attributes  ---")]
+    [SerializeField] private Button[] Level1SelectionButtons;
+    [SerializeField] private GameObject[] RewardBoards;
+    [SerializeField] private GameObject[] Scenarios;
+    [SerializeField] private GameObject[] RewardTowers;
+    [SerializeField] private Sprite onImage;
+    [SerializeField] private Sprite offImage;
+    [SerializeField] private Sprite rewardGreenImage;
+    [SerializeField] private Sprite rewardRedImage;
 
-    private Animator rewardAnimator;
+    [Header("---    Animation References    ---")]
+    [SerializeField] private Animator sceneTransitionAnimator;
+    [SerializeField] private float sceneTransitionTime;
+
+    private Animator rewardAnimator; //Programaticlly get this one as we need to get the relevant on
+    
+    //Singletons
     private AudioManager audioManager;
+
 
     private void Awake() {
         UpdateLevelButtons();
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
-
     
-    public void OpenScenario(int scenarioId){
-        audioManager.playButtonClickSFX();
-        string sceneName = "Scenario"+scenarioId;
-        SceneManager.LoadScene(sceneName);
-    }
 
     void UpdateLevelButtons() {
 
@@ -57,6 +60,13 @@ public class BreakerBoxManager : MonoBehaviour
         }
     }
 
+    public void AnimateReward(int buttonIndex){
+        rewardAnimator = Scenarios[buttonIndex].GetComponent<Animator>();
+        rewardAnimator.enabled = true; // Enable the Animator component
+        rewardAnimator.SetTrigger("Test"); 
+    }
+
+    // TEMP function to reset player progress for Playtesting
     public void ResetProgress() {
         // Resetting level progression
         PlayerPrefs.SetInt("UnlockedLevels", 1);
@@ -66,29 +76,51 @@ public class BreakerBoxManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// ----------------------------------------------------- ///
+    ///         Scene and Scene transition Management         /// 
+    /// ----------------------------------------------------- ///
+
     public void BackToLevelSelection(){
         SceneManager.LoadScene("LvlSelection");
-    }
-
-    public void BackToMap(){
-        SceneManager.LoadScene("Map");
     }
 
     public void BackToMainMenu(){
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void AnimateReward(int buttonIndex){
-        
-        rewardAnimator = Scenarios[buttonIndex].GetComponent<Animator>();
-        rewardAnimator.enabled = true; // Enable the Animator component
-
-        rewardAnimator.SetTrigger("Test");
+    // Transition from Breaker Box to Map, with animation
+    public void BackToMap(){
+        StartCoroutine(GoToMapAnimation());
     }
 
-    // public void TestRestFlag(){
-    //     PlayerPrefs.SetInt("UnlockedLevelAnimation", 1);
-    //     UpdateLevelButtons();
-    // }
+    IEnumerator GoToMapAnimation(){
+        audioManager.playButtonClickSFX();
+        sceneTransitionAnimator.SetTrigger("Start");
+
+        //Wait for animation to play
+        yield return new WaitForSeconds(sceneTransitionTime);
+
+        //Then Load the right scenario
+        SceneManager.LoadScene("Map");
+    }
+
+    // Transition from Breaker Box to Scenario, with animation
+    public void OpenScenario(int scenarioId){
+        audioManager.playButtonClickSFX();
+        StartCoroutine(GoToScenarioAnimation(scenarioId));
+    }
+
+    IEnumerator GoToScenarioAnimation(int scenarioId){
+        // Play the Transition
+        audioManager.playButtonClickSFX();
+        sceneTransitionAnimator.SetTrigger("Start");
+
+        //Wait for animation to play
+        yield return new WaitForSeconds(sceneTransitionTime);
+
+        //Then Load the right scenario
+        string sceneName = "Scenario"+scenarioId;
+        SceneManager.LoadScene(sceneName);
+    }
 }
 
