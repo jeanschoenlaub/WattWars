@@ -15,20 +15,17 @@ public class AudioManager : MonoBehaviour
     public AudioClip tdTrack5;
 
     [Header("SFX")]
-    public AudioClip coinsSFX;
-    public AudioClip coinsPouringSFX;
-    public AudioClip dialogNextSFX;
-    public AudioClip dialogUpSFX;
-    public AudioClip dialogDownSFX;
-    public AudioClip badActionSFX;
-    public AudioClip buildSFX;
-    public AudioClip buildSelected;
     public AudioClip buttonClick;
 
     [Header("TD Tower SFX")]
+    public AudioClip coinsSFX;
+    public AudioClip badActionSFX;
+    public AudioClip buildSFX;
+    public AudioClip buildSelected;
     public AudioClip ElectricEnemyHit;
     public AudioClip FuelEnemyHit;
     public AudioClip ButtonSwitch;
+    public AudioClip dialogSFX;
 
     [Header("LvlSelectionSFX")]
     public AudioClip breakerSwitch;

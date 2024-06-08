@@ -1,23 +1,24 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class IdleManager : MonoBehaviour
 {
+    // Singletons
+    private AudioManager audioManager;
     public static IdleManager main;
 
     [Header("Attributes")]
-    [SerializeField] public Sprite[] Maps;
-    [SerializeField] public GameObject MapBackground;
+    [SerializeField] private Sprite[] Maps;
+    [SerializeField] private GameObject MapBackground;
 
-    // For animating building  
-    [SerializeField] public Transform[] buildingPositions;
-    [SerializeField] public GameObject BuildingAnimGO;
-    [SerializeField] public GameObject UnlockAnimGO;
-
-    // Singletons
-    private AudioManager audioManager;
+    [Header("Animations Management")]
+    [SerializeField] private Animator SceneTransitionAnimator;
+    [SerializeField] private float sceneTransitionTime = 1f;
+    [SerializeField] private Transform[] buildingPositions;
+    [SerializeField] private GameObject BuildingAnimGO;
+    [SerializeField] private GameObject UnlockAnimGO;
     
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class IdleManager : MonoBehaviour
             return;
         }
         main = this;
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start(){
@@ -36,25 +38,25 @@ public class IdleManager : MonoBehaviour
     //Based on what the player as unlocked, load a different map
     public void LoadMap()
     {
+        // Load the relevant map based on player progress
         int completedLvls = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
         MapBackground.GetComponent<Image>().sprite = Maps[completedLvls];
 
-        int BuildingAinmationLoc = PlayerPrefs.GetInt("UnlockedLevelAnimation", 0); 
-
-        if (BuildingAinmationLoc != 0){
+        // If the flag UnlockedLevelAnimation is true trigger the BreakerBox Animation
+        int BuildingAnimationLoc = PlayerPrefs.GetInt("UnlockedLevelAnimation", 0); 
+        if (BuildingAnimationLoc != 0){
             // Each Level's last unlock triggers unlocking the next level 
-            if (BuildingAinmationLoc % 4 == 0){
-                TriggerUnlockAnimation(BuildingAinmationLoc);
+            if (BuildingAnimationLoc % 4 == 0){
+                TriggerUnlockAnimation(BuildingAnimationLoc);
             }
             else{
-                TriggerBuildingAnimation(BuildingAinmationLoc);
+                TriggerBuildingAnimation(BuildingAnimationLoc);
             }
-            PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the flag 
+            PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the animation flag 
         }
     }
 
     public void TriggerUnlockAnimation(int locationIndex){
-        Debug.Log("unlock anim2");
         UnlockAnimGO.SetActive(true);
         Animator unlockAnimator = UnlockAnimGO.GetComponent<Animator>();
 
@@ -71,8 +73,20 @@ public class IdleManager : MonoBehaviour
         buildingAnimator.SetTrigger("Building");
     }
 
-
     public void GoToLevelSelection(){
+        StartCoroutine(GoToLevelSelectionAnimation());
+    }
+
+
+    IEnumerator GoToLevelSelectionAnimation(){
+        // Play the Transition
+        audioManager.playButtonClickSFX();
+        SceneTransitionAnimator.SetTrigger("Start");
+
+        //Wait f
+        yield return new WaitForSeconds(sceneTransitionTime);
+
+        //Load the scene
         SceneManager.LoadScene("LvlSelection");
     }
 }

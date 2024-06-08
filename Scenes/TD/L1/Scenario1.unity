@@ -18783,18 +18783,15 @@ MonoBehaviour:
   tdTrack3: {fileID: 8300000, guid: ef8ed87f0bf9c4ec0aee2b24e987776e, type: 3}
   tdTrack4: {fileID: 8300000, guid: 30f54f9f31d1a4c4491c034e29d84740, type: 3}
   tdTrack5: {fileID: 8300000, guid: b6273174ff20043cc83385603ba4e399, type: 3}
+  buttonClick: {fileID: 8300000, guid: 439dc11c64fa94a63a969136006b3c5e, type: 3}
   coinsSFX: {fileID: 8300000, guid: b72d3026305554cdab9d02fe53284de5, type: 3}
-  coinsPouringSFX: {fileID: 8300000, guid: a43ff936ef6b148aa83edf4f2724a38a, type: 3}
-  dialogNextSFX: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
-  dialogUpSFX: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
-  dialogDownSFX: {fileID: 8300000, guid: 89e6bc608da7b47d4914f3d9c2484e48, type: 3}
   badActionSFX: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
   buildSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   buildSelected: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
-  buttonClick: {fileID: 8300000, guid: 439dc11c64fa94a63a969136006b3c5e, type: 3}
   ElectricEnemyHit: {fileID: 8300000, guid: 903965d1ea8e24488b63906e6a5bac1f, type: 3}
   FuelEnemyHit: {fileID: 8300000, guid: c955d9a4aa8324e75bccfbac4664ffe9, type: 3}
   ButtonSwitch: {fileID: 8300000, guid: 8a8530e5724f74b09b7eb93d90395a73, type: 3}
+  dialogSFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}
@@ -20946,18 +20943,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1252331411909769689, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4437027636187829046}
-    - target: {fileID: 1252331411909769689, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayNextTDSong
-      objectReference: {fileID: 0}
-    - target: {fileID: 1252331411909769689, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Menu, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 1750358323904712412, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -21217,10 +21202,6 @@ PrefabInstance:
     - target: {fileID: 6946342042972603188, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: 7187072931196637015, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -359
       objectReference: {fileID: 0}
     - target: {fileID: 7236642181463392219, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y

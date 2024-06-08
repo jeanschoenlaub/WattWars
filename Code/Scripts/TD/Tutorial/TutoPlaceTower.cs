@@ -30,12 +30,16 @@ public class TutoPlaceTower : MonoBehaviour
     // Internal variables
     private bool firstTimechecker = true ; // flag to enter continuous check only once
     private bool secondTimechecker = true ; // flag to enter continuous check only once
+    
+    // Singletons
     private TutorialManager tutoManager;
+    private AudioManager audioManager;
 
     private void Awake()
     {
         // Get the TutoPlaceTower component attached to the same GameObject
         tutoManager = GetComponent<TutorialManager>();
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start(){
@@ -133,6 +137,7 @@ public class TutoPlaceTower : MonoBehaviour
 
         //Then display Fridge text
         LevelManager.SetGameSpeed(0);
+        audioManager.PlaySFX(audioManager.dialogSFX);
         FridgeDialogAnimator.SetTrigger("PopUp");
 
         // And after little delay add a listener for the next step
@@ -145,6 +150,7 @@ public class TutoPlaceTower : MonoBehaviour
     public void Task3BuildGen() {
         // Remove the anim and et play again
         FridgeDialogAnimator.SetTrigger("PopDown");
+        audioManager.PlaySFX(audioManager.dialogSFX);
         
         LevelManager.SetGameSpeed(1);
 

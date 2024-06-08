@@ -17321,16 +17321,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 942423076}
   SFXSource: {fileID: 1641718384}
-  Track1: {fileID: 8300000, guid: ff87ed6f9868648fa988e088fc53e5e5, type: 3}
-  QuizTrack: {fileID: 8300000, guid: 458dd8822518c4f37bc3edba9b6c57d9, type: 3}
+  villageAmbience: {fileID: 0}
+  tdTrack1: {fileID: 0}
+  tdTrack2: {fileID: 0}
+  tdTrack3: {fileID: 0}
+  tdTrack4: {fileID: 0}
+  tdTrack5: {fileID: 0}
+  buttonClick: {fileID: 0}
   coinsSFX: {fileID: 8300000, guid: b72d3026305554cdab9d02fe53284de5, type: 3}
-  coinsPouringSFX: {fileID: 8300000, guid: a43ff936ef6b148aa83edf4f2724a38a, type: 3}
-  dialogNextSFX: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
-  dialogUpSFX: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
-  dialogDownSFX: {fileID: 8300000, guid: 89e6bc608da7b47d4914f3d9c2484e48, type: 3}
   badActionSFX: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
   buildSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   buildSelected: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  ElectricEnemyHit: {fileID: 0}
+  FuelEnemyHit: {fileID: 0}
+  ButtonSwitch: {fileID: 0}
+  dialogSFX: {fileID: 0}
+  breakerSwitch: {fileID: 0}
+  electricSound: {fileID: 0}
+  rewardSound: {fileID: 0}
 --- !u!4 &1963127849
 Transform:
   m_ObjectHideFlags: 0
@@ -19427,10 +19435,10 @@ PrefabInstance:
     - target: {fileID: 2640897953892574086, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1624488371}
+      objectReference: {fileID: 4437027636187829042}
     - target: {fileID: 2640897953892574086, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExitToMainMenu
+      value: TestFinishLevel
       objectReference: {fileID: 0}
     - target: {fileID: 2917418713339612270, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -19661,6 +19669,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -19713,6 +19733,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+--- !u!114 &4437027636187829042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2788146671628814736, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f550f51c746474ea34e332d9ede514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4437027636187829043 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4457431594031386851, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}

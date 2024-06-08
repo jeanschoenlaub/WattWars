@@ -14,13 +14,16 @@ public class BreakerBoxManager : MonoBehaviour
     public Sprite rewardRedImage;
 
     private Animator rewardAnimator;
+    private AudioManager audioManager;
 
     private void Awake() {
         UpdateLevelButtons();
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
     
     public void OpenScenario(int scenarioId){
+        audioManager.playButtonClickSFX();
         string sceneName = "Scenario"+scenarioId;
         SceneManager.LoadScene(sceneName);
     }
