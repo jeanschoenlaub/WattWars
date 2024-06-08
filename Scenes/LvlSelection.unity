@@ -530,14 +530,19 @@ MonoBehaviour:
   SFXSource: {fileID: 1963187691}
   villageAmbience: {fileID: 8300000, guid: ff87ed6f9868648fa988e088fc53e5e5, type: 3}
   tdTrack1: {fileID: 8300000, guid: a86ef0405c4ad4eb6a748e2c24730740, type: 3}
+  tdTrack2: {fileID: 0}
+  tdTrack3: {fileID: 0}
+  tdTrack4: {fileID: 0}
+  tdTrack5: {fileID: 0}
+  buttonClick: {fileID: 0}
   coinsSFX: {fileID: 8300000, guid: b72d3026305554cdab9d02fe53284de5, type: 3}
-  coinsPouringSFX: {fileID: 8300000, guid: a43ff936ef6b148aa83edf4f2724a38a, type: 3}
-  dialogNextSFX: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
-  dialogUpSFX: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
-  dialogDownSFX: {fileID: 8300000, guid: 89e6bc608da7b47d4914f3d9c2484e48, type: 3}
   badActionSFX: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
   buildSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   buildSelected: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  ElectricEnemyHit: {fileID: 0}
+  FuelEnemyHit: {fileID: 0}
+  ButtonSwitch: {fileID: 0}
+  dialogSFX: {fileID: 0}
   breakerSwitch: {fileID: 8300000, guid: aec118f8d4ac640f681bc50c247e8bcc, type: 3}
   electricSound: {fileID: 8300000, guid: 7c763e87ab2014ed2baf1b2b03d4c852, type: 3}
   rewardSound: {fileID: 8300000, guid: 38c10034428bd4a4cb41e4a1411f81b7, type: 3}
@@ -4725,6 +4730,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525365013}
   m_CullTransparentMesh: 1
+--- !u!1001 &1528897911
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.3807259
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.3144809
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.20092037
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980304624666565437, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_Name
+      value: LevelLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105780455837383412, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 678848082}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
 --- !u!1 &1595349335
 GameObject:
   m_ObjectHideFlags: 0
@@ -8159,6 +8225,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1528897911}
   - {fileID: 678848083}
   - {fileID: 2005181964}
   - {fileID: 1091258725}
