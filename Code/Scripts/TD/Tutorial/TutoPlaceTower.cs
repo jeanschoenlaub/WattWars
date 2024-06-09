@@ -12,7 +12,6 @@ public class TutoPlaceTower : MonoBehaviour
 
     [Header("Text References")]
     [SerializeField] public GameObject TutoTextBox;
-    [SerializeField] public GameObject WaveBannerGameObject;
     [SerializeField] public Button DialogFridgeClickDetector;
     [SerializeField] TextMeshProUGUI TutoText; 
 
@@ -45,7 +44,6 @@ public class TutoPlaceTower : MonoBehaviour
 
     private void Start(){
         TutoTextBox.SetActive(false);
-        WaveBannerGameObject.SetActive(false); // We will disable the first wave baner if tutorial is On
     }
 
     void Update()
@@ -66,7 +64,6 @@ public class TutoPlaceTower : MonoBehaviour
         if (isTutorialActive && notConstructableCount == 1 && firstTimechecker)
         {
             LevelManager.SetGameSpeed(1);
-
 
             TutoTextBox.SetActive(false);
             MouseAnimator.SetTrigger("Hide");

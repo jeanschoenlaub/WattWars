@@ -30,9 +30,7 @@ public class BreakerBoxManager : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
     
-
     void UpdateLevelButtons() {
-
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevels", 1);
         int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
 
@@ -55,14 +53,16 @@ public class BreakerBoxManager : MonoBehaviour
 
             //If a level has been completed for the first time, trigger reward
             if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) != 0){
-                AnimateReward(completedLevels-1);
+                StartCoroutine(AnimateReward(completedLevels-1));
             }
         }
     }
 
-    public void AnimateReward(int buttonIndex){
+    IEnumerator AnimateReward(int buttonIndex){
         rewardAnimator = Scenarios[buttonIndex].GetComponent<Animator>();
         rewardAnimator.enabled = true; // Enable the Animator component
+
+        yield return new WaitForSeconds(sceneTransitionTime);
         rewardAnimator.SetTrigger("Test"); 
     }
 
@@ -71,9 +71,13 @@ public class BreakerBoxManager : MonoBehaviour
         // Resetting level progression
         PlayerPrefs.SetInt("UnlockedLevels", 1);
         PlayerPrefs.SetInt("CompletedLevels", 0);
+        // Set the intro story flag to true so the the first time story animation palys again
+        PlayerPrefs.SetInt("FirstLaunch", 1);
+
         PlayerPrefs.Save();
         UpdateLevelButtons();
         SceneManager.LoadScene("MainMenu");
+
     }
 
     /// ----------------------------------------------------- ///

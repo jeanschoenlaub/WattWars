@@ -7095,6 +7095,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
   m_PrefabInstance: {fileID: 1256953379}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &762432415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7705208158165854403, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &765740504 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -14251,7 +14256,7 @@ MonoBehaviour:
   - {fileID: 1812160723}
   - {fileID: 1545935882}
   - {fileID: 98799302}
-  firstDelayScooterAppear: 6
+  firstDelayScooterAppear: 5
   secondDelayFridgeAppear: 28
   isTutorialActive: 1
 --- !u!4 &1516575311
@@ -14300,6 +14305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popUp1: {fileID: 1078156102}
   popUp2: {fileID: 980755265}
+  WaveBannerGameObject: {fileID: 762432415}
 --- !u!4 &1518673428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}

@@ -93,7 +93,6 @@ public class TutoNight : MonoBehaviour
         TutoTextBox.SetActive(true);
 
         LevelManager.SetGameSpeed(0);
-        LevelManager.main.IncreaseCurrency(200);
 
         // Wait for the specified delay
         yield return new WaitForSeconds(5f); 

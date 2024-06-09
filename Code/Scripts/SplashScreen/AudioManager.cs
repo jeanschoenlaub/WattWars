@@ -142,7 +142,6 @@ public class AudioManager : MonoBehaviour
     }
 
     public void playButtonClickSFX(){
-        Debug.Log("Button Click");
         PlaySFX(buttonClick);
     }
 
