@@ -6,6 +6,7 @@ public class WaveManager : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private Animator newWaveAnimator;
+    [SerializeField] private RewardManager rewardManager;
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent(); // Used to notify wave managers that enemies where killed
@@ -141,7 +142,9 @@ public class WaveManager : MonoBehaviour {
             else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
-                StartNextWave();
+                rewardManager.startRewardTransition();
+                Debug.Log("StartTransition");
+                //StartNextWave();
                 timeSinceLastWave = 0; //Reset the counter
             }
             // If all ennemy dead and last wave --> Menu
