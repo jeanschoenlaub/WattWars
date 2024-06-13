@@ -15,5 +15,4 @@ MonoBehaviour:
   waves:
   - {fileID: 11400000, guid: 07717344925b146a3a437611032e75ad, type: 2}
   - {fileID: 11400000, guid: 6383c5c11f21742999d3dfc93943b7e5, type: 2}
-  - {fileID: 11400000, guid: c5c644fb3288448298cd0db44b246f30, type: 2}
   weather: 0

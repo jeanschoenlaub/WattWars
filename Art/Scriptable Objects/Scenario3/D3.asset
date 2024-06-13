@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33de44781f76492ba6107c07e8f246b, type: 3}
   m_Name: D3
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - {fileID: 11400000, guid: 4272b2fb7b8544bcebf483e87d126eac, type: 2}
+  - {fileID: 11400000, guid: 147ea5784655f457b951e012c617099b, type: 2}
   weather: 0

@@ -1975,7 +1975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &193118256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6097,7 +6097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &720785379
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8592,7 +8592,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1072610210}
   m_Layer: 0
-  m_Name: Reward
+  m_Name: EndScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12893,7 +12893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1516575310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14394,6 +14394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newWaveAnimator: {fileID: 3825582993633132792}
+  rewardManager: {fileID: 1624488381}
   isTutorialOn: 0
   currentDayIndex: 0
   currentDay: {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
@@ -14466,6 +14467,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 2055526502}
   cameraAnimator: {fileID: 519420034}
+  dayRewardsAnimator: {fileID: 4437027636187829046}
+  dayRewardsTimeline: {fileID: 2015647735}
+  timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
+  timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
+  timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
+  timelineDay4: {fileID: 21300000, guid: 3525ba503ee9446938de80890c856120, type: 3}
+  currentGameSpeed: 1
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -18578,6 +18586,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+--- !u!1 &2015647735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4863301889571135752, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2028484921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19829,6 +19842,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488381}
     - target: {fileID: 378679840097990224, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_text
       value: "[Frigidair]     \\n \tHehe, your solar panel won't work at night !
@@ -20228,6 +20245,11 @@ Animator:
 --- !u!1 &4437027636187829044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8969230400165073382, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4437027636187829046 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4552006552752967612, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
   m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7417819404928009695

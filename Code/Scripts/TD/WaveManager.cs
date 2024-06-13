@@ -142,9 +142,8 @@ public class WaveManager : MonoBehaviour {
             else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
-                rewardManager.startRewardTransition();
-                Debug.Log("StartTransition");
-                //StartNextWave();
+                rewardManager.AnimateDayReward(currentDayIndex);
+                StartNextWave();
                 timeSinceLastWave = 0; //Reset the counter
             }
             // If all ennemy dead and last wave --> Menu

@@ -14521,6 +14521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newWaveAnimator: {fileID: 3825582993633132792}
+  rewardManager: {fileID: 0}
   isTutorialOn: 0
   currentDayIndex: 0
   currentDay: {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
