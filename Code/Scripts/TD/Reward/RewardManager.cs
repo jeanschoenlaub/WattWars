@@ -9,6 +9,7 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Animator EndScenarioAnimator;
     [SerializeField] private Animator dayRewardsAnimator;
     [SerializeField] private GameObject dayRewardsTimeline;
+    [SerializeField] private WaveManager waveManager;
 
     [Header("Sprites")]
     [SerializeField] private Sprite timelineDay1;
@@ -17,6 +18,7 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Sprite timelineDay4;
      
     public int currentGameSpeed = 1;
+
     //Singletons
     private AudioManager audioManager;
 
@@ -68,5 +70,6 @@ public class RewardManager : MonoBehaviour
     {
         dayRewardsAnimator.SetTrigger("FadeOut");
         LevelManager.SetGameSpeed(currentGameSpeed);
+        waveManager.StartNextWave(newDay: true);
     }
 }

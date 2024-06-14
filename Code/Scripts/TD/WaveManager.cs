@@ -5,8 +5,13 @@ using UnityEngine.Events;
 public class WaveManager : MonoBehaviour {
 
     [Header("References")]
-    [SerializeField] private Animator newWaveAnimator;
     [SerializeField] private RewardManager rewardManager;
+
+    [Header("---  UI References  ---")]
+    [SerializeField] private GameObject progressBar;
+    [SerializeField] private float totalDayTime = 120f; // Total time of the day in seconds
+    [SerializeField] private float initialRightValue = 300f; // Initial right value of the progress bar
+    [SerializeField] private float finalRightValue = 0f;    // Final right value of the progress bar
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent(); // Used to notify wave managers that enemies where killed
@@ -24,6 +29,9 @@ public class WaveManager : MonoBehaviour {
     public int enemiesAlive = 0;
     public float timeBetweenWaves = 3;
     private float timeSinceLastWave = 0;
+    private float timeSinceBeginningOfDay = 0;
+
+    private RectTransform progressBarRect;
 
     // We use a spwan state to store and spawn enemies
     private List<SpawnState> spawnStates = new List<SpawnState>();
@@ -48,52 +56,17 @@ public class WaveManager : MonoBehaviour {
 
     private void Start()
     {
+        progressBarRect = progressBar.GetComponent<RectTransform>();
         currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
         StartFirstWave(); //Special case for beginning
     }
-
-    // Function to take sync Day and wave index and class and trigger banner animation
-    private void UpdateCurrentDayAndWave()
-    {
-        if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
-        {     
-            //Just next wave on the same day
-            if (currentDay.waves.Count > currentWaveIndex + 1)
-            {
-                currentWaveIndex++;
-                // Also if this is a night wave --> Fade to night
-                // To-Do if multiple night waves change logic
-                if (currentDay.waves[currentWaveIndex].night == true){
-                    WeatherManager.main.ChangeToNight();
-                }
-            }
-            
-            // New Day 
-            else if (currentDay.waves.Count == currentWaveIndex +1){
-                currentDayIndex = currentDayIndex +1;
-                currentWaveIndex = 0;
-
-                WeatherManager.main.ResetSunPosition();
-                WeatherManager.main.ChangeToDay();
-                WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
-            }
-            currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
-            currentWave = currentDay.waves[currentWaveIndex];
-            TriggerWaveBannerAnimation();
-        }
-    }
-
-    private void TriggerWaveBannerAnimation() {
-        // Text updating is done is the UI Menu script
-        newWaveAnimator.SetTrigger("NewWaveAnimDisplay");
-    }
     
-
     private void Update()
     {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
+        timeSinceBeginningOfDay += Time.deltaTime; //* currentGameSpeed;
 
         foreach (var state in spawnStates)
         {
@@ -126,14 +99,14 @@ public class WaveManager : MonoBehaviour {
             {
                 if (!isTutorialOn){
                     UpdateCurrentDayAndWave();
-                    StartNextWave();
+                    StartNextWave(newDay: false);
                     timeSinceLastWave = 0; //Reset the counter
                 }
                 // Special case for tutorial we only spawn next wave if all enemies dead
                 else if (isTutorialOn){
                     if (enemiesAlive == 0){
                         UpdateCurrentDayAndWave();
-                        StartNextWave();
+                        StartNextWave(newDay: false);
                         timeSinceLastWave = 0; //Reset the counter
                     }
                 }
@@ -143,13 +116,54 @@ public class WaveManager : MonoBehaviour {
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes and trigger banner animation
                 rewardManager.AnimateDayReward(currentDayIndex);
-                StartNextWave();
                 timeSinceLastWave = 0; //Reset the counter
             }
             // If all ennemy dead and last wave --> Menu
             else if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){
                 rewardManager.EndScreenAnim();
             }
+        }
+
+        UpdateUI();
+    }
+
+    private void UpdateUI(){
+
+        float rightValue = Mathf.Lerp(initialRightValue, finalRightValue, timeSinceBeginningOfDay / totalDayTime);
+
+        // Update the RectTransform's right value
+        Vector2 offsetMax = progressBarRect.offsetMax;
+        offsetMax.x = -rightValue;
+        progressBarRect.offsetMax = offsetMax;
+    }
+
+    // Function to take sync Day and wave index and class and trigger banner animation
+    private void UpdateCurrentDayAndWave()
+    {
+        if (LevelManager.main.currentScenario.days.Count > currentDayIndex)
+        {     
+            //Just next wave on the same day
+            if (currentDay.waves.Count > currentWaveIndex + 1)
+            {
+                currentWaveIndex++;
+                // Also if this is a night wave --> Fade to night
+                // To-Do if multiple night waves change logic
+                if (currentDay.waves[currentWaveIndex].night == true){
+                    WeatherManager.main.ChangeToNight();
+                }
+            }
+            
+            // New Day 
+            else if (currentDay.waves.Count == currentWaveIndex +1){
+                currentDayIndex = currentDayIndex +1;
+                currentWaveIndex = 0;
+
+                WeatherManager.main.ResetSunPosition();
+                WeatherManager.main.ChangeToDay();
+                WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
+            }
+            currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+            currentWave = currentDay.waves[currentWaveIndex];
         }
     }
 
@@ -166,14 +180,14 @@ public class WaveManager : MonoBehaviour {
             spawnStates.Add(new SpawnState(enemyInfo));
         }
 
-        // Then we trigger animations and update the weather
-        TriggerWaveBannerAnimation();
         WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
     }
 
-    private void StartNextWave()
+    public void StartNextWave(bool newDay)
     {
         spawnStates.Clear();
+
+        if (newDay){timeSinceBeginningOfDay = 0;}
 
         foreach (EnemyWaveInfo enemyInfo in currentWave.enemies)
         {

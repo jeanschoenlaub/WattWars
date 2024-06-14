@@ -6,8 +6,6 @@ public class TutoPopUp : MonoBehaviour
     [SerializeField] public GameObject popUp1;
     [SerializeField] public GameObject popUp2;
 
-    [SerializeField] public GameObject WaveBannerGameObject;
-
     private bool popUpsClosed = false;
 
     private AudioManager audioManager;
@@ -20,7 +18,6 @@ public class TutoPopUp : MonoBehaviour
     private void Start(){
         popUp1.SetActive(false);
         popUp2.SetActive(false);
-        WaveBannerGameObject.SetActive(false); // We will also disable the first wave baner if tutorial is On
     }
 
     public void ShowPopUp1(){
@@ -44,8 +41,6 @@ public class TutoPopUp : MonoBehaviour
         popUp1.SetActive(false);
         popUp2.SetActive(false);
         popUpsClosed = true;
-
-        WaveBannerGameObject.SetActive(true); // We will re-enable the wave baner (To only show from Second Day)
     }
 
     public bool ArePopUpsClosed(){
