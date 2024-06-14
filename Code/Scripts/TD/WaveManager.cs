@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -66,8 +67,18 @@ public class WaveManager : MonoBehaviour {
         if ( currentDay == null || currentWaveIndex >= currentDay.waves.Count) return;
 
         int currentGameSpeed = LevelManager.GetGameSpeed();
-        timeSinceBeginningOfDay += Time.deltaTime; //* currentGameSpeed;
+        timeSinceBeginningOfDay += Time.deltaTime * currentGameSpeed;
 
+        // Check if a certain time as passed and triggers enemy spawns
+        UpdateEnemySpawner(currentGameSpeed: currentGameSpeed);
+        // Once all enemy spawned, logic for next steps
+        InterWaveManager(currentGameSpeed: currentGameSpeed);
+
+        UpdateUI();
+    }
+
+    // Check if a certain time as passed and triggers enemy spawns
+    private void UpdateEnemySpawner(int currentGameSpeed){
         foreach (var state in spawnStates)
         {
             state.timeSinceLastSpawn += Time.deltaTime * currentGameSpeed;
@@ -87,7 +98,9 @@ public class WaveManager : MonoBehaviour {
                 state.timeSinceLastSpawn = 0; // Reset time since last spawn
             }
         }
+    }
 
+    private void InterWaveManager(int currentGameSpeed){
         // If all enemies have been spawned for the current wave,
         // we start counting down to next wave spawn (ie not waiting until all enemy killed)
         if (spawnStates.TrueForAll(s => s.spawnedCount >= s.enemyInfo.quantity))
@@ -123,8 +136,6 @@ public class WaveManager : MonoBehaviour {
                 rewardManager.EndScreenAnim();
             }
         }
-
-        UpdateUI();
     }
 
     private void UpdateUI(){

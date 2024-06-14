@@ -14522,6 +14522,9 @@ MonoBehaviour:
   cityCoinAnimator: {fileID: 1225329934}
   cityCoinAnimationText: {fileID: 1124114242}
   dangerEnemyTouchGrid: {fileID: 542904467}
+  currencyUI: {fileID: 4437027636187829047}
+  livesUI: {fileID: 4437027636187829044}
+  gameSpeedText: {fileID: 4437027636187829045}
   startPoint: {fileID: 644669700}
   path:
   - {fileID: 562912148}
@@ -14716,8 +14719,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08b654fd79fd479a8022bcd7a56fcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newWaveAnimator: {fileID: 3825582993633132792}
   rewardManager: {fileID: 1624488381}
+  progressBar: {fileID: 4437027636187829043}
+  totalDayTime: 120
+  initialRightValue: 300
+  finalRightValue: 0
   isTutorialOn: 0
   currentDayIndex: 0
   currentDay: {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
@@ -14790,8 +14796,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 2055526502}
   cameraAnimator: {fileID: 519420034}
+  EndScenarioAnimator: {fileID: 6130915997062837745}
   dayRewardsAnimator: {fileID: 4437027636187829046}
   dayRewardsTimeline: {fileID: 2015647735}
+  waveManager: {fileID: 1624488376}
   timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
   timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
   timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
@@ -20064,11 +20072,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6795718115030201420, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
   m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3825582993633132792 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7054859349678597436, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
-  m_PrefabInstance: {fileID: 4437027636187829041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4437027636187829041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20093,7 +20096,7 @@ PrefabInstance:
     - target: {fileID: 654345528730841380, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1466052952}
+      objectReference: {fileID: 1624488371}
     - target: {fileID: 654345528730841380, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleGameSpeed
@@ -20516,11 +20519,49 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
   m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4437027636187829043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 855520413811560718, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4437027636187829044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7138601522694738887, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4437027636187829045 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6403862174688789557, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4437027636187829046 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4552006552752967612, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
   m_PrefabInstance: {fileID: 4437027636187829041}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4437027636187829047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3539197413759238531, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6130915997062837744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20529,6 +20570,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488381}
+    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishTD
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RewardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1341907162532579657, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
       propertyPath: m_Name
       value: EndScreen
@@ -20577,11 +20630,20 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5189803800500937625, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1288
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+--- !u!95 &6130915997062837745 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5103272069757760930, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+  m_PrefabInstance: {fileID: 6130915997062837744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7417819404928009695
 PrefabInstance:
   m_ObjectHideFlags: 0

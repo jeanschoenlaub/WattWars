@@ -5,18 +5,11 @@ using System;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
-{
-    [Header("--------- Score and UI ---------")]
-    public bool isInTDMode = true;
-    [SerializeField] TextMeshProUGUI currencyUI;
-    [SerializeField] TextMeshProUGUI livesUI;
-    [SerializeField] TextMeshProUGUI waveUI;
-    [SerializeField] TextMeshProUGUI waveAnim;
-    
+{   
     [Header("--------- GameSpeed and Menu ---------")]
     [SerializeField] Button menuButton;
     [SerializeField] private GameObject menuGameObject;
-    [SerializeField] TextMeshProUGUI gameSpeedText;
+    
     private bool isMenuOpen = false;
 
     [Header("--------- GameSound ---------")]
@@ -27,11 +20,8 @@ public class Menu : MonoBehaviour
     [SerializeField] Sprite soundOnSprite;
     [SerializeField] Sprite soundOffSprite;
 
-    private WaveManager waveManager;
+    public bool isInTDMode = true;
     private AudioManager audioManager;
-
-    private int currentWaveIndex;
-    private int currentDayIndex;
 
     private void Awake()
     {
@@ -46,7 +36,6 @@ public class Menu : MonoBehaviour
     void Start()
     {
         if (isInTDMode){
-            waveManager = FindObjectOfType<WaveManager>();
             menuButton.onClick.AddListener(ToggleMenu);
         }
 
@@ -137,42 +126,6 @@ public class Menu : MonoBehaviour
         }
     }
 
-    //TO-DO update from onGUI to the Update() function
-    private void OnGUI(){
-        if (isInTDMode){
-
-            //shortcut variables
-            currentWaveIndex = waveManager.currentWaveIndex;
-            currentDayIndex = waveManager.currentDayIndex;
-
-            //Updating the bottom UI bar
-            currencyUI.text = LevelManager.main.coins.ToString();
-            livesUI.text = LevelManager.main.GetNumeberOfLives().ToString();
-            waveUI.text = "Wave " + (currentWaveIndex + 1).ToString() + "/" 
-                            +  waveManager.currentDay.waves.Count.ToString();
-
-            //TO-DO Change this to somehwer else
-            if (LevelManager.GetGameSpeed() ==1){
-                gameSpeedText.text = "x1";
-            }
-
-            // Updating the Banner 
-            // If this is the first wave of the day we just display the day nb and weather
-            if (waveAnim && waveUI && currentWaveIndex == 0){
-                waveAnim.text = "Day "+ (currentDayIndex + 1).ToString() +
-                 " - Weather: " +  LevelManager.main.currentScenario.days[currentDayIndex].weather;
-            }
-            // If not first wave of the day we  display the wave and day nb 
-            if (waveAnim && waveUI && currentWaveIndex != 0){
-                waveAnim.text = "Day "+ (currentDayIndex + 1).ToString() + " - Wave " + (waveManager.currentWaveIndex + 1).ToString();
-            }
-
-            else{
-                // Debug.Log("UI Text Missing");
-            }
-        }
-    }
-
     public void BackToMenu(){
         audioManager.playButtonClickSFX();
         audioManager.StartMusicForVillageMode();
@@ -206,17 +159,5 @@ public class Menu : MonoBehaviour
         audioManager.playButtonClickSFX();
         audioManager.StartMusicForTDMode();
         SceneManager.LoadScene(currentScene.name);
-    }
-
-    public void ToggleGameSpeed(){
-        audioManager.playButtonClickSFX();
-        int currentSpeed = LevelManager.GetGameSpeed();
-        if (currentSpeed == 1){
-            LevelManager.SetGameSpeed(2);
-            gameSpeedText.text = "x2";
-        } else if (currentSpeed == 2){
-            LevelManager.SetGameSpeed(1);
-            gameSpeedText.text = "x1";
-        }
     }
 }

@@ -12,8 +12,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public Animator cityCoinAnimator;
     [SerializeField] public TextMeshProUGUI cityCoinAnimationText;
     [SerializeField] public GameObject dangerEnemyTouchGrid;
-     
 
+    [Header("--------- Score and UI ---------")]
+    [SerializeField] TextMeshProUGUI currencyUI;
+    [SerializeField] TextMeshProUGUI livesUI;
+    [SerializeField] TextMeshProUGUI gameSpeedText;
+     
     public Transform startPoint;
     public Transform[] path;
 
@@ -102,6 +106,16 @@ public class LevelManager : MonoBehaviour
             cityCoinAnimator.SetTrigger("CoinAppear");
             timeSinceLastCityCoins = 0f;
         }
+        UpdateUI();
+    }
+
+    private void UpdateUI(){
+            currencyUI.text = coins.ToString();
+            livesUI.text = GetNumeberOfLives().ToString();
+
+            if (gameSpeed ==1){
+                gameSpeedText.text = "x1";
+            }
     }
 
     public void IncreaseCurrency( int amount ){
@@ -151,7 +165,17 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Not enough money");
             return false;
         }
-        
+    }
+
+    public void ToggleGameSpeed(){
+        audioManager.playButtonClickSFX();
+        if (gameSpeed == 1){
+            SetGameSpeed(2);
+            gameSpeedText.text = "x2";
+        } else if (gameSpeed == 2){
+            SetGameSpeed(1);
+            gameSpeedText.text = "x1";
+        }
     }
 
     public int GetCurrentMoney(){
