@@ -21,4 +21,4 @@ MonoBehaviour:
     quantity: 3
     spawnDelay: 0
     spawnInterval: 12
-  night: 0
+  night: 1
