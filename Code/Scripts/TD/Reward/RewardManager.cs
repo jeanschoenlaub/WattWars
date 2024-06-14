@@ -6,6 +6,7 @@ public class RewardManager : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private GameObject mainCanvas;
     [SerializeField] private Animator cameraAnimator;
+    [SerializeField] private Animator EndScenarioAnimator;
     [SerializeField] private Animator dayRewardsAnimator;
     [SerializeField] private GameObject dayRewardsTimeline;
 
@@ -24,9 +25,15 @@ public class RewardManager : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    public void startRewardTransition() {
+
+    public void EndScreenAnim() {
         mainCanvas.SetActive(false);
         cameraAnimator.SetTrigger("MoveUp");
+        EndScenarioAnimator.SetTrigger("TurnOnEndScreen"); // 2 second delay on the animation for the cam to move up
+    }
+
+    public void FinishTD(){
+        LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
     }
 
     public void AnimateDayReward(int dayNumber) 

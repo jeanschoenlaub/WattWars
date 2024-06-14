@@ -148,7 +148,7 @@ public class WaveManager : MonoBehaviour {
             }
             // If all ennemy dead and last wave --> Menu
             else if (enemiesAlive == 0 && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count == currentDayIndex + 1){
-                LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
+                rewardManager.EndScreenAnim();
             }
         }
     }
