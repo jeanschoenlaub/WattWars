@@ -5,7 +5,7 @@ public class BuildManager : MonoBehaviour
     public static BuildManager main;
 
     [Header("References")]
-    [SerializeField] private Structure[] structures;
+    [SerializeField] public Structure[] structures;
 
     private Structure selectedStructure; // object to store either Tower or Building
     public GameObject structurePreviewInstance; // Generalized name for preview instance
