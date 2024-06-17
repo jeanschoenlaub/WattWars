@@ -21,7 +21,6 @@ public class WeatherManager : MonoBehaviour
     [SerializeField] private Sprite WeatherIconNight;
 
 
-
     [Header("Weather Parameters")]
     public float sunTravelTime = 800.0f; // Time it takes for the sun to travel across the screen under normal game speed
     public float cloudSpawnRate = 0f; // Time between spawns.

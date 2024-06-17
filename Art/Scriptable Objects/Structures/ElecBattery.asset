@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: ElecBattery
   m_EditorClassIdentifier: 
   structureName: ElecBattery
+  isBuilding: 0
   cost: 120
   size: 0100000002000000
   prefab: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
+  icon: {fileID: 1157054190, guid: 3becbd43f34f64396a83a918895669c2, type: 3}
   buildCooldown: 15
   rangeCircle: {fileID: 6770466984534508825, guid: f001c4197fe9b4cb0812d9161dd495cf, type: 3}
   targetingRange: 6

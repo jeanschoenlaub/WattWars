@@ -19,7 +19,11 @@ public class ShopManager : MonoBehaviour
     {
         main = this;
 
+        SetupShopUI(); // Updates the cost of each structure
         isOnCooldown = new bool[structureButtons.Length];
+    }
+
+    public void SetupShopUI(){
         for (int i = 0; i < structureButtons.Length; i++)
         {
             // Get the structure attached to each button via the StructRefShop script

@@ -11,9 +11,11 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Animator EndScenarioAnimator;
     [SerializeField] private Animator dayRewardsAnimator;
     [SerializeField] private GameObject dayRewardsTimeline;
+
+    [Header("Manager References")]
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private BuildManager buildManager;
-    
+    [SerializeField] private ShopManager shopManager;
 
     [Header("Sprites")]
     [SerializeField] private Sprite timelineDay1;
@@ -34,6 +36,11 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Image card3IconImage;
     [SerializeField] private TextMeshProUGUI card3Text;
 
+    [Header("Weather Icons")]
+    [SerializeField] private Image tomorrowWeatherImage;
+    [SerializeField] private Sprite WeatherIconSunny;
+    [SerializeField] private Sprite WeatherIconCloudy;
+    [SerializeField] private Sprite WeatherIconOvercast;
 
     private struct Reward
     {
@@ -41,6 +48,8 @@ public class RewardManager : MonoBehaviour
         public int Value;
         public string RewardType;
     }
+
+    private List<Reward> rewards; // To store the rewards
 
     private System.Random random = new System.Random(); 
     public int currentGameSpeed = 1; // For resetting the same gamespeed after rewards
@@ -53,7 +62,6 @@ public class RewardManager : MonoBehaviour
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
-
     public void EndScreenAnim() {
         mainCanvas.SetActive(false);
         cameraAnimator.SetTrigger("MoveUp");
@@ -64,7 +72,7 @@ public class RewardManager : MonoBehaviour
         LevelManager.main.ExitToMainMenu(true);  // ScenarioComplete flag equal to true
     }
 
-    public void AnimateDayReward(int dayNumber) 
+    public void AnimateDayReward(int dayNumber, Weather weather) 
     {
         dayRewardsAnimator.SetTrigger("FadeIn");
 
@@ -73,18 +81,21 @@ public class RewardManager : MonoBehaviour
 
         DisplayDayTimeline(dayNumber);
 
-        List<Reward> rewards = RandomiseRewards();
-        foreach (var reward in rewards)
-        {
-            Debug.Log($"Reward: {reward.Structure.structureName}, Type: {reward.RewardType}, Value: {reward.Value}");
-        }
-        UpdateRewardCards(rewards);
+        rewards = RandomiseRewards();
+        // foreach (var reward in rewards) {
+        //     Debug.Log($"Reward: {reward.Structure.structureName}, Type: {reward.RewardType}, Value: {reward.Value}");
+        // }
+        UpdateRewardCards(rewards, weather);
+
+        tomorrowWeatherImage.sprite = GetWeatherIcon(weather);
     }
 
+    // Randomise and stores the reward in Rewards
     private List<Reward> RandomiseRewards(){
 
-        List<Reward> rewards = new List<Reward>();
         Structure[] structures = buildManager.structures;
+        List<Reward> randomisedRewards = new List<Reward>();
+
 
         for (int i = 0; i < 3; i++)
         {
@@ -107,13 +118,13 @@ public class RewardManager : MonoBehaviour
                 RewardType = randomRewardType
             };
 
-            rewards.Add(reward);
+            randomisedRewards.Add(reward);
         }
 
-        return rewards;
+        return randomisedRewards;
     }
 
-    private void UpdateRewardCards(List<Reward> rewards)
+    private void UpdateRewardCards(List<Reward> rewards, Weather weather)
     {
         if (rewards.Count < 3) return;
 
@@ -133,6 +144,12 @@ public class RewardManager : MonoBehaviour
         card3Text.text = rewards[2].RewardType == "cost" ? $"-{rewards[2].Value}%" : $"+{rewards[2].Value}%";
     }
 
+    private Sprite GetWeatherIcon(Weather weather)
+    {
+        return weather == Weather.Sunny ? WeatherIconSunny :
+               weather == Weather.Cloudy ? WeatherIconCloudy :
+               WeatherIconOvercast;
+    }
 
     private void DisplayDayTimeline(int dayNumber){
         Image timelineImage = dayRewardsTimeline.GetComponent<Image>();
@@ -156,10 +173,38 @@ public class RewardManager : MonoBehaviour
         }
     }
 
-    public void FinishDayReward() 
+    public void FinishDayReward(int cardIndex) 
     {
+        Reward selectedReward = rewards[cardIndex];
+        UpdateStructures(selectedReward);
+        Debug.Log(selectedReward.Structure + selectedReward.RewardType + selectedReward.Value);
         dayRewardsAnimator.SetTrigger("FadeOut");
         LevelManager.SetGameSpeed(currentGameSpeed);
         waveManager.StartNextWave(newDay: true);
+    }
+
+    private void UpdateStructures(Reward selectedReward){
+        foreach (var structure in buildManager.structures)
+        {
+            if (structure == selectedReward.Structure)
+            {
+                if (selectedReward.RewardType == "cost")
+                {
+                    Debug.Log(structure.cost);
+                    float discountFactor = 1 - (float)selectedReward.Value / 100;
+                    float newCostFloat = discountFactor * structure.cost;
+                    Debug.Log(newCostFloat);
+                    // Round to the nearest integer
+                    structure.cost = (int)Mathf.Round(newCostFloat);
+                    Debug.Log(structure.cost);
+                }
+                else if (selectedReward.RewardType == "attack")
+                {
+                    Debug.Log("not implemented yet");
+                }
+                break;
+            }
+        }
+        shopManager.SetupShopUI(); // restes shop anager with right price
     }
 }
