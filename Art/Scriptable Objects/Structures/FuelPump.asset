@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structureName: FuelPump
   isBuilding: 0
-  cost: 100
+  cost: 50
   size: 0100000001000000
   prefab: {fileID: 7753436983663317480, guid: 67d7ce04ee2784a3abcf13c156d77d55, type: 3}
   icon: {fileID: 21300000, guid: 81fca7827cf6641dea360cf041f7ad78, type: 3}

@@ -367,9 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70776e418ca045ab941d6b39a7bc9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elecLives: 5
+  elecLives: 12
   fuelLives: 0
-  maxElecLives: 5
+  maxElecLives: 12
   maxFuelLives: 0
   killCoins: 5
   elecLivesBar: {fileID: 4955146038203394097}

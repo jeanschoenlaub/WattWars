@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structureName: DieselGenerator
   isBuilding: 0
-  cost: 200
+  cost: 100
   size: 0200000002000000
   prefab: {fileID: 8277949304545418155, guid: 595b231ff5312411593617b063318d4b, type: 3}
   icon: {fileID: 299484000, guid: c690b11a18fc6402f9b8d1be45dc2a6d, type: 3}

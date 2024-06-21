@@ -23,6 +23,10 @@ public class ShopManager : MonoBehaviour
         isOnCooldown = new bool[structureButtons.Length];
     }
 
+    private void Start(){
+        Debug.Log("hello");
+    }
+
     public void SetupShopUI(){
         for (int i = 0; i < structureButtons.Length; i++)
         {

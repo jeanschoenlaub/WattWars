@@ -3869,6 +3869,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+--- !u!114 &417905259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7709120385342309330, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &421177305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -8842,6 +8853,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624488381}
+    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishTD
+      objectReference: {fileID: 0}
     - target: {fileID: 1341907162532579657, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
       propertyPath: m_Name
       value: EndScreen
@@ -13371,6 +13390,8 @@ MonoBehaviour:
   - {fileID: 98799302}
   firstDelayScooterAppear: 12
   secondDelayFridgeAppear: 25
+  moneyAmountFirstBreak: 50
+  moneyAmountSecondBreak: 100
   isTutorialActive: 0
 --- !u!4 &1516575311
 Transform:
@@ -13420,6 +13441,7 @@ MonoBehaviour:
   FFbutton: {fileID: 4437027636187829045}
   TutoTextBox: {fileID: 720785378}
   DialogFridgeClickDetector: {fileID: 1393754740}
+  moneyAmountFirstBreak: 100
   TutoText: {fileID: 1715211714}
   delayFridgeAppear: 10
   isTutorialActive: 0
@@ -14783,6 +14805,7 @@ MonoBehaviour:
   dayRewardsTimeline: {fileID: 289041647}
   waveManager: {fileID: 1624488376}
   buildManager: {fileID: 1624488374}
+  shopManager: {fileID: 1624488379}
   timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
   timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
   timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
@@ -14798,6 +14821,10 @@ MonoBehaviour:
   card3TowerImage: {fileID: 1488560458}
   card3IconImage: {fileID: 1079679005}
   card3Text: {fileID: 327904086}
+  tomorrowWeatherImage: {fileID: 417905259}
+  WeatherIconSunny: {fileID: 21300000, guid: 32176746284c34fb8a89ecbf733bba8f, type: 3}
+  WeatherIconCloudy: {fileID: 21300000, guid: c0d7d0251fcd1453c892f9816ad77b4b, type: 3}
+  WeatherIconOvercast: {fileID: 21300000, guid: d120e7f1d79ce4c3a91a32bb1699f0c3, type: 3}
   currentGameSpeed: 1
 --- !u!4 &1633495272 stripped
 Transform:
@@ -19916,9 +19943,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
+    - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishDayReward
+      objectReference: {fileID: 0}
     - target: {fileID: 378679840097990224, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_text
       value: "[Frigidair]     \\n \tHehe, your solar panel won't work at night !
@@ -20001,12 +20036,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
     - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FinishDayReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3667491296993012682, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -20069,12 +20112,20 @@ PrefabInstance:
       value: -2142270133
       objectReference: {fileID: 0}
     - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
     - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FinishDayReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4740897643611600425, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -11,6 +11,7 @@ public class TutoNight : MonoBehaviour
     [SerializeField] public GameObject FFbutton; // To make mouse move up and down to direct user
     [SerializeField] public GameObject TutoTextBox;
     [SerializeField] public Button DialogFridgeClickDetector;
+    [SerializeField] private int moneyAmountFirstBreak = 100;
     [SerializeField] TextMeshProUGUI TutoText; 
     
 
@@ -93,7 +94,7 @@ public class TutoNight : MonoBehaviour
         TutoTextBox.SetActive(true);
 
         LevelManager.SetGameSpeed(0);
-        LevelManager.main.IncreaseCurrency(200);
+        LevelManager.main.IncreaseCurrency(moneyAmountFirstBreak);
 
         // Wait for the specified delay
         yield return new WaitForSeconds(5f); 

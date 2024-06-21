@@ -99,6 +99,8 @@ public class WaveManager : MonoBehaviour {
         }
     }
 
+
+    // Logic is activated once a wave as finished spawning (most time will spawn other on straight away)
     private void InterWaveManager(int currentGameSpeed){
         // If all enemies have been spawned for the current wave,
         // we start counting down to next wave spawn (ie not waiting until all enemy killed)
@@ -127,7 +129,7 @@ public class WaveManager : MonoBehaviour {
             else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes 
-                Debug.Log(currentDay.name + currentDay.weather);
+                Debug.Log(currentDay.name + currentDay.weather +currentWaveIndex);
                 rewardManager.AnimateDayReward(currentDayIndex, currentDay.weather);
                 timeSinceLastWave = 0; //Reset the counter
             }
@@ -156,6 +158,7 @@ public class WaveManager : MonoBehaviour {
             //Just next wave on the same day
             if (currentDay.waves.Count > currentWaveIndex + 1)
             {
+                Debug.Log("nextWave");
                 currentWaveIndex++;
                 // Also if this is a night wave --> Fade to night
                 // To-Do if multiple night waves change logic
@@ -166,7 +169,9 @@ public class WaveManager : MonoBehaviour {
             
             // New Day 
             else if (currentDay.waves.Count == currentWaveIndex +1){
+                Debug.Log("a");
                 currentDayIndex = currentDayIndex +1;
+                Debug.Log("b");
                 currentWaveIndex = 0;
 
                 WeatherManager.main.ResetSunPosition();

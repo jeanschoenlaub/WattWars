@@ -23,8 +23,13 @@ public class TutoPlaceTower : MonoBehaviour
     [SerializeField] private Plot[] plots; // rest of plots 
 
     [Header("Parameters")]
-    public float firstDelayScooterAppear = 12f;
-    public float secondDelayFridgeAppear = 25f;
+    [SerializeField] private float firstDelayScooterAppear = 12f;
+    [SerializeField] private float secondDelayFridgeAppear = 25f;
+    [SerializeField] private int moneyAmountFirstBreak = 50;
+    [SerializeField] private int moneyAmountSecondBreak = 100;
+
+
+
     public bool isTutorialActive = false;
 
     // Internal variables
@@ -116,7 +121,7 @@ public class TutoPlaceTower : MonoBehaviour
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-        LevelManager.main.IncreaseCurrency(100);
+        LevelManager.main.IncreaseCurrency(moneyAmountFirstBreak);
 
         TutoText.text = "Let's place a fuel tower to produce <color=#85282B>oil</color>";
         TutoTextBox.SetActive(true);
@@ -168,7 +173,7 @@ public class TutoPlaceTower : MonoBehaviour
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-        LevelManager.main.IncreaseCurrency(200);
+        LevelManager.main.IncreaseCurrency(moneyAmountSecondBreak);
 
         TutoText.text = "Place a diesel generator next to the fuel tower";
         TutoTextBox.SetActive(true);
