@@ -24,4 +24,4 @@ MonoBehaviour:
   bulletPerSeconds: 3
   bulletType: 0
   bulletDamage: 1
-  maxCharge: 10
+  maxCharge: 20

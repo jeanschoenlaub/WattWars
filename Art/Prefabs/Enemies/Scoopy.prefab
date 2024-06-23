@@ -371,7 +371,7 @@ MonoBehaviour:
   fuelLives: 10
   maxElecLives: 0
   maxFuelLives: 10
-  killCoins: 5
+  killCoins: 0
   elecLivesBar: {fileID: 7106289400463263139}
   fuelLivesBar: {fileID: 2190461924327019120}
 --- !u!95 &3292366814044917542

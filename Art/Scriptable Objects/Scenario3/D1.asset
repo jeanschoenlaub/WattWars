@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: D1
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: 2f2d8e581472c4eb8a6b53bfc08f4cbb, type: 2}
-  - {fileID: 11400000, guid: a1b3f6576928c4ed9b3591cf80775a96, type: 2}
+  - {fileID: 11400000, guid: 9f2443f91a968419e990d7310efc0ced, type: 2}
+  - {fileID: 11400000, guid: 5751158ae4a7c4deb8a6bf25396ffa48, type: 2}
   weather: 0

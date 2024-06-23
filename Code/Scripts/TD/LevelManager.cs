@@ -22,7 +22,9 @@ public class LevelManager : MonoBehaviour
     public Transform[] path;
 
     public int coins; 
-    public int cityCoinGen = 10; 
+    [SerializeField] private int cityCoinGen = 10; 
+    [SerializeField] private float intervalCityCoinGen = 4f;
+
     float timeSinceLastCityCoins = 0;
 
     public int numberOfLives; // Taken from the Scenario SO
@@ -99,7 +101,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update() {
         timeSinceLastCityCoins += Time.deltaTime * gameSpeed;
-        if (timeSinceLastCityCoins >  5f)
+        if (timeSinceLastCityCoins >  intervalCityCoinGen)
         {
             IncreaseCurrency(cityCoinGen); // Increase coins by 1, adjust this value as needed
             cityCoinAnimationText.text = cityCoinGen.ToString();

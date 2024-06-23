@@ -2917,11 +2917,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2925462728105322792, guid: 24c980a05ea11415591a44fe473098e0, type: 3}
   m_PrefabInstance: {fileID: 1175727168}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &298443887 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5103272069757760930, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-  m_PrefabInstance: {fileID: 1068751527}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &303588417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -8845,75 +8840,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
---- !u!1001 &1068751527
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1624488381}
-    - target: {fileID: 1134324289320804413, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FinishTD
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341907162532579657, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_Name
-      value: EndScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.331212
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2662004
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213808761333300804, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4160484138338254368, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8a515e3e833b54f81804b0fe8f4c18ea, type: 3}
 --- !u!224 &1071263937 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2925462728105322792, guid: 24c980a05ea11415591a44fe473098e0, type: 3}
@@ -13441,7 +13367,7 @@ MonoBehaviour:
   FFbutton: {fileID: 4437027636187829045}
   TutoTextBox: {fileID: 720785378}
   DialogFridgeClickDetector: {fileID: 1393754740}
-  moneyAmountFirstBreak: 100
+  moneyAmountFirstBreak: 0
   TutoText: {fileID: 1715211714}
   delayFridgeAppear: 10
   isTutorialActive: 0
@@ -14536,6 +14462,7 @@ MonoBehaviour:
   - {fileID: 562912148}
   coins: 200
   cityCoinGen: 10
+  intervalCityCoinGen: 3
   numberOfLives: 0
 --- !u!4 &1624488372
 Transform:
@@ -14800,7 +14727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 53911853}
   cameraAnimator: {fileID: 519420034}
-  EndScenarioAnimator: {fileID: 298443887}
+  EndScenarioAnimator: {fileID: 0}
   dayRewardsAnimator: {fileID: 725696925}
   dayRewardsTimeline: {fileID: 289041647}
   waveManager: {fileID: 1624488376}
@@ -20511,4 +20438,3 @@ SceneRoots:
   - {fileID: 1566649601}
   - {fileID: 474829120}
   - {fileID: 2585309623473422224}
-  - {fileID: 1068751527}

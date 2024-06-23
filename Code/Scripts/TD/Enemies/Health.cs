@@ -13,6 +13,10 @@ public class Health : MonoBehaviour
     [SerializeField] private RectTransform elecLivesBar; // Assign in the Inspector
     [SerializeField] private RectTransform fuelLivesBar; // Assign in the Inspector
 
+    [SerializeField] private GameObject fridgeDeathEffectPrefab; // Assign in the Inspector
+    [SerializeField] private float fridgeDeathEffectDuration = 1f;
+
+
     private bool isDestroyed = false;
 
     void Start() {
@@ -55,6 +59,10 @@ public class Health : MonoBehaviour
         if ( elecLives <= 0 && fuelLives <= 0 && !isDestroyed){
             WaveManager.onEnemyDestroy.Invoke();
             LevelManager.main.IncreaseCurrency(killCoins);
+
+            // Instantiate the electric effect at the enemy's position
+            GameObject deathEffect = Instantiate(fridgeDeathEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(deathEffect, fridgeDeathEffectDuration);
 
             Destroy(gameObject);
             isDestroyed = true;

@@ -15,8 +15,8 @@ MonoBehaviour:
   scenarioName: Scenario3
   scenarioId: 3
   Lives: 5
-  Coins: 150
+  Coins: 0
   days:
-  - {fileID: 11400000, guid: a5c4a9504ff7a4dd49f52a7159df6ef3, type: 2}
+  - {fileID: 11400000, guid: 30df34e7717cc4cfca1ee3bba659d03c, type: 2}
   - {fileID: 11400000, guid: d56e709079d5d432daf54735f4fa7f91, type: 2}
   - {fileID: 11400000, guid: 10070d0860a43434fa54971affe54bc4, type: 2}
