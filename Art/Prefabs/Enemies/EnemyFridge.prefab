@@ -374,8 +374,8 @@ MonoBehaviour:
   killCoins: 0
   elecLivesBar: {fileID: 4955146038203394097}
   fuelLivesBar: {fileID: 526046905988870736}
-  fridgeDeathEffectPrefab: {fileID: 6391888758334225329, guid: 68660dba8302f4399aa7c0edd29e6daa, type: 3}
-  fridgeDeathEffectDuration: 1
+  deathEffectPrefab: {fileID: 6391888758334225329, guid: 68660dba8302f4399aa7c0edd29e6daa, type: 3}
+  deathEffectDuration: 1
 --- !u!95 &2326779297701139609
 Animator:
   serializedVersion: 5

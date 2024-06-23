@@ -1443,10 +1443,13 @@ MonoBehaviour:
   badActionSFX: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
   buildSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   buildSelected: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
-  ElectricEnemyHit: {fileID: 8300000, guid: 903965d1ea8e24488b63906e6a5bac1f, type: 3}
+  ElectricEnemyHit: {fileID: 8300000, guid: c955d9a4aa8324e75bccfbac4664ffe9, type: 3}
   FuelEnemyHit: {fileID: 8300000, guid: c955d9a4aa8324e75bccfbac4664ffe9, type: 3}
   ButtonSwitch: {fileID: 8300000, guid: 8a8530e5724f74b09b7eb93d90395a73, type: 3}
   dialogSFX: {fileID: 8300000, guid: 89e6bc608da7b47d4914f3d9c2484e48, type: 3}
+  ElectricEnemyDeath1SFX: {fileID: 8300000, guid: a7e2d2bd449fe465d8d17fe971309d84, type: 3}
+  ElectricEnemyDeath2SFX: {fileID: 8300000, guid: e9d26b7a460c34835a13ea1393f953a9, type: 3}
+  ElectricEnemyDeath3SFX: {fileID: 8300000, guid: 590630d3f3b514c7ea03a3626a955380, type: 3}
   breakerSwitch: {fileID: 8300000, guid: aec118f8d4ac640f681bc50c247e8bcc, type: 3}
   electricSound: {fileID: 8300000, guid: 7c763e87ab2014ed2baf1b2b03d4c852, type: 3}
   rewardSound: {fileID: 8300000, guid: 38c10034428bd4a4cb41e4a1411f81b7, type: 3}

@@ -17718,6 +17718,9 @@ MonoBehaviour:
   FuelEnemyHit: {fileID: 0}
   ButtonSwitch: {fileID: 0}
   dialogSFX: {fileID: 0}
+  ElectricEnemyDeath1SFX: {fileID: 0}
+  ElectricEnemyDeath2SFX: {fileID: 0}
+  ElectricEnemyDeath3SFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}

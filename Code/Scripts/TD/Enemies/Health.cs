@@ -7,17 +7,25 @@ public class Health : MonoBehaviour
     [SerializeField] public float fuelLives = 2;
     [SerializeField] private float maxElecLives = 2;
     [SerializeField] private float maxFuelLives = 2;
-    [SerializeField] private int killCoins = 5;
+    [SerializeField] private int killCoins = 0;
 
     [Header("UI References")]
-    [SerializeField] private RectTransform elecLivesBar; // Assign in the Inspector
-    [SerializeField] private RectTransform fuelLivesBar; // Assign in the Inspector
+    [SerializeField] private RectTransform elecLivesBar; 
+    [SerializeField] private RectTransform fuelLivesBar;
 
-    [SerializeField] private GameObject fridgeDeathEffectPrefab; // Assign in the Inspector
-    [SerializeField] private float fridgeDeathEffectDuration = 1f;
+    [Header("Death Effect")]
+    [SerializeField] private GameObject deathEffectPrefab; // A prefab with a automatic death animation
+    [SerializeField] private float deathEffectDuration = 1f;
 
 
     private bool isDestroyed = false;
+
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+    }   
 
     void Start() {
         UpdateHUD(); // Initial HUD update
@@ -60,9 +68,17 @@ public class Health : MonoBehaviour
             WaveManager.onEnemyDestroy.Invoke();
             LevelManager.main.IncreaseCurrency(killCoins);
 
-            // Instantiate the electric effect at the enemy's position
-            GameObject deathEffect = Instantiate(fridgeDeathEffectPrefab, transform.position, Quaternion.identity);
-            Destroy(deathEffect, fridgeDeathEffectDuration);
+            // Play a random electric enemy death SFX
+            if (audioManager != null)
+            {
+                audioManager.PlayRandomElectricEnemyDeathSFX(volume: 1.5f); // Adjusted volume
+            }
+
+            // Instantiate a temporary death effect prefab
+            if (deathEffectPrefab != null){
+                GameObject deathEffect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+                Destroy(deathEffect, deathEffectDuration);
+            }
 
             Destroy(gameObject);
             isDestroyed = true;

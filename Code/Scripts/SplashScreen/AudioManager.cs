@@ -27,6 +27,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip ButtonSwitch;
     public AudioClip dialogSFX;
 
+    [Header("TD Enemy SFX")]
+    public AudioClip ElectricEnemyDeath1SFX;
+    public AudioClip ElectricEnemyDeath2SFX;
+    public AudioClip ElectricEnemyDeath3SFX;
+
     [Header("LvlSelectionSFX")]
     public AudioClip breakerSwitch;
     public AudioClip electricSound;
@@ -122,9 +127,27 @@ public class AudioManager : MonoBehaviour
         return musicSource.volume;
     }
     
-    //function to call any oneshot clip
-    public void PlaySFX(AudioClip clip){
-        SFXSource.PlayOneShot(clip);
+     // Function to play a random electric enemy death SFX
+    public void PlayRandomElectricEnemyDeathSFX(float volume = 1.0f)
+    {
+        AudioClip[] clips = new AudioClip[] {
+            ElectricEnemyDeath1SFX,
+            ElectricEnemyDeath2SFX,
+            ElectricEnemyDeath3SFX
+        };
+
+        // Randomly select a clip
+        int index = Random.Range(0, clips.Length);
+        AudioClip selectedClip = clips[index];
+
+        // Play the selected clip with the specified volume
+        PlaySFX(selectedClip, volume);
+    }
+
+    // Function to call any one-shot clip with optional volume
+    public void PlaySFX(AudioClip clip, float volume = 1.0f)
+    {
+        SFXSource.PlayOneShot(clip, volume);
     }
 
     // Method to start playing a looping sound effect

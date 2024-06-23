@@ -1279,6 +1279,9 @@ MonoBehaviour:
   FuelEnemyHit: {fileID: 0}
   ButtonSwitch: {fileID: 0}
   dialogSFX: {fileID: 0}
+  ElectricEnemyDeath1SFX: {fileID: 0}
+  ElectricEnemyDeath2SFX: {fileID: 0}
+  ElectricEnemyDeath3SFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}
@@ -7160,20 +7163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f550f51c746474ea34e332d9ede514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInTDMode: 0
-  currencyUI: {fileID: 0}
-  livesUI: {fileID: 0}
-  waveUI: {fileID: 0}
-  waveAnim: {fileID: 0}
   menuButton: {fileID: 1917620102}
   menuGameObject: {fileID: 103761962}
-  gameSpeedText: {fileID: 0}
   soundButton: {fileID: 1195482381}
   volumeSlider: {fileID: 1689667889}
   sfxButton: {fileID: 596127359}
   sfxSlider: {fileID: 572124092}
   soundOnSprite: {fileID: 21300000, guid: 6d3a0a7a2316848d9a19bce1dfc9c91e, type: 3}
   soundOffSprite: {fileID: 21300000, guid: b0bfab4adbc2649998521827bfe53b2e, type: 3}
+  isInTDMode: 0
 --- !u!114 &1710515480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7725,7 +7723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1765125608
 RectTransform:
   m_ObjectHideFlags: 0
