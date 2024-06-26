@@ -32,14 +32,22 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(float dmg){
+
         if (elecLives >0){
             elecLives = Mathf.Max(elecLives - dmg, 0);
         }
         else if (fuelLives >0){
             fuelLives = Mathf.Max(fuelLives - dmg, 0);
         }
+
+        //Update size of health bar
         UpdateHUD();
 
+        // Display damages
+        string textDamage = "-"+dmg.ToString();
+        Vector3 textDamagePosition = new Vector2(transform.position.x, transform.position.y+1); // Using parent's (enemy) position
+        DynamicTextManager.CreateText2D(textDamagePosition, textDamage, DynamicTextManager.defaultData);
+        
         CheckIfDestroyed();
     }
 
