@@ -170,8 +170,12 @@ public class WaveManager : MonoBehaviour {
         else if (currentDayIndex == 3) { selectedSprite = dayProgressSprite4; }
         else if (currentDayIndex == 4) { selectedSprite = dayProgressSprite5; }
 
+        
         // Set the sprite
-        Image imageComponent = dayProgressGO.GetComponent<Image>();
+        Image imageComponent = null;
+        if (dayProgressGO != null){
+            imageComponent = dayProgressGO.GetComponent<Image>();
+        }
         if (imageComponent != null)
         {
             imageComponent.sprite = selectedSprite;

@@ -2712,6 +2712,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
+--- !u!1 &257347627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7527010964679559874, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &271080775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -13031,6 +13036,8 @@ MonoBehaviour:
   - {fileID: 98799302}
   firstDelayScooterAppear: 12
   secondDelayFridgeAppear: 25
+  moneyAmountFirstBreak: 50
+  moneyAmountSecondBreak: 100
   isTutorialActive: 0
 --- !u!4 &1516575311
 Transform:
@@ -13080,6 +13087,7 @@ MonoBehaviour:
   FFbutton: {fileID: 0}
   TutoTextBox: {fileID: 720785378}
   DialogFridgeClickDetector: {fileID: 1393754740}
+  moneyAmountFirstBreak: 100
   TutoText: {fileID: 1715211714}
   delayFridgeAppear: 5
   isTutorialActive: 0
@@ -14255,6 +14263,7 @@ GameObject:
   - component: {fileID: 1624488379}
   - component: {fileID: 1624488380}
   - component: {fileID: 1624488381}
+  - component: {fileID: 1624488382}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -14286,6 +14295,7 @@ MonoBehaviour:
   - {fileID: 562912148}
   coins: 200
   cityCoinGen: 10
+  intervalCityCoinGen: 4
   numberOfLives: 0
 --- !u!4 &1624488372
 Transform:
@@ -14480,6 +14490,12 @@ MonoBehaviour:
   totalDayTime: 120
   initialRightValue: 300
   finalRightValue: 0
+  dayProgressGO: {fileID: 257347627}
+  dayProgressSprite1: {fileID: 21300000, guid: 1fb342583658243d99872efcb5528169, type: 3}
+  dayProgressSprite2: {fileID: 21300000, guid: c313869dc79aa4f0c87bcadb0bad06b9, type: 3}
+  dayProgressSprite3: {fileID: 21300000, guid: a8eb6a7b411174c89b70189b594fa3f8, type: 3}
+  dayProgressSprite4: {fileID: 0}
+  dayProgressSprite5: {fileID: 0}
   isTutorialOn: 0
   currentDayIndex: 0
   currentDay: {fileID: 11400000, guid: 210709fa6dac5451c9244005e647b994, type: 2}
@@ -14578,6 +14594,21 @@ MonoBehaviour:
   WeatherIconCloudy: {fileID: 8405978, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
   WeatherIconOvercast: {fileID: 165572660, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
   currentGameSpeed: 1
+--- !u!114 &1624488382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624488370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7c18620c323414a849913f889acb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 11400000, guid: d3dae5552c32f48a5b9e7c991f244613, type: 2}
+  _canvasPrefab: {fileID: 1926280506753864649, guid: e124e19729a322b4281287dcc0eb622b, type: 3}
+  _mainCamera: {fileID: 519420032}
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -17759,6 +17790,9 @@ MonoBehaviour:
   FuelEnemyHit: {fileID: 0}
   ButtonSwitch: {fileID: 0}
   dialogSFX: {fileID: 0}
+  ElectricEnemyDeath1SFX: {fileID: 0}
+  ElectricEnemyDeath2SFX: {fileID: 0}
+  ElectricEnemyDeath3SFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}

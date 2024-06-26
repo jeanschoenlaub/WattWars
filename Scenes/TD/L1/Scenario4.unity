@@ -9571,6 +9571,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c980a05ea11415591a44fe473098e0, type: 3}
+--- !u!1 &1158514491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7527010964679559874, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+  m_PrefabInstance: {fileID: 4437027636187829041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1160386258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14320,6 +14325,7 @@ GameObject:
   - component: {fileID: 1624488380}
   - component: {fileID: 1624488381}
   - component: {fileID: 1624488382}
+  - component: {fileID: 1624488383}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -14351,6 +14357,7 @@ MonoBehaviour:
   - {fileID: 562912148}
   coins: 200
   cityCoinGen: 10
+  intervalCityCoinGen: 4
   numberOfLives: 0
 --- !u!4 &1624488372
 Transform:
@@ -14598,8 +14605,9 @@ MonoBehaviour:
   EndScenarioAnimator: {fileID: 418170806}
   dayRewardsAnimator: {fileID: 4437027636187829047}
   dayRewardsTimeline: {fileID: 4437027636187829046}
-  waveManager: {fileID: 0}
-  buildManager: {fileID: 0}
+  waveManager: {fileID: 1624488382}
+  buildManager: {fileID: 1624488374}
+  shopManager: {fileID: 1624488379}
   timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
   timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
   timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
@@ -14637,6 +14645,12 @@ MonoBehaviour:
   totalDayTime: 120
   initialRightValue: 300
   finalRightValue: 0
+  dayProgressGO: {fileID: 1158514491}
+  dayProgressSprite1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
+  dayProgressSprite2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
+  dayProgressSprite3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
+  dayProgressSprite4: {fileID: 21300000, guid: 3525ba503ee9446938de80890c856120, type: 3}
+  dayProgressSprite5: {fileID: 21300000, guid: 00bee1636e4f34a4b8d8ea16c87f2a28, type: 3}
   isTutorialOn: 0
   currentDayIndex: 0
   currentDay: {fileID: 0}
@@ -14644,6 +14658,21 @@ MonoBehaviour:
   currentWave: {fileID: 0}
   enemiesAlive: 0
   timeBetweenWaves: 3
+--- !u!114 &1624488383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624488370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7c18620c323414a849913f889acb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 11400000, guid: d3dae5552c32f48a5b9e7c991f244613, type: 2}
+  _canvasPrefab: {fileID: 1926280506753864649, guid: e124e19729a322b4281287dcc0eb622b, type: 3}
+  _mainCamera: {fileID: 519420032}
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -17593,6 +17622,9 @@ MonoBehaviour:
   FuelEnemyHit: {fileID: 0}
   ButtonSwitch: {fileID: 0}
   dialogSFX: {fileID: 0}
+  ElectricEnemyDeath1SFX: {fileID: 0}
+  ElectricEnemyDeath2SFX: {fileID: 0}
+  ElectricEnemyDeath3SFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}
@@ -19639,9 +19671,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
+    - target: {fileID: 143487046945885022, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishDayReward
+      objectReference: {fileID: 0}
     - target: {fileID: 403055508072576175, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -19763,9 +19803,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
+    - target: {fileID: 3355051942828359400, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608764032966775843, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
     - target: {fileID: 3667491296993012682, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -19823,9 +19875,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1624488381}
+    - target: {fileID: 4404254319236385680, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5034759983719496917, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -20009,6 +20069,10 @@ PrefabInstance:
     - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972397328222989441, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 370
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

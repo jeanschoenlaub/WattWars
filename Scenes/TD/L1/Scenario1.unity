@@ -14519,6 +14519,8 @@ MonoBehaviour:
   - {fileID: 98799302}
   firstDelayScooterAppear: 5
   secondDelayFridgeAppear: 28
+  moneyAmountFirstBreak: 50
+  moneyAmountSecondBreak: 100
   isTutorialActive: 1
 --- !u!4 &1516575311
 Transform:
@@ -15715,6 +15717,7 @@ GameObject:
   - component: {fileID: 1624488379}
   - component: {fileID: 1624488380}
   - component: {fileID: 1624488381}
+  - component: {fileID: 1624488382}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -15746,6 +15749,7 @@ MonoBehaviour:
   - {fileID: 562912148}
   coins: 200
   cityCoinGen: 10
+  intervalCityCoinGen: 4
   numberOfLives: 0
 --- !u!4 &1624488372
 Transform:
@@ -15939,6 +15943,12 @@ MonoBehaviour:
   totalDayTime: 120
   initialRightValue: 300
   finalRightValue: 0
+  dayProgressGO: {fileID: 0}
+  dayProgressSprite1: {fileID: 0}
+  dayProgressSprite2: {fileID: 0}
+  dayProgressSprite3: {fileID: 0}
+  dayProgressSprite4: {fileID: 0}
+  dayProgressSprite5: {fileID: 0}
   isTutorialOn: 1
   currentDayIndex: 0
   currentDay: {fileID: 0}
@@ -16013,11 +16023,43 @@ MonoBehaviour:
   dayRewardsAnimator: {fileID: 341112416}
   dayRewardsTimeline: {fileID: 341112415}
   waveManager: {fileID: 0}
+  buildManager: {fileID: 0}
+  shopManager: {fileID: 0}
   timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
   timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
   timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
   timelineDay4: {fileID: 21300000, guid: 3525ba503ee9446938de80890c856120, type: 3}
+  damageSprite: {fileID: 0}
+  costSprite: {fileID: 0}
+  card1TowerImage: {fileID: 0}
+  card1IconImage: {fileID: 0}
+  card1Text: {fileID: 0}
+  card2TowerImage: {fileID: 0}
+  card2IconImage: {fileID: 0}
+  card2Text: {fileID: 0}
+  card3TowerImage: {fileID: 0}
+  card3IconImage: {fileID: 0}
+  card3Text: {fileID: 0}
+  tomorrowWeatherImage: {fileID: 0}
+  WeatherIconSunny: {fileID: 0}
+  WeatherIconCloudy: {fileID: 0}
+  WeatherIconOvercast: {fileID: 0}
   currentGameSpeed: 1
+--- !u!114 &1624488382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624488370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7c18620c323414a849913f889acb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 11400000, guid: d3dae5552c32f48a5b9e7c991f244613, type: 2}
+  _canvasPrefab: {fileID: 1926280506753864649, guid: e124e19729a322b4281287dcc0eb622b, type: 3}
+  _mainCamera: {fileID: 519420032}
 --- !u!4 &1633495272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 148466555494390193, guid: 8ac802d79cc6a4559a762cc9746db87f, type: 3}
@@ -19074,6 +19116,9 @@ MonoBehaviour:
   FuelEnemyHit: {fileID: 8300000, guid: c955d9a4aa8324e75bccfbac4664ffe9, type: 3}
   ButtonSwitch: {fileID: 8300000, guid: 8a8530e5724f74b09b7eb93d90395a73, type: 3}
   dialogSFX: {fileID: 0}
+  ElectricEnemyDeath1SFX: {fileID: 0}
+  ElectricEnemyDeath2SFX: {fileID: 0}
+  ElectricEnemyDeath3SFX: {fileID: 0}
   breakerSwitch: {fileID: 0}
   electricSound: {fileID: 0}
   rewardSound: {fileID: 0}
@@ -21602,6 +21647,7 @@ PrefabInstance:
     - {fileID: 4687330139387214613, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 6120614983858364986, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 4449083743414638140, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 7225760480504660625, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       insertIndex: 2

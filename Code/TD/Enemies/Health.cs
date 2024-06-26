@@ -74,7 +74,6 @@ public class Health : MonoBehaviour
     {
         if ( elecLives <= 0 && fuelLives <= 0 && !isDestroyed){
             WaveManager.onEnemyDestroy.Invoke();
-            LevelManager.main.IncreaseCurrency(killCoins);
 
             // Play a random electric enemy death SFX
             if (audioManager != null)
