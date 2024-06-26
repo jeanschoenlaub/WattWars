@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 
   colours:
   - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.25616568, b: 0, a: 1}
   sizes:
   - 1.2
   font: {fileID: 11400000, guid: b607f5d592289489b85ba025cb806675, type: 2}
@@ -22,8 +23,8 @@ MonoBehaviour:
   italic: 0
   underline: 0
   strikethrough: 0
-  lifetime: 1.2
-  numberOfColourAlternations: 0
+  lifetime: 0.8
+  numberOfColourAlternations: 2
   numberOfSizeAlternations: 0
   colourAlternationDuration: 0
   sizeAlternationDuration: 0

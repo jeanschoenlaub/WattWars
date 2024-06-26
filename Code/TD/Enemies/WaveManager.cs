@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour {
 
@@ -12,6 +13,14 @@ public class WaveManager : MonoBehaviour {
     [SerializeField] private float totalDayTime = 120f; // Total time of the day in seconds
     [SerializeField] private float initialRightValue = 300f; // Initial right value of the progress bar
     [SerializeField] private float finalRightValue = 0f;    // Final right value of the progress bar
+
+    [Header("---  Day Progress References  ---")]
+    [SerializeField] private GameObject dayProgressGO;
+    [SerializeField] private Sprite dayProgressSprite1;
+    [SerializeField] private Sprite dayProgressSprite2;
+    [SerializeField] private Sprite dayProgressSprite3;
+    [SerializeField] private Sprite dayProgressSprite4;
+    [SerializeField] private Sprite dayProgressSprite5;
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent(); // Used to notify wave managers that enemies where killed
@@ -58,6 +67,9 @@ public class WaveManager : MonoBehaviour {
     {
         progressBarRect = progressBar.GetComponent<RectTransform>();
         currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
+
+        UpdateDayProgressUI();//Initialise UI on the first day 
+
         StartFirstWave(); //Special case for beginning
     }
     
@@ -73,7 +85,7 @@ public class WaveManager : MonoBehaviour {
         // Once all enemy spawned, logic for next steps
         InterWaveManager(currentGameSpeed: currentGameSpeed);
 
-        UpdateUI();
+        UpdateClockUI();
     }
 
     // Check if a certain time as passed and triggers enemy spawns
@@ -99,7 +111,7 @@ public class WaveManager : MonoBehaviour {
         }
     }
 
-
+    // Decides what to do next  
     // Logic is activated once a wave as finished spawning (most time will spawn other on straight away)
     private void InterWaveManager(int currentGameSpeed){
         // If all enemies have been spawned for the current wave,
@@ -129,7 +141,6 @@ public class WaveManager : MonoBehaviour {
             else if ( timeSinceLastWave > timeBetweenWaves && currentWaveIndex + 1 == currentDay.waves.Count && LevelManager.main.currentScenario.days.Count > currentDayIndex + 1)
             {
                 UpdateCurrentDayAndWave(); //sync indexes and classes 
-                Debug.Log(currentDay.name + currentDay.weather +currentWaveIndex);
                 rewardManager.AnimateDayReward(currentDayIndex, currentDay.weather);
                 timeSinceLastWave = 0; //Reset the counter
             }
@@ -140,14 +151,35 @@ public class WaveManager : MonoBehaviour {
         }
     }
 
-    private void UpdateUI(){
-
+    private void UpdateClockUI(){
         float rightValue = Mathf.Lerp(initialRightValue, finalRightValue, timeSinceBeginningOfDay / totalDayTime);
 
         // Update the RectTransform's right value
         Vector2 offsetMax = progressBarRect.offsetMax;
         offsetMax.x = -rightValue;
         progressBarRect.offsetMax = offsetMax;
+    }
+
+    private void UpdateDayProgressUI()
+    {
+        // Determine which sprite to use based on charge percentage
+        Sprite selectedSprite = null;
+        if (currentDayIndex == 0) { selectedSprite = dayProgressSprite1; }
+        else if (currentDayIndex == 1) { selectedSprite = dayProgressSprite2; }
+        else if (currentDayIndex == 2) { selectedSprite = dayProgressSprite3; }
+        else if (currentDayIndex == 3) { selectedSprite = dayProgressSprite4; }
+        else if (currentDayIndex == 4) { selectedSprite = dayProgressSprite5; }
+
+        // Set the sprite
+        Image imageComponent = dayProgressGO.GetComponent<Image>();
+        if (imageComponent != null)
+        {
+            imageComponent.sprite = selectedSprite;
+        }
+        else
+        {
+            Debug.LogWarning("No Image component found on the dayProgressGO.");
+        }
     }
 
     // Function to take sync Day and wave index and class and trigger banner animation
@@ -158,7 +190,6 @@ public class WaveManager : MonoBehaviour {
             //Just next wave on the same day
             if (currentDay.waves.Count > currentWaveIndex + 1)
             {
-                Debug.Log("nextWave");
                 currentWaveIndex++;
                 // Also if this is a night wave --> Fade to night
                 // To-Do if multiple night waves change logic
@@ -169,14 +200,15 @@ public class WaveManager : MonoBehaviour {
             
             // New Day 
             else if (currentDay.waves.Count == currentWaveIndex +1){
-                Debug.Log("a");
                 currentDayIndex = currentDayIndex +1;
-                Debug.Log("b");
                 currentWaveIndex = 0;
 
                 WeatherManager.main.ResetSunPosition();
                 WeatherManager.main.ChangeToDay();
                 WeatherManager.main.UpdateWeather(LevelManager.main.currentScenario.days[currentDayIndex]);
+
+                //Update UI
+                UpdateDayProgressUI();
             }
             currentDay = LevelManager.main.currentScenario.days[currentDayIndex];
             currentWave = currentDay.waves[currentWaveIndex];
