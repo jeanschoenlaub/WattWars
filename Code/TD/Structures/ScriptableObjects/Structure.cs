@@ -13,15 +13,14 @@ public abstract class Structure : ScriptableObject
     public float buildCooldown;  // Cooldown time in seconds for building this structure
 
     // Method to initialize costs
-    public virtual void InitializeCosts()
+    public void InitializeCosts()
     {
         currentCost = initialCost;
     }
 
     // Method to upgrade structure with specified cost increment
-    public virtual void UpdateCost(int newCost)
+    public void UpdateCost(int newCost)
     {
-        Debug.Log("updatiing cost to"+ newCost);
         currentCost = newCost;
     }
 }

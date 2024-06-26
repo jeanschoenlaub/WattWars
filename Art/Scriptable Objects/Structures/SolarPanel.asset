@@ -24,5 +24,6 @@ MonoBehaviour:
   targetingRange: 2.5
   bulletPerSeconds: 0.5
   bulletType: 0
-  bulletDamage: 1
+  initialBulletDamage: 1
+  currentBulletDamage: 1
   maxCharge: 0

@@ -44,7 +44,7 @@ public class Health : MonoBehaviour
         UpdateHUD();
 
         // Display damages
-        string textDamage = "-"+dmg.ToString();
+        string textDamage = "-"+(dmg*10).ToString();
         Vector3 textDamagePosition = new Vector2(transform.position.x, transform.position.y+1); // Using parent's (enemy) position
         DynamicTextManager.CreateText2D(textDamagePosition, textDamage, DynamicTextManager.defaultData);
         

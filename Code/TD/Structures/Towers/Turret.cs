@@ -55,7 +55,7 @@ public class Turret : MonoBehaviour
 
         // For battery towers
         else if (isSwitchable && isSwitchedOn) {
-            if (currentCharge >= towerConfig.bulletDamage){
+            if (currentCharge >= towerConfig.currentBulletDamage){
                 FindTarget();
                 if (furthestTarget){
                     timeUntilFire += Time.deltaTime*currentGameSpeed;
@@ -73,7 +73,7 @@ public class Turret : MonoBehaviour
 
     private void Shoot(){
 
-        float bulletDamage = towerConfig.bulletDamage;
+        float bulletDamage = towerConfig.currentBulletDamage;
 
         // But if Solar type we adjust elec damage depending on Weather
         if (towerType == TowerType.Solar){
@@ -278,14 +278,14 @@ public class Turret : MonoBehaviour
         bool isInShade = WeatherManager.main.CheckIfInTheShadeOfAnyActiveCloud(transform.position);
         if (isInShade)
         {
-            return 0.2f*towerConfig.bulletDamage;
+            return 0.2f*towerConfig.currentBulletDamage;
         }
 
         // If the night is falling 0.5x elec damage
         if (WeatherManager.main.isNightFalling){
-            return 0.5f*towerConfig.bulletDamage;
+            return 0.5f*towerConfig.currentBulletDamage;
         }
 
-        else{return towerConfig.bulletDamage;}
+        else{return towerConfig.currentBulletDamage;}
     }
 }

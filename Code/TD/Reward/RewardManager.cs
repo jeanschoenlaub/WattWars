@@ -103,7 +103,7 @@ public class RewardManager : MonoBehaviour
             Structure randomStructure = structures[random.Next(structures.Length)];
 
             // Step 2: Get a random number from the list [30, 40, 50]
-            int[] numbers = { 30, 40, 50 };
+            int[] numbers = { 20, 25, 30 };
             int randomNumber = numbers[random.Next(numbers.Length)];
 
             // Step 3: Randomize the reward type from cost, attack
@@ -193,14 +193,14 @@ public class RewardManager : MonoBehaviour
                     float discountFactor = 1 - (float)selectedReward.Value / 100;
                     float newCostFloat = discountFactor * structure.currentCost;
 
-                    Debug.Log("new cost:"+newCostFloat);
-
                     // Decrease cost to the nearest integer
                     structure.UpdateCost((int)Mathf.Round(newCostFloat));
                 }
                 else if (selectedReward.RewardType == "attack")
                 {
-                    Debug.Log("not implemented yet");
+                   if (structure is Tower tower){
+                        tower.UpdateBulletDamage(tower.currentBulletDamage* (1 + (float)selectedReward.Value / 100));
+                   }
                 }
                 break;
             }

@@ -25,6 +25,9 @@ public class BuildManager : MonoBehaviour
         foreach (var structure in structures)
         {
             structure.InitializeCosts(); // Initialize costs or other parameters
+            if (structure is Tower tower){
+                tower.InitializeDamage();
+            }
         }
     }
 
