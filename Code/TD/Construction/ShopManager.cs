@@ -18,26 +18,23 @@ public class ShopManager : MonoBehaviour
     private void Awake()
     {
         main = this;
-
         SetupShopUI(); // Updates the cost of each structure
         isOnCooldown = new bool[structureButtons.Length];
-    }
-
-    private void Start(){
-        Debug.Log("hello");
     }
 
     public void SetupShopUI(){
         for (int i = 0; i < structureButtons.Length; i++)
         {
             // Get the structure attached to each button via the StructRefShop script
+            // TO-DO move to a TowerManager
             var structureRef = structureButtons[i].GetComponent<StructRefShop>();
+
             // And the cost test that is placed on child -2 pos (overlay is last child)
             TextMeshProUGUI towerCostTextUI = structureButtons[i].transform.GetChild(structureButtons[i].transform.childCount - 2).GetComponent<TextMeshProUGUI>();
 
             if (structureRef != null && towerCostTextUI != null && structureRef.structure != null)
             {
-                towerCostTextUI.text = structureRef.structure.cost.ToString();
+                towerCostTextUI.text = structureRef.structure.currentCost.ToString();
                 SetupButtonInteractions(structureButtons[i], i, structureRef.structure);
             }
             else
@@ -53,7 +50,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < structureButtons.Length; i++)
         {
             var structure = structureButtons[i].GetComponent<StructRefShop>().structure;
-            if (structure.cost > currentMoney || isOnCooldown[i]){
+            if (structure.currentCost > currentMoney || isOnCooldown[i]){
                 structureButtons[i].interactable = false;
             }
             else {structureButtons[i].interactable = true;}
@@ -114,7 +111,7 @@ public class ShopManager : MonoBehaviour
             callback = new EventTrigger.TriggerEvent()
         };
         pointerDownEntry.callback.AddListener((data) => {
-            if (LevelManager.main.GetCurrentMoney() >= structure.cost){
+            if (LevelManager.main.GetCurrentMoney() >= structure.currentCost){
                 if (!isOnCooldown[index]){
                     SelectStructure(index);
                 }

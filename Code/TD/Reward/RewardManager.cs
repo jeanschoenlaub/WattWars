@@ -190,13 +190,13 @@ public class RewardManager : MonoBehaviour
             {
                 if (selectedReward.RewardType == "cost")
                 {
-                    Debug.Log(structure.cost);
                     float discountFactor = 1 - (float)selectedReward.Value / 100;
-                    float newCostFloat = discountFactor * structure.cost;
-                    Debug.Log(newCostFloat);
-                    // Round to the nearest integer
-                    structure.cost = (int)Mathf.Round(newCostFloat);
-                    Debug.Log(structure.cost);
+                    float newCostFloat = discountFactor * structure.currentCost;
+
+                    Debug.Log("new cost:"+newCostFloat);
+
+                    // Decrease cost to the nearest integer
+                    structure.UpdateCost((int)Mathf.Round(newCostFloat));
                 }
                 else if (selectedReward.RewardType == "attack")
                 {

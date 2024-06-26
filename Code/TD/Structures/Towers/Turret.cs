@@ -24,7 +24,7 @@ public class Turret : MonoBehaviour
     [SerializeField] public bool isSwitchable = false;
     [SerializeField] public ConversionAttribute conversion;
     [SerializeField] private Animator SwitchButtonAnim;
-    private float currentCharge = 0f; // Starts false but when we click down to build turns On
+    private float currentCharge = 0f; // Starts empty
     public bool isSwitchedOn = false; // Starts false but when we click down to build turns On
 
     // Internal variables

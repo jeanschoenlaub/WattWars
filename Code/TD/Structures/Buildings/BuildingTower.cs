@@ -43,7 +43,6 @@ public class BuildingTower : MonoBehaviour
         if (totalEnergyReceived == 0){scale.x = 0;}
         else { scale.x = (float) totalEnergyReceived / buildingConfig.energyRequired ;}
         energyReceivedBar.localScale = scale;
-    
     }
     
     private void OnMouseDown()

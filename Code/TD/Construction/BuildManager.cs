@@ -16,7 +16,17 @@ public class BuildManager : MonoBehaviour
     {
         main = this;
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
-    }   
+      InitializeStructures(); // Initialize the structures
+    }
+
+    // TO-DO move to a TowerManager
+    private void InitializeStructures()
+    {
+        foreach (var structure in structures)
+        {
+            structure.InitializeCosts(); // Initialize costs or other parameters
+        }
+    }
 
     public Structure GetSelectedStructure()
     {
