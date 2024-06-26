@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 81fca7827cf6641dea360cf041f7ad78, type: 3}
+  m_Sprite: {fileID: -716804090, guid: 121fa59218f8c428ca8ec8b705ac81ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3423108389033443256}
   - component: {fileID: 3063359666192395507}
+  - component: {fileID: 4446266116544849907}
   m_Layer: 0
   m_Name: FuelTower
   m_TagString: Tower
@@ -232,3 +233,24 @@ MonoBehaviour:
     conversionRatio: 0
   SwitchButtonAnim: {fileID: 0}
   isSwitchedOn: 0
+--- !u!95 &4446266116544849907
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753436983663317480}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d6268a3c2dd274f139211e6167f86e49, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
