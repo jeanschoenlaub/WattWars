@@ -1,19 +1,18 @@
-
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
-// Tutorial to show the player how to place a fuel and a diesel generator tower 
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] public Animator FridgeDialogAnimator; // To make mouse move up and down to direct user
+    [SerializeField] private Animator dialogAnimator;
+    [SerializeField] private Button dialogClickDetector;
+    [SerializeField] private TextMeshProUGUI dialogText;
+    [SerializeField] private List<string> dialogQueue;
 
-    [Header("Text References")]
-    [SerializeField] public Button DialogFridgeClickDetector;
-
-    // SingleTons
     private AudioManager audioManager;
+    private int currentDialogIndex = 0;
 
     private void Awake()
     {
@@ -22,22 +21,22 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void DialogPopUp(){
-        Debug.Log("Dia");
+        Debug.Log("pop");
         StartCoroutine(DialogPopUpAndWait());
     }
 
     public void DialogPopDown(){
-        FridgeDialogAnimator.SetTrigger("PopDown");
+        dialogAnimator.SetTrigger("PopDown");
         audioManager.PlaySFX(audioManager.dialogSFX);
     }
 
     IEnumerator DialogPopUpAndWait()
     {
         audioManager.PlaySFX(audioManager.dialogSFX);
-        FridgeDialogAnimator.SetTrigger("PopUp");
+        dialogAnimator.SetTrigger("PopUp");
 
         // And after little delay add a listener for the next step
         yield return new WaitForSeconds(0.5f);
-        DialogFridgeClickDetector.onClick.AddListener(DialogPopDown);
+        dialogClickDetector.onClick.AddListener(DialogPopDown);
     }
 }

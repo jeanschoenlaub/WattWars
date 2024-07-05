@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
+
+#if UNITY_EDITOR
 [CustomEditor(typeof(DynamicTextData))]
 public class DynamicTextDataEditor : Editor
 {
@@ -154,3 +158,4 @@ public class DynamicTextDataEditor : Editor
     }
 
 }
+#endif
