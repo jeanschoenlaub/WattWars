@@ -15,6 +15,8 @@ public class BreakerBoxManager : MonoBehaviour
     [SerializeField] private Sprite rewardGreenImage;
     [SerializeField] private Sprite rewardRedImage;
 
+    [SerializeField] private DialogueManagerBB dialogueManager;
+
     [Header("---    Animation References    ---")]
     [SerializeField] private Animator sceneTransitionAnimator;
     [SerializeField] private float sceneTransitionTime;
@@ -27,10 +29,12 @@ public class BreakerBoxManager : MonoBehaviour
 
     private void Awake() {
         UpdateLevelButtons();
+        LoadQuests();
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
     
     void UpdateLevelButtons() {
+
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevels", 1);
         int completedLevels = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
 
@@ -55,6 +59,15 @@ public class BreakerBoxManager : MonoBehaviour
             if (PlayerPrefs.GetInt("UnlockedLevelAnimation", 1) != 0){
                 StartCoroutine(AnimateReward(completedLevels-1));
             }
+        }
+    }
+
+    //Based on what the player as unlocked, load a different map
+    public void LoadQuests()
+    {
+        int questProgress = PlayerPrefs.GetInt("QuestProgress", 0); // Get the quest progress
+        if (questProgress == 2){
+            dialogueManager.StartScientis1Dialog();
         }
     }
 
