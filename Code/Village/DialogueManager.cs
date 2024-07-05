@@ -1,63 +1,73 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private Animator dialogAnimator;
-    [SerializeField] private Button dialogClickDetector;
+    [SerializeField] private Button dialogClickDetectorButton;
+    [SerializeField] private GameObject dialogClickDetector;
     [SerializeField] private TextMeshProUGUI dialogText;
-    [SerializeField] private List<string> dialogQueue;
-    [SerializeField] private List<string> dialogQueue2;
 
     [Header("Quest Management")]
     [SerializeField] private GameObject QuestScientist1;
     [SerializeField] private GameObject QuestScientist2;
-    
 
     private AudioManager audioManager;
-    private int currentDialogIndex = 0;
 
-        private void Awake()
+   private void Awake()
     {
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    public void StartDialogScientist1()
+    public void StartScientist1Dialog()
     {
-        dialogAnimator.SetBool("isDialogueOpen",true);
-        if (dialogQueue.Count > 0)
+        List<string> dialogQueue1 = new List<string>
         {
-            currentDialogIndex = 0;
-            StartCoroutine(DialogScientist1PopUpAndWait());
-        }
-    }
-
-    public void StartDialogScientist2()
-    {
-        dialogAnimator.SetBool("isDialogueOpen",true);
-        if (dialogQueue2.Count > 0)
+            "Welcome ! You must be the new engineer sent to bring <color=#F5FF00>Power</color> back to this town.",
+            "I've installed a small <color=#85282B>Diesel Generator </color>to get you started. Now we need to connect it, follow me!"
+        };
+        StartCoroutine(StartDialog(dialogQueue1, () =>
         {
-            currentDialogIndex = 0;
-            StartCoroutine(DialogScientist2PopUpAndWait());
-        }
+            // This code runs after the first dialog sequence finishes
+            QuestScientist1.SetActive(false);
+            PlayerPrefs.SetInt("QuestProgress", 1);
+            QuestScientist2.SetActive(true);
+        }));
     }
 
-    public void DialogPopDown()
+    public void StartScientist2Dialog()
     {
-        dialogAnimator.SetTrigger("PopDown");
-        audioManager.PlaySFX(audioManager.dialogSFX);
+        List<string> dialogQueue2 = new List<string>
+        {
+            "Because these damn AI have infected all our power equipment we need to restart them...",
+            "Open the orange breaker box, I'll show you how to restart this one!"
+        };
+        StartCoroutine(StartDialog(dialogQueue2, () =>
+        {
+            // This code runs after the second dialog sequence finishes
+            QuestScientist2.SetActive(false);
+            PlayerPrefs.SetInt("QuestProgress", 2);
+        }));
     }
 
-    private IEnumerator DialogScientist1PopUpAndWait()
+    private IEnumerator StartDialog(List<string> dialogQueue, Action onComplete)
     {
+        int currentDialogIndex = 0;
+         dialogAnimator.SetBool("isDialogueOpen", true);
+        dialogClickDetector.SetActive(true);
+
         while (currentDialogIndex < dialogQueue.Count)
         {
-            if (currentDialogIndex == 0) { audioManager.PlaySFX(audioManager.dialogSFX); }
-            dialogAnimator.SetTrigger("PopUp");
+            if (currentDialogIndex == 0)
+            {
+                audioManager.PlaySFX(audioManager.dialogSFX);
+            }
 
+            dialogAnimator.SetTrigger("PopUp");
             dialogText.text = dialogQueue[currentDialogIndex];
             currentDialogIndex++;
 
@@ -65,45 +75,21 @@ public class DialogueManager : MonoBehaviour
 
             // Wait until the button is clicked
             bool buttonClicked = false;
-            dialogClickDetector.onClick.RemoveAllListeners();
-            dialogClickDetector.onClick.AddListener(() => buttonClicked = true);
+            dialogClickDetectorButton.onClick.RemoveAllListeners();
+            dialogClickDetectorButton.onClick.AddListener(() => buttonClicked = true);
 
             yield return new WaitUntil(() => buttonClicked);
         }
 
-        QuestScientist1.SetActive(false);
-        PlayerPrefs.SetInt("QuestProgress", 1); // Get the quest progress
-        QuestScientist2.SetActive(true);
-        dialogAnimator.SetBool("isDialogueOpen",false);
+        dialogAnimator.SetBool("isDialogueOpen", false);
         DialogPopDown();
+        onComplete?.Invoke();
     }
 
-
-     private IEnumerator DialogScientist2PopUpAndWait()
+    public void DialogPopDown()
     {
-        while (currentDialogIndex < dialogQueue2.Count)
-        {
-            if (currentDialogIndex == 0) { audioManager.PlaySFX(audioManager.dialogSFX); }
-            dialogAnimator.SetTrigger("PopUp");
-
-            dialogText.text = dialogQueue2[currentDialogIndex];
-            currentDialogIndex++;
-
-            yield return new WaitForSeconds(0.5f);
-
-            // Wait until the button is clicked
-            bool buttonClicked = false;
-            dialogClickDetector.onClick.RemoveAllListeners();
-            dialogClickDetector.onClick.AddListener(() => buttonClicked = true);
-
-            yield return new WaitUntil(() => buttonClicked);
-
-
-        }
-
-        QuestScientist2.SetActive(false);
-        dialogAnimator.SetBool("isDialogueOpen",false);
-        PlayerPrefs.SetInt("QuestProgress", 2); // Get the quest progress
-        DialogPopDown();
+        dialogAnimator.SetTrigger("PopDown");
+        dialogClickDetector.SetActive(false);
+        audioManager.PlaySFX(audioManager.dialogSFX);
     }
 }
