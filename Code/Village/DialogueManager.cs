@@ -16,6 +16,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject QuestScientist1;
     [SerializeField] private GameObject QuestScientist2;
 
+    [Header("BB Management")]
+    [SerializeField] private Button BreakerBox1;
+    [SerializeField] private GameObject UnlockBB1AnimGO;
+
     private AudioManager audioManager;
 
    private void Awake()
@@ -49,15 +53,22 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(StartDialog(dialogQueue2, () =>
         {
             // This code runs after the second dialog sequence finishes
+            TriggerUnlockAnimation();
             QuestScientist2.SetActive(false);
             PlayerPrefs.SetInt("QuestProgress", 2);
+            BreakerBox1.interactable = true;
         }));
+    }
+
+    public void TriggerUnlockAnimation(){
+        Animator unlockAnimator = UnlockBB1AnimGO.GetComponent<Animator>();
+        unlockAnimator.SetTrigger("UnlockNextBreaker");
     }
 
     private IEnumerator StartDialog(List<string> dialogQueue, Action onComplete)
     {
         int currentDialogIndex = 0;
-         dialogAnimator.SetBool("isDialogueOpen", true);
+        dialogAnimator.SetBool("isDialogueOpen", true);
         dialogClickDetector.SetActive(true);
 
         while (currentDialogIndex < dialogQueue.Count)

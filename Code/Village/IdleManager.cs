@@ -20,6 +20,10 @@ public class IdleManager : MonoBehaviour
     [SerializeField] private GameObject BuildingAnimGO;
     [SerializeField] private GameObject UnlockAnimGO;
 
+    [Header("BB Management")]
+    [SerializeField] private GameObject BBLocked1;
+    [SerializeField] private Button BBLockedButton1;
+
     [Header("Quest Management")]
     [SerializeField] private GameObject QuestScientist1;
     [SerializeField] private GameObject QuestScientist2;
@@ -36,7 +40,7 @@ public class IdleManager : MonoBehaviour
     }
 
     private void Start(){
-        LoadMap();
+        //LoadMap();
         LoadQuests();
     }
 
@@ -46,9 +50,13 @@ public class IdleManager : MonoBehaviour
         int questProgress = PlayerPrefs.GetInt("QuestProgress", 0); // Get the quest progress
         if (questProgress == 0){
             QuestScientist1.SetActive(true);
+            BBLocked1.SetActive(true);
+            BBLockedButton1.interactable = false;
         }
         if (questProgress == 1){
             QuestScientist2.SetActive(true);
+            BBLocked1.SetActive(true);
+            BBLockedButton1.interactable = false;
         }
     }
 
