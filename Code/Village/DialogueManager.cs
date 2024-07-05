@@ -10,33 +10,100 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Button dialogClickDetector;
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private List<string> dialogQueue;
+    [SerializeField] private List<string> dialogQueue2;
+
+    [Header("Quest Management")]
+    [SerializeField] private GameObject QuestScientist1;
+    [SerializeField] private GameObject QuestScientist2;
+    
 
     private AudioManager audioManager;
     private int currentDialogIndex = 0;
 
-    private void Awake()
+        private void Awake()
     {
-        // Get the TutoPlaceTower component attached to the same GameObject
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    public void DialogPopUp(){
-        Debug.Log("pop");
-        StartCoroutine(DialogPopUpAndWait());
+    public void StartDialogScientist1()
+    {
+        dialogAnimator.SetBool("isDialogueOpen",true);
+        if (dialogQueue.Count > 0)
+        {
+            currentDialogIndex = 0;
+            StartCoroutine(DialogScientist1PopUpAndWait());
+        }
     }
 
-    public void DialogPopDown(){
+    public void StartDialogScientist2()
+    {
+        dialogAnimator.SetBool("isDialogueOpen",true);
+        if (dialogQueue2.Count > 0)
+        {
+            currentDialogIndex = 0;
+            StartCoroutine(DialogScientist2PopUpAndWait());
+        }
+    }
+
+    public void DialogPopDown()
+    {
         dialogAnimator.SetTrigger("PopDown");
         audioManager.PlaySFX(audioManager.dialogSFX);
     }
 
-    IEnumerator DialogPopUpAndWait()
+    private IEnumerator DialogScientist1PopUpAndWait()
     {
-        audioManager.PlaySFX(audioManager.dialogSFX);
-        dialogAnimator.SetTrigger("PopUp");
+        while (currentDialogIndex < dialogQueue.Count)
+        {
+            if (currentDialogIndex == 0) { audioManager.PlaySFX(audioManager.dialogSFX); }
+            dialogAnimator.SetTrigger("PopUp");
 
-        // And after little delay add a listener for the next step
-        yield return new WaitForSeconds(0.5f);
-        dialogClickDetector.onClick.AddListener(DialogPopDown);
+            dialogText.text = dialogQueue[currentDialogIndex];
+            currentDialogIndex++;
+
+            yield return new WaitForSeconds(0.5f);
+
+            // Wait until the button is clicked
+            bool buttonClicked = false;
+            dialogClickDetector.onClick.RemoveAllListeners();
+            dialogClickDetector.onClick.AddListener(() => buttonClicked = true);
+
+            yield return new WaitUntil(() => buttonClicked);
+        }
+
+        QuestScientist1.SetActive(false);
+        PlayerPrefs.SetInt("QuestProgress", 1); // Get the quest progress
+        QuestScientist2.SetActive(true);
+        dialogAnimator.SetBool("isDialogueOpen",false);
+        DialogPopDown();
+    }
+
+
+     private IEnumerator DialogScientist2PopUpAndWait()
+    {
+        while (currentDialogIndex < dialogQueue2.Count)
+        {
+            if (currentDialogIndex == 0) { audioManager.PlaySFX(audioManager.dialogSFX); }
+            dialogAnimator.SetTrigger("PopUp");
+
+            dialogText.text = dialogQueue2[currentDialogIndex];
+            currentDialogIndex++;
+
+            yield return new WaitForSeconds(0.5f);
+
+            // Wait until the button is clicked
+            bool buttonClicked = false;
+            dialogClickDetector.onClick.RemoveAllListeners();
+            dialogClickDetector.onClick.AddListener(() => buttonClicked = true);
+
+            yield return new WaitUntil(() => buttonClicked);
+
+
+        }
+
+        QuestScientist2.SetActive(false);
+        dialogAnimator.SetBool("isDialogueOpen",false);
+        PlayerPrefs.SetInt("QuestProgress", 2); // Get the quest progress
+        DialogPopDown();
     }
 }

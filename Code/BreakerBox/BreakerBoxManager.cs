@@ -71,8 +71,10 @@ public class BreakerBoxManager : MonoBehaviour
         // Resetting level progression
         PlayerPrefs.SetInt("UnlockedLevels", 1);
         PlayerPrefs.SetInt("CompletedLevels", 0);
+        PlayerPrefs.SetInt("QuestProgress", 0);
         // Set the intro story flag to true so the the first time story animation palys again
         PlayerPrefs.SetInt("FirstLaunch", 1);
+        
 
         PlayerPrefs.Save();
         UpdateLevelButtons();

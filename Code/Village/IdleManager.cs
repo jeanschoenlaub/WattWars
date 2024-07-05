@@ -19,6 +19,10 @@ public class IdleManager : MonoBehaviour
     [SerializeField] private Transform[] buildingPositions;
     [SerializeField] private GameObject BuildingAnimGO;
     [SerializeField] private GameObject UnlockAnimGO;
+
+    [Header("Quest Management")]
+    [SerializeField] private GameObject QuestScientist1;
+    [SerializeField] private GameObject QuestScientist2;
     
     private void Awake()
     {
@@ -33,6 +37,19 @@ public class IdleManager : MonoBehaviour
 
     private void Start(){
         LoadMap();
+        LoadQuests();
+    }
+
+    //Based on what the player as unlocked, load a different map
+    public void LoadQuests()
+    {
+        int questProgress = PlayerPrefs.GetInt("QuestProgress", 0); // Get the quest progress
+        if (questProgress == 0){
+            QuestScientist1.SetActive(true);
+        }
+        if (questProgress == 1){
+            QuestScientist2.SetActive(true);
+        }
     }
 
     //Based on what the player as unlocked, load a different map
