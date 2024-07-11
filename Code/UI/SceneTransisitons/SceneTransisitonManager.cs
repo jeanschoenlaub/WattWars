@@ -12,6 +12,8 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private Animator bbSceneTransitionAnimator;
     [SerializeField] private float bbSceneTransitionTime= 2f;
 
+    public string previousScene = "MainMenu";
+
     // Singletons
     private AudioManager audioManager;
 
@@ -55,14 +57,23 @@ public class SceneTransitionManager : MonoBehaviour
         yield return new WaitForSeconds(villageSceneTransitionToMainMenuTime);
         VillageSceneTransitionAnimator.SetBool("FogIn", false);
         
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
     public IEnumerator StartVillageSceneEntryAnimation(){
-        // Play the Transition
-        VillageSceneTransitionAnimator.SetBool("FogOut", true);
-        yield return null; // Wait for one frame to ensure the animation star
-        VillageSceneTransitionAnimator.SetBool("FogOut", false);
+        // We do a simson like cloud moving to the side animation
+        if (previousScene == "MainMenu"){
+            VillageSceneTransitionAnimator.SetBool("FogOut", true);
+            yield return null; // Wait for one frame to ensure the animation star
+            VillageSceneTransitionAnimator.SetBool("FogOut", false);
+        }
+        // We do a simson like cloud moving to the side animation
+        if (previousScene == "BB"){
+            VillageSceneTransitionAnimator.SetBool("FadeInBlack", true);
+            yield return null; // Wait for one frame to ensure the animation star
+            VillageSceneTransitionAnimator.SetBool("FadeInBlack", false);
+        }
+        previousScene = "Village"; // For other potential scene transi logic
     }
 
     /// ----------------------------------------------------- ///
@@ -73,14 +84,13 @@ public class SceneTransitionManager : MonoBehaviour
     public IEnumerator GoToMapAnimation(){
         audioManager.playButtonClickSFX();
         bbSceneTransitionAnimator.SetBool("DoorsOut",true);
-        yield return null; // Wait for one frame to ensure the animation star
-        bbSceneTransitionAnimator.SetBool("DoorsOut",false);
-
+       
         //Wait for animation to play
         yield return new WaitForSeconds(bbSceneTransitionTime);
+        bbSceneTransitionAnimator.SetBool("DoorsOut",false);
 
         //Then Load the right scenario
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadSceneAsync("Map");
     }
 
     public IEnumerator GoToScenarioAnimation(int scenarioId){
@@ -103,5 +113,7 @@ public class SceneTransitionManager : MonoBehaviour
         bbSceneTransitionAnimator.SetBool("DoorsIn",true);
         yield return null; // Wait for one frame to ensure the animation star
         bbSceneTransitionAnimator.SetBool("DoorsIn",false);
+
+        previousScene = "BB"; // For other potential scene transi logic
     }
 }
