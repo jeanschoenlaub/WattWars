@@ -12,7 +12,7 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private Animator bbSceneTransitionAnimator;
     [SerializeField] private float bbSceneTransitionTime= 2f;
 
-    public string previousScene = "MainMenu";
+    public string previousScene; // Used to track the previous scene and trigger some conditional animations (sometimes simple fade to black, sometime more complex)
 
     // Singletons
     private AudioManager audioManager;
@@ -105,7 +105,7 @@ public class SceneTransitionManager : MonoBehaviour
 
         //Then Load the right scenario
         string sceneName = "Scenario"+scenarioId;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     public IEnumerator StartBBSceneEntryAnimation(){

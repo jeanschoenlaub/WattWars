@@ -11,6 +11,7 @@ public class splashScreenManager : MonoBehaviour
 
     //Singletons
     private AudioManager audioManager;
+    private SceneTransitionManager sceneTransitionManager;
 
     // Flag key for PlayerPrefs
     private const string FirstLaunchKey = "FirstLaunch";
@@ -18,8 +19,10 @@ public class splashScreenManager : MonoBehaviour
     
     private void Awake()
     {
-        // Initialize the AudioManager instance
+        // Initialize the singletons instance
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+        sceneTransitionManager = GameObject.FindWithTag("SceneTransition").GetComponent<SceneTransitionManager>();
+
         StoryAnimatorGO.SetActive(false);
 
         // Check if it's the first launch
@@ -32,6 +35,8 @@ public class splashScreenManager : MonoBehaviour
             PlayerPrefs.SetInt(FirstLaunchKey, 0);
             PlayerPrefs.Save();
         }
+
+        
     }
 
     // Method to check if it's the first launch
@@ -51,6 +56,7 @@ public class splashScreenManager : MonoBehaviour
     }
 
     public void GoToMap(){
+        sceneTransitionManager.previousScene = "MainMenu";
         audioManager.playButtonClickSFX();
         SceneManager.LoadScene("Map");
     }

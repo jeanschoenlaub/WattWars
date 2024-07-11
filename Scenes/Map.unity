@@ -14352,8 +14352,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuLevelManager, Assembly-CSharp
+      - m_Target: {fileID: 171683651}
+        m_TargetAssemblyTypeName: IdleManager, Assembly-CSharp
         m_MethodName: ResetProgress
         m_Mode: 1
         m_Arguments:

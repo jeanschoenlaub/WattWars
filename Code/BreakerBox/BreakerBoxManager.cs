@@ -17,7 +17,7 @@ public class BreakerBoxManager : MonoBehaviour
 
     [Header("---    Animation References    ---")]
     [Header("Animations Management")]
-    [SerializeField] private float sceneTransitionTime= 1.5f;
+    [SerializeField] private float sceneTransitionTimeReward= 1.5f;
     [SerializeField] private DialogueManagerBB dialogueManager;
     private Animator rewardAnimator; //Programaticlly get this one as we need to get the relevant on
     
@@ -81,26 +81,9 @@ public class BreakerBoxManager : MonoBehaviour
         rewardAnimator = Scenarios[buttonIndex].GetComponent<Animator>();
         rewardAnimator.enabled = true; // Enable the Animator component
 
-        yield return new WaitForSeconds(sceneTransitionTime);
+        yield return new WaitForSeconds(sceneTransitionTimeReward);
         rewardAnimator.SetTrigger("Test"); 
-    }
-
-    // TEMP function to reset player progress for Playtesting
-    public void ResetProgress() {
-        // Resetting level progression
-        PlayerPrefs.SetInt("UnlockedLevels", 1);
-        PlayerPrefs.SetInt("CompletedLevels", 0);
-        PlayerPrefs.SetInt("QuestProgress", 0);
-        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0);
-        
-        // Set the intro story flag to true so the the first time story animation palys again
-        PlayerPrefs.SetInt("FirstLaunch", 1);
-        
-
-        PlayerPrefs.Save();
-        UpdateLevelButtons();
-        SceneManager.LoadScene("MainMenu");
-
+        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the animation flag 
     }
 
     /// ----------------------------------------------------- ///

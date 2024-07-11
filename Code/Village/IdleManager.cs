@@ -43,7 +43,6 @@ public class IdleManager : MonoBehaviour
     }
 
     private void Start(){
-        //LoadMap();
         LoadQuests();
         StartCoroutine(sceneTransitonManager.StartVillageSceneEntryAnimation());
     }
@@ -64,42 +63,11 @@ public class IdleManager : MonoBehaviour
         }
     }
 
-    //Based on what the player as unlocked, load a different map
-    public void LoadMap()
-    {
-        // Load the relevant map based on player progress
-        int completedLvls = PlayerPrefs.GetInt("CompletedLevels", 0); // Get the number of completed levels
-        MapBackground.GetComponent<Image>().sprite = Maps[completedLvls];
-
-        // If the flag UnlockedLevelAnimation is true trigger the BreakerBox Animation
-        int BuildingAnimationLoc = PlayerPrefs.GetInt("UnlockedLevelAnimation", 0); 
-        if (BuildingAnimationLoc != 0){
-            // Each Level's last unlock triggers unlocking the next level 
-            if (BuildingAnimationLoc % 4 == 0){
-                TriggerUnlockAnimation(BuildingAnimationLoc);
-            }
-            else{
-                TriggerBuildingAnimation(BuildingAnimationLoc);
-            }
-            PlayerPrefs.SetInt("UnlockedLevelAnimation", 0); // Reset the animation flag 
-        }
-    }
-
     public void TriggerUnlockAnimation(int locationIndex){
         UnlockAnimGO.SetActive(true);
         Animator unlockAnimator = UnlockAnimGO.GetComponent<Animator>();
 
         unlockAnimator.SetTrigger("UnlockNextBreaker");
-    }
-
-    public void TriggerBuildingAnimation(int locationIndex){
-        BuildingAnimGO.SetActive(true);
-        Animator buildingAnimator = BuildingAnimGO.GetComponent<Animator>();
-
-        // Position the BuildingAnimGO at the specified location
-        BuildingAnimGO.transform.position = buildingPositions[locationIndex-1].position;
-
-        buildingAnimator.SetTrigger("Building");
     }
 
     public void GoToLevelSelection(){
@@ -110,4 +78,20 @@ public class IdleManager : MonoBehaviour
     public void GoToMainMenu(){
         StartCoroutine(sceneTransitonManager.StartSceneExitToMainMenuAnimation());
     }    
+
+    // TEMP function to reset player progress for Playtesting
+    public void ResetProgress() {
+        // Resetting level progression
+        PlayerPrefs.SetInt("UnlockedLevels", 1);
+        PlayerPrefs.SetInt("CompletedLevels", 0);
+        PlayerPrefs.SetInt("QuestProgress", 0);
+        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0);
+        
+        // Set the intro story flag to true so the the first time story animation palys again
+        PlayerPrefs.SetInt("FirstLaunch", 1);
+        
+        // Save and switch to splashCreen
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MainMenu");
+    }
 }

@@ -32,6 +32,5 @@ public class Scenario2Reward : MonoBehaviour
     public void DeActivateLvlRewardUI()
     {
         objectToActivate.SetActive(false);
-        SceneManager.LoadScene("Map"); // To animate the new tower on the map
     }
 }
