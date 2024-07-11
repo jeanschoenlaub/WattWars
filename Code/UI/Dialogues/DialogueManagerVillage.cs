@@ -29,7 +29,7 @@ public class DialogueManagerVillage : MonoBehaviour
         List<string> dialogQueue1 = new List<string>
         {
             "Welcome ! You must be the new engineer sent to bring <color=#F5FF00>Power</color> back to this town.",
-            "I've installed a small <color=#85282B>Diesel Generator </color>to get you started. Now we need to connect it, follow me!"
+            "I've installed a small <color=#c84f4f> Diesel Generator </color>to get you started. Now we need to connect it to the town, follow me!"
         };
         dialogueManager.StartDialog(dialogQueue1, onComplete: () =>
         {

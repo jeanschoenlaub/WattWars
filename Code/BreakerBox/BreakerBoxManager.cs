@@ -15,22 +15,28 @@ public class BreakerBoxManager : MonoBehaviour
     [SerializeField] private Sprite rewardGreenImage;
     [SerializeField] private Sprite rewardRedImage;
 
-    [SerializeField] private DialogueManagerBB dialogueManager;
-
     [Header("---    Animation References    ---")]
-    [SerializeField] private Animator sceneTransitionAnimator;
-    [SerializeField] private float sceneTransitionTime;
-
+    [Header("Animations Management")]
+    [SerializeField] private float sceneTransitionTime= 1.5f;
+    [SerializeField] private DialogueManagerBB dialogueManager;
     private Animator rewardAnimator; //Programaticlly get this one as we need to get the relevant on
     
     //Singletons
     private AudioManager audioManager;
+    private SceneTransitionManager sceneTransitionManager;
 
 
     private void Awake() {
         UpdateLevelButtons();
         LoadQuests();
+
+        //Get the Singletons
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+        sceneTransitionManager = GameObject.FindWithTag("SceneTransition").GetComponent<SceneTransitionManager>();
+    }
+
+    private void Start(){
+        StartCoroutine(sceneTransitionManager.StartBBSceneEntryAnimation());
     }
     
     void UpdateLevelButtons() {
@@ -85,6 +91,8 @@ public class BreakerBoxManager : MonoBehaviour
         PlayerPrefs.SetInt("UnlockedLevels", 1);
         PlayerPrefs.SetInt("CompletedLevels", 0);
         PlayerPrefs.SetInt("QuestProgress", 0);
+        PlayerPrefs.SetInt("UnlockedLevelAnimation", 0);
+        
         // Set the intro story flag to true so the the first time story animation palys again
         PlayerPrefs.SetInt("FirstLaunch", 1);
         
@@ -109,37 +117,13 @@ public class BreakerBoxManager : MonoBehaviour
 
     // Transition from Breaker Box to Map, with animation
     public void BackToMap(){
-        StartCoroutine(GoToMapAnimation());
-    }
-
-    IEnumerator GoToMapAnimation(){
-        audioManager.playButtonClickSFX();
-        sceneTransitionAnimator.SetTrigger("Start");
-
-        //Wait for animation to play
-        yield return new WaitForSeconds(sceneTransitionTime);
-
-        //Then Load the right scenario
-        SceneManager.LoadScene("Map");
+        StartCoroutine(sceneTransitionManager.GoToMapAnimation());
     }
 
     // Transition from Breaker Box to Scenario, with animation
     public void OpenScenario(int scenarioId){
         audioManager.playButtonClickSFX();
-        StartCoroutine(GoToScenarioAnimation(scenarioId));
-    }
-
-    IEnumerator GoToScenarioAnimation(int scenarioId){
-        // Play the Transition
-        audioManager.playButtonClickSFX();
-        sceneTransitionAnimator.SetTrigger("Start");
-
-        //Wait for animation to play
-        yield return new WaitForSeconds(sceneTransitionTime);
-
-        //Then Load the right scenario
-        string sceneName = "Scenario"+scenarioId;
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(sceneTransitionManager.GoToScenarioAnimation(scenarioId));
     }
 }
 

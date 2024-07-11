@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class DialogueManagerBB : MonoBehaviour
 {
@@ -17,10 +18,15 @@ public class DialogueManagerBB : MonoBehaviour
 
     public void StartScientis1Dialog()
     {
+        StartCoroutine(WaitAnDstartScientistDialog());
+    }
+
+    IEnumerator WaitAnDstartScientistDialog(){
+        yield return new WaitForSeconds(1.5f);
         List<string> dialogQueue1 = new List<string>
         {
-            "To repair the breaker box, we need to turn on the switches from<color=#c84f4f> OFF </color> to <color=#32C142>ON </color>.",
-            "To repair the breaker box, we need to make all the switches green.",
+            "To repair the breaker box, we need to turn each of the switches from <color=#c84f4f>OFF</color> to <color=#32C142>ON</color>.",
+            "Click on the first switch to turn it on!",
         };
         dialogueManager.StartDialog(dialogQueue1);
         PlayerPrefs.SetInt("QuestProgress", 3);

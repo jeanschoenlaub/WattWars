@@ -8,14 +8,14 @@ public class IdleManager : MonoBehaviour
     // Singletons
     private AudioManager audioManager;
     public static IdleManager main;
+    private SceneTransitionManager sceneTransitonManager;
 
     [Header("Attributes")]
     [SerializeField] private Sprite[] Maps;
     [SerializeField] private GameObject MapBackground;
 
     [Header("Animations Management")]
-    [SerializeField] private Animator SceneTransitionAnimator;
-    [SerializeField] private float sceneTransitionTime = 1f;
+    
     [SerializeField] private Transform[] buildingPositions;
     [SerializeField] private GameObject BuildingAnimGO;
     [SerializeField] private GameObject UnlockAnimGO;
@@ -36,12 +36,16 @@ public class IdleManager : MonoBehaviour
             return;
         }
         main = this;
+
+        //Get the Singletons
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+        sceneTransitonManager = GameObject.FindWithTag("SceneTransition").GetComponent<SceneTransitionManager>();
     }
 
     private void Start(){
         //LoadMap();
         LoadQuests();
+        StartCoroutine(sceneTransitonManager.StartVillageSceneEntryAnimation());
     }
 
     //Based on what the player as unlocked, load a different map
@@ -99,18 +103,11 @@ public class IdleManager : MonoBehaviour
     }
 
     public void GoToLevelSelection(){
-        StartCoroutine(GoToLevelSelectionAnimation());
-    }
-
-    IEnumerator GoToLevelSelectionAnimation(){
-        // Play the Transition
         audioManager.playButtonClickSFX();
-        SceneTransitionAnimator.SetTrigger("Start");
-
-        //Wait for animation to play
-        yield return new WaitForSeconds(sceneTransitionTime);
-
-        //Then Load the Level selection BreakerBox
         SceneManager.LoadScene("LvlSelection");
     }
+
+    public void GoToMainMenu(){
+        StartCoroutine(sceneTransitonManager.StartSceneExitToMainMenuAnimation());
+    }    
 }

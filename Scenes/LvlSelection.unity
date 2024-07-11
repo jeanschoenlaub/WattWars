@@ -4845,72 +4845,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525365013}
   m_CullTransparentMesh: 1
---- !u!1001 &1528897911
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.3807259
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3144809
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.20092037
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 217257942047068721, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2980304624666565437, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_Name
-      value: LevelLoader
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105780455837383412, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 678848082}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
---- !u!95 &1528897912 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7745553307594679044, guid: 8f2c5b40923a84ba58fc0e48c9cfbe8d, type: 3}
-  m_PrefabInstance: {fileID: 1528897911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1595349335
 GameObject:
   m_ObjectHideFlags: 0
@@ -7550,9 +7484,8 @@ MonoBehaviour:
   offImage: {fileID: 1158829610, guid: becfaee843bdd47879588aead8b5aaf9, type: 3}
   rewardGreenImage: {fileID: -1996045625, guid: a7df13596f9314e3090c668f36dbe54b, type: 3}
   rewardRedImage: {fileID: 1747448093, guid: a7df13596f9314e3090c668f36dbe54b, type: 3}
+  sceneTransitionTime: 2
   dialogueManager: {fileID: 2005181965}
-  sceneTransitionAnimator: {fileID: 1528897912}
-  sceneTransitionTime: 1.5
 --- !u!4 &2005181964
 Transform:
   m_ObjectHideFlags: 0
@@ -8362,7 +8295,6 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1528897911}
   - {fileID: 678848083}
   - {fileID: 2005181964}
   - {fileID: 1091258725}
