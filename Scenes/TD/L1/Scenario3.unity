@@ -14491,9 +14491,9 @@ MonoBehaviour:
   initialRightValue: 300
   finalRightValue: 0
   dayProgressGO: {fileID: 257347627}
-  dayProgressSprite1: {fileID: 21300000, guid: 1fb342583658243d99872efcb5528169, type: 3}
-  dayProgressSprite2: {fileID: 21300000, guid: c313869dc79aa4f0c87bcadb0bad06b9, type: 3}
-  dayProgressSprite3: {fileID: 21300000, guid: a8eb6a7b411174c89b70189b594fa3f8, type: 3}
+  dayProgressSprite1: {fileID: 1055251360, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
+  dayProgressSprite2: {fileID: 1708611895, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
+  dayProgressSprite3: {fileID: 1483151723, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
   dayProgressSprite4: {fileID: 0}
   dayProgressSprite5: {fileID: 0}
   isTutorialOn: 0
@@ -14574,10 +14574,10 @@ MonoBehaviour:
   waveManager: {fileID: 1624488376}
   buildManager: {fileID: 1624488374}
   shopManager: {fileID: 1624488379}
-  timelineDay1: {fileID: 21300000, guid: c31034d3533fb4ad3b2dfe0aee8eb4b4, type: 3}
-  timelineDay2: {fileID: 21300000, guid: e6ebbdb8612474d629ec6e7c4fd912f6, type: 3}
-  timelineDay3: {fileID: 21300000, guid: 17bcb4b2f1667436ea39271b1db40171, type: 3}
-  timelineDay4: {fileID: 21300000, guid: 3525ba503ee9446938de80890c856120, type: 3}
+  timelineDay1: {fileID: -1360112511, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
+  timelineDay2: {fileID: -427223118, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
+  timelineDay3: {fileID: 1048134719, guid: d4941073b18b24c5e8eae59db417052e, type: 3}
+  timelineDay4: {fileID: 0}
   damageSprite: {fileID: 21300000, guid: 28aeeea53ecbe4892b831ec6972d1b3d, type: 3}
   costSprite: {fileID: -1288763390, guid: 5a347d3bf0fb14d0d89e5639381c3528, type: 3}
   card1TowerImage: {fileID: 1895610899}
@@ -20339,6 +20339,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8579688669729773126, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 344.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579688669729773126, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 149.96
+      objectReference: {fileID: 0}
     - target: {fileID: 8733104335380259987, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -20435,6 +20443,8 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3522600776559542629, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     - {fileID: 4449083743414638140, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 3534017770181878215, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
+    - {fileID: 583536968084507187, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7393207538409273243, guid: 71cf7832b6e2d4c89949dae310c2e1c9, type: 3}
       insertIndex: 4
