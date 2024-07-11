@@ -24,8 +24,12 @@ public class Plot : MonoBehaviour
     //When dragging structures we display previews of tower over the plot we are dragging over
     private void OnMouseEnter()
     {
+
+        Debug.Log("a");
+
         Structure structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
+
 
         //If a structure is selected we show it over the plot with a 0.5 opacity and offest based on it's size
         Vector3 instantiationPosition = transform.position + GridManager.Instance.CalculateStructureOffsetPosition(structureToBuild.size[0], structureToBuild.size[1]);
