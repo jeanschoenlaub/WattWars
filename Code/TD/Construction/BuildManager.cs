@@ -38,7 +38,6 @@ public class BuildManager : MonoBehaviour
 
     public void DeselectStructure()
     {
-        LevelManager.ResumeGame();
         ClearStructurePreview();
         selectedStructure=null;
     }

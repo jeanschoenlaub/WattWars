@@ -112,7 +112,7 @@ public class Menu : MonoBehaviour
             menuGameObject.SetActive(true);
             if (isInTDMode){
                 LevelManager.SaveGameSpeed();
-                LevelManager.SetGameSpeed(0);
+                LevelManager.PauseGame();
             }
         }
         else

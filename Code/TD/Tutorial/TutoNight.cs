@@ -70,7 +70,7 @@ public class TutoNight : MonoBehaviour
         // Wait for the Fridge enemy to appear and disable fuel tower unto end of tut
         yield return new WaitForSeconds(delayFridgeAppear);
         TutoTextBox.SetActive(false);
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         FridgeDialogAnimator.SetTrigger("PopUp");
 
         // And after little delay add a listener for the next step
@@ -81,7 +81,7 @@ public class TutoNight : MonoBehaviour
     public void OnFridgeDialogueClose() {
         // Remove the anim and et play again
         FridgeDialogAnimator.SetTrigger("PopDown");
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
 
         StartCoroutine(Task1SelectDieselGen(5f)); // 5 seconds delay to read text
     }
@@ -93,12 +93,12 @@ public class TutoNight : MonoBehaviour
         TutoText.text = "We can use the diesel generator to produce <color=#F5FF00>electricity</color> at night";
         TutoTextBox.SetActive(true);
 
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         LevelManager.main.IncreaseCurrency(moneyAmountFirstBreak);
 
         // Wait for the specified delay
         yield return new WaitForSeconds(5f); 
         TutoTextBox.SetActive(false);
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
     }
 }

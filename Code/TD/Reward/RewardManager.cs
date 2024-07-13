@@ -52,7 +52,6 @@ public class RewardManager : MonoBehaviour
     private List<Reward> rewards; // To store the rewards
 
     private System.Random random = new System.Random(); 
-    public int currentGameSpeed = 1; // For resetting the same gamespeed after rewards
 
     //Singletons
     private AudioManager audioManager;
@@ -76,9 +75,7 @@ public class RewardManager : MonoBehaviour
     {
         dayRewardsAnimator.SetTrigger("FadeIn");
 
-        currentGameSpeed = LevelManager.GetGameSpeed();
-        LevelManager.SetGameSpeed(0);
-
+        LevelManager.PauseGame();
         DisplayDayTimeline(dayNumber);
 
         rewards = RandomiseRewards();
@@ -179,7 +176,7 @@ public class RewardManager : MonoBehaviour
         UpdateStructures(selectedReward);
         Debug.Log(selectedReward.Structure + selectedReward.RewardType + selectedReward.Value);
         dayRewardsAnimator.SetTrigger("FadeOut");
-        LevelManager.SetGameSpeed(currentGameSpeed);
+        LevelManager.ResumeGame();
         waveManager.StartNextWave(newDay: true);
     }
 

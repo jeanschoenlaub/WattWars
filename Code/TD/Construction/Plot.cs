@@ -24,9 +24,6 @@ public class Plot : MonoBehaviour
     //When dragging structures we display previews of tower over the plot we are dragging over
     private void OnMouseEnter()
     {
-
-        Debug.Log("a");
-
         Structure structureToBuild = BuildManager.main.GetSelectedStructure();
         if (structureToBuild == null) return;
 

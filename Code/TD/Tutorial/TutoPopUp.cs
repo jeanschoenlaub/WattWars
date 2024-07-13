@@ -22,7 +22,7 @@ public class TutoPopUp : MonoBehaviour
 
     public void ShowPopUp1(){
         audioManager.playButtonClickSFX();
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         popUp1.SetActive(true);
         popUp2.SetActive(false);
         popUpsClosed = false;
@@ -37,7 +37,7 @@ public class TutoPopUp : MonoBehaviour
 
     public void ClosePopUps(){
         audioManager.playButtonClickSFX();
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
         popUp1.SetActive(false);
         popUp2.SetActive(false);
         popUpsClosed = true;

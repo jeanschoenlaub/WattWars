@@ -68,7 +68,7 @@ public class TutoPlaceTower : MonoBehaviour
         // went from constructable to not (because if tower placed --> not constructable)
         if (isTutorialActive && notConstructableCount == 1 && firstTimechecker)
         {
-            LevelManager.SetGameSpeed(1);
+            LevelManager.ResumeGame();
 
             TutoTextBox.SetActive(false);
             MouseAnimator.SetTrigger("Hide");
@@ -126,7 +126,7 @@ public class TutoPlaceTower : MonoBehaviour
         TutoText.text = "Let's place a fuel tower to produce <color=#85282B>oil</color>";
         TutoTextBox.SetActive(true);
 
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
 
         // UI to indicate the button to click
         TowerSelectButton.interactable = true;
@@ -140,7 +140,8 @@ public class TutoPlaceTower : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         //Then display Fridge text
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
+
         audioManager.PlaySFX(audioManager.dialogSFX);
         FridgeDialogAnimator.SetTrigger("PopUp");
 
@@ -156,7 +157,7 @@ public class TutoPlaceTower : MonoBehaviour
         FridgeDialogAnimator.SetTrigger("PopDown");
         audioManager.PlaySFX(audioManager.dialogSFX);
         
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
 
         // Start a coroutine to handle the delay
         StartCoroutine(Task3SelectDieselGen(5f)); // 5 seconds delay to read text
@@ -178,7 +179,7 @@ public class TutoPlaceTower : MonoBehaviour
         TutoText.text = "Place a diesel generator next to the fuel tower";
         TutoTextBox.SetActive(true);
 
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
 
         // UI to indicate the button to click
         DieselTowerSelectButton.interactable = true;
@@ -188,7 +189,8 @@ public class TutoPlaceTower : MonoBehaviour
 
 
     IEnumerator Task5ToggleGen(){
-        LevelManager.SetGameSpeed(1);
+        LevelManager.ResumeGame();
+
 
         yield return new WaitForSeconds(1f);
 

@@ -49,8 +49,6 @@ public class GridManager : MonoBehaviour
     {
         gridPlots = new Plot[width+1, height+1];
 
-        Debug.Log("width: "+width+ "height: "+height);
-
         foreach (Plot plot in plots)
         {
             Vector2Int gridPos = WorldToGridCoordinates(plot.transform.position);

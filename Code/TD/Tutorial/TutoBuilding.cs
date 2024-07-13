@@ -52,7 +52,7 @@ public class TutoBuilding : MonoBehaviour
             if (isTutorialActive && notConstructableCount == 4 && firstTimechecker)
             {
                 MouseAnimator.SetTrigger("Hide");
-                LevelManager.SetGameSpeed(1);
+                LevelManager.ResumeGame();
                 StartCoroutine(BuildSolarPanel());
                 firstTimechecker = false; //So we don't enter this check again
             }
@@ -60,7 +60,7 @@ public class TutoBuilding : MonoBehaviour
             if (isTutorialActive && notConstructableCount == 5 && secondTimechecker)
             {
                 MouseAnimator.SetTrigger("Hide");
-                LevelManager.SetGameSpeed(1);
+                LevelManager.ResumeGame();
                 secondTimechecker = false; //So we don't enter this check again
                 isTutorialActive = false;
             }
@@ -76,7 +76,8 @@ public class TutoBuilding : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         TutoTextBox.SetActive(false);
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
+
         LevelManager.main.IncreaseCurrency(200);
         MouseAnimator.SetTrigger("BuildingAnim");
     }
@@ -92,7 +93,7 @@ public class TutoBuilding : MonoBehaviour
         TutoTextBox.SetActive(false);
         MouseAnimator.SetTrigger("S4SolarAnim");
 
-        LevelManager.SetGameSpeed(0);
+        LevelManager.PauseGame();
         LevelManager.main.IncreaseCurrency(50);
     }
 
