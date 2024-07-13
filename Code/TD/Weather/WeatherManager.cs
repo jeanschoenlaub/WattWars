@@ -23,13 +23,12 @@ public class WeatherManager : MonoBehaviour
 
     [Header("Weather Parameters")]
     public float sunTravelTime = 800.0f; // Time it takes for the sun to travel across the screen under normal game speed
-    public float cloudSpawnRate = 0f; // Time between spawns.
     public bool cloudsonStart = true; // Bool to control if there should be clouds at the beginning of the game
-
     public float sunnyCloudSpawnRate = 0f;
     public float cloudyCloudSpawnRate = 0f;
     
     // Variables used to manage Clouds
+     private float cloudSpawnRate = 0f; // Time between spawns.
     private float nextSpawnTime = 0f;
     private float elapsedTime = 0f;
     private Vector3 startPositionSun;
@@ -55,7 +54,6 @@ public class WeatherManager : MonoBehaviour
         startPositionSun = sunGO.transform.position; // Starting at the current position
         startPositionCloud = skyCloudGO.transform.position; // Starting at the current position
         endPositionSun = new Vector3(startPositionSun.x + 24.66f, startPositionSun.y, startPositionSun.z); // Set the end position based on width
-
         nightSkyGO.SetActive(false); // Start with the night sky hidden
 
         if (cloudsonStart){
@@ -85,6 +83,7 @@ public class WeatherManager : MonoBehaviour
 
         // Update the Sun's position
         sunGO.transform.position = new Vector3(xPosition, startPositionSun.y + yPosition, startPositionSun.z);
+        
         skyCloudGO.transform.position = new Vector3(xPosition/2 - startPositionCloud.x, startPositionCloud.y, startPositionCloud.y);
 
         if (elapsedTime >= nextSpawnTime)
@@ -142,11 +141,13 @@ public class WeatherManager : MonoBehaviour
         if (day.weather == Weather.Sunny){
             cloudSpawnRate = sunnyCloudSpawnRate;
             WeatherIcon.sprite = WeatherIconSunny;
+            skyCloudGO.SetActive(false);
         }
         
         else if (day.weather == Weather.Cloudy){
             cloudSpawnRate = cloudyCloudSpawnRate;
             WeatherIcon.sprite = WeatherIconCloudy;
+            skyCloudGO.SetActive(true);
         }
 
         nextSpawnTime = cloudSpawnRate; // Reset the first cloud spawn rate        

@@ -51,7 +51,7 @@ public class TutoBuilding : MonoBehaviour
             // went from constructable to not (because if tower placed --> not constructable)
             if (isTutorialActive && notConstructableCount == 4 && firstTimechecker)
             {
-                MouseAnimator.SetTrigger("Hide");
+                MouseAnimator.SetBool("Hide",true);
                 LevelManager.ResumeGame();
                 StartCoroutine(BuildSolarPanel());
                 firstTimechecker = false; //So we don't enter this check again
@@ -59,7 +59,7 @@ public class TutoBuilding : MonoBehaviour
 
             if (isTutorialActive && notConstructableCount == 5 && secondTimechecker)
             {
-                MouseAnimator.SetTrigger("Hide");
+                MouseAnimator.SetBool("Hide",true);
                 LevelManager.ResumeGame();
                 secondTimechecker = false; //So we don't enter this check again
                 isTutorialActive = false;

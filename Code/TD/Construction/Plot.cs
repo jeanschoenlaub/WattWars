@@ -59,6 +59,7 @@ public class Plot : MonoBehaviour
     }
 
     public void ClearStructurePreview(){
+        LevelManager.ResumeGame();
         BuildManager.main.DeselectStructure();
         RemovePlotsColor();
     }

@@ -15,7 +15,6 @@ public class IdleManager : MonoBehaviour
     [SerializeField] private GameObject MapBackground;
 
     [Header("Animations Management")]
-    
     [SerializeField] private Transform[] buildingPositions;
     [SerializeField] private GameObject BuildingAnimGO;
     [SerializeField] private GameObject UnlockAnimGO;
@@ -26,6 +25,8 @@ public class IdleManager : MonoBehaviour
 
     [Header("Quest Management")]
     [SerializeField] private GameObject QuestScientist1;
+    [SerializeField] private GameObject QuestScientist1StillScientist;
+    [SerializeField] private GameObject QuestScientist1HammerScientist;
     [SerializeField] private GameObject QuestScientist2;
     
     private void Awake()
@@ -53,6 +54,7 @@ public class IdleManager : MonoBehaviour
         int questProgress = PlayerPrefs.GetInt("QuestProgress", 0); // Get the quest progress
         if (questProgress == 0){
             QuestScientist1.SetActive(true);
+            QuestScientist1StillScientist.SetActive(false);
             BBLocked1.SetActive(true);
             BBLockedButton1.interactable = false;
         }
@@ -68,6 +70,12 @@ public class IdleManager : MonoBehaviour
         Animator unlockAnimator = UnlockAnimGO.GetComponent<Animator>();
 
         unlockAnimator.SetTrigger("UnlockNextBreaker");
+    }
+
+    // Triggered via button logic
+    public void ChangeHammerScientistToFacingCam(){
+       QuestScientist1StillScientist.SetActive(true);
+       QuestScientist1HammerScientist.SetActive(false);
     }
 
     public void GoToLevelSelection(){

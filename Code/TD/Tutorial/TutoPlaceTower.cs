@@ -9,6 +9,9 @@ public class TutoPlaceTower : MonoBehaviour
     [Header("Animators References")]
     [SerializeField] public Animator MouseAnimator; // To make mouse move up and down to direct user
     [SerializeField] public Animator FridgeDialogAnimator; // To make mouse move up and down to direct user
+    [SerializeField] public Animator CloudsTopAnimator; 
+    [SerializeField] public Animator CloudsBottomAnimator; 
+    [SerializeField] public GameObject BoxTowerPlacementGO;
 
     [Header("Text References")]
     [SerializeField] public GameObject TutoTextBox;
@@ -20,7 +23,8 @@ public class TutoPlaceTower : MonoBehaviour
     [SerializeField] public Button DieselTowerSelectButton; 
     
     [Header("Plot References")]
-    [SerializeField] private Plot[] plots; // rest of plots 
+    [SerializeField] private Plot[] plotsTop; 
+    [SerializeField] private Plot[] plotsBottom; 
 
     [Header("Parameters")]
     [SerializeField] private float firstDelayScooterAppear = 12f;
@@ -29,12 +33,12 @@ public class TutoPlaceTower : MonoBehaviour
     [SerializeField] private int moneyAmountSecondBreak = 100;
 
 
-
     public bool isTutorialActive = false;
 
     // Internal variables
     private bool firstTimechecker = true ; // flag to enter continuous check only once
     private bool secondTimechecker = true ; // flag to enter continuous check only once
+    private bool forcePause = false; // flag to force the gamespeed to 0 until the player has don certain actions 
     
     // Singletons
     private TutorialManager tutoManager;
@@ -54,24 +58,39 @@ public class TutoPlaceTower : MonoBehaviour
     void Update()
     {
         //TODO - Not optimal for performance to continuously check 
-        int notConstructableCount = 0;
-
-        foreach (var plot in plots)
+        int notConstructableTopCount = 0;
+        int notConstructableBottomCount = 0;
+        
+        foreach (var plot in plotsTop)
         {
             if (!plot.constructable) // If the plot is not constructable
             {
-                notConstructableCount++; // Increment the counter
+                notConstructableTopCount++; // Increment the counter
             }
+        }
+
+        foreach (var plot in plotsBottom)
+        {
+            if (!plot.constructable) // If the plot is not constructable
+            {
+                notConstructableBottomCount++; // Increment the counter
+            }
+        }
+
+        if (forcePause){
+            LevelManager.PauseGame();
         }
         
         // We check if the first tower was actually built by checking if 1 plot is taken
         // went from constructable to not (because if tower placed --> not constructable)
-        if (isTutorialActive && notConstructableCount == 1 && firstTimechecker)
+        if (isTutorialActive && notConstructableTopCount == 1 && firstTimechecker)
         {
+            forcePause = false;
             LevelManager.ResumeGame();
+            BoxTowerPlacementGO.SetActive(false);
 
             TutoTextBox.SetActive(false);
-            MouseAnimator.SetTrigger("Hide");
+            MouseAnimator.SetBool("Hide",true);
             TowerSelectButton.transform.localScale = new Vector3(1f, 1f, 1f); //Scale up towerIcone
 
             firstTimechecker = false; //So we don't enter this check again
@@ -80,12 +99,15 @@ public class TutoPlaceTower : MonoBehaviour
 
         // We check if the diesel gen tower was actually built by checking if the first plot 
         // went from constructable to not (because if tower placed --> not constructable)
-        if (isTutorialActive && notConstructableCount >= 5 && secondTimechecker)
+        if (isTutorialActive && notConstructableBottomCount >= 2 && notConstructableBottomCount != 6 && secondTimechecker)
         {
             secondTimechecker = false;
 
+            forcePause = false;
+            LevelManager.ResumeGame();
+
             TowerSelectButton.interactable = true;
-            MouseAnimator.SetTrigger("Hide");
+            MouseAnimator.SetBool("Hide",true);
             DieselTowerSelectButton.transform.localScale = new Vector3(1f, 1f, 1f); //Scale up towerIcone
             TutoTextBox.SetActive(false);
 
@@ -102,6 +124,14 @@ public class TutoPlaceTower : MonoBehaviour
 
         // Start a coroutine to handle the delay
         StartCoroutine(WaitForEnemyToAppear(firstDelayScooterAppear)); // delay for first enemies to appear        
+    }
+
+    public void MakeBottomPlotsConstructible()
+    {
+        foreach (var plot in plotsBottom)
+        {
+            plot.constructable = true;
+        }
     }
 
     IEnumerator WaitForEnemyToAppear(float delay)
@@ -126,18 +156,25 @@ public class TutoPlaceTower : MonoBehaviour
         TutoText.text = "Let's place a fuel tower to produce <color=#85282B>oil</color>";
         TutoTextBox.SetActive(true);
 
+        forcePause = true;
         LevelManager.PauseGame();
 
         // UI to indicate the button to click
         TowerSelectButton.interactable = true;
         TowerSelectButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); //Scale up towerIcone
         MouseAnimator.SetTrigger("AnimTower");
+
+        // UI to indicate where to place tower
+        CloudsTopAnimator.SetTrigger("CloudFadeOut");
+        BoxTowerPlacementGO.SetActive(true);    
     }
 
     IEnumerator WaitForFridgeEnemyToAppear(float delay){
         // Wait for the Fridge enemy to appear and disable fuel tower unto end of tut
         TowerSelectButton.interactable = false;
         yield return new WaitForSeconds(delay);
+        MouseAnimator.SetBool("Hide",false);
+
 
         //Then display Fridge text
         LevelManager.PauseGame();
@@ -173,12 +210,17 @@ public class TutoPlaceTower : MonoBehaviour
 
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
+        CloudsBottomAnimator.SetTrigger("CloudFadeOut");
+        yield return new WaitForSeconds(1f);
 
+        MakeBottomPlotsConstructible();
         LevelManager.main.IncreaseCurrency(moneyAmountSecondBreak);
 
         TutoText.text = "Place a diesel generator next to the fuel tower";
+        
         TutoTextBox.SetActive(true);
 
+        forcePause = true;
         LevelManager.PauseGame();
 
         // UI to indicate the button to click
@@ -193,6 +235,7 @@ public class TutoPlaceTower : MonoBehaviour
 
 
         yield return new WaitForSeconds(1f);
+        MouseAnimator.SetBool("Hide",false);
 
         TutoText.text = "Tap the generator to turn it <color=#32C142>ON </color>";
         TutoTextBox.SetActive(true);

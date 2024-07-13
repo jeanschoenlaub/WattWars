@@ -73,8 +73,7 @@ public class LevelManager : MonoBehaviour
 
     // Method to resume the game at previously saved speed
     public static void ResumeGame()
-    {
-        // TO-DO proper fix of game speed issue
+    {   
         if (savedGameSpeed == 2){SetGameSpeed(savedGameSpeed);}
         else { SetGameSpeed(1);} 
     }
