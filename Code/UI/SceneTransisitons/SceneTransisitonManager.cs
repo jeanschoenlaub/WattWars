@@ -11,6 +11,8 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private float villageSceneTransitionToMainMenuTime = 2f;
     [SerializeField] private Animator bbSceneTransitionAnimator;
     [SerializeField] private float bbSceneTransitionTime= 2f;
+    [SerializeField] private Animator basicSceneTransitionAnimator;
+    [SerializeField] private float basicSceneTransitionTime= 2f;
 
     public string previousScene; // Used to track the previous scene and trigger some conditional animations (sometimes simple fade to black, sometime more complex)
 
@@ -116,4 +118,19 @@ public class SceneTransitionManager : MonoBehaviour
 
         previousScene = "BB"; // For other potential scene transi logic
     }
+
+    /// ----------------------------------------------------- ///
+    ///           Scenario transition Management              /// 
+    /// ----------------------------------------------------- ///
+    
+
+    public IEnumerator StartScenario1EntryAnimation(){
+        Debug.Log("Play the Transition");
+        basicSceneTransitionAnimator.SetBool("FadeFromBlack", true);
+        yield return null; // Wait for one frame to ensure the animation star
+        basicSceneTransitionAnimator.SetBool("FadeFromBlack",false);
+
+        previousScene = "Scenario"; // For other potential scene transi logic
+    }
+
 }

@@ -14876,9 +14876,8 @@ MonoBehaviour:
   WeatherIconOvercast: {fileID: 165572660, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
   WeatherIconNight: {fileID: -176291368, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
   sunTravelTime: 120
-  cloudSpawnRate: 5
   cloudsonStart: 0
-  sunnyCloudSpawnRate: 20
+  sunnyCloudSpawnRate: 10000
   cloudyCloudSpawnRate: 5
   cloudPrefabs:
   - {fileID: 1900610288984612750, guid: ab727361ba40c49bb8f4889ffca23a3e, type: 3}
@@ -14927,7 +14926,6 @@ MonoBehaviour:
   WeatherIconSunny: {fileID: 21300000, guid: bb7169b2e00284bf3a80d626c64d53a1, type: 3}
   WeatherIconCloudy: {fileID: 8405978, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
   WeatherIconOvercast: {fileID: 165572660, guid: 95140358728854eb483df9b9e1d168ea, type: 3}
-  currentGameSpeed: 1
 --- !u!114 &1624488382
 MonoBehaviour:
   m_ObjectHideFlags: 0

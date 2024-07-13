@@ -11,6 +11,7 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Animator EndScenarioAnimator;
     [SerializeField] private Animator dayRewardsAnimator;
     [SerializeField] private GameObject dayRewardsTimeline;
+    [SerializeField] private GameObject GoToDeactivate;
 
     [Header("Manager References")]
     [SerializeField] private WaveManager waveManager;
@@ -63,6 +64,7 @@ public class RewardManager : MonoBehaviour
 
     public void EndScreenAnim() {
         mainCanvas.SetActive(false);
+        if (GoToDeactivate != null){  GoToDeactivate.SetActive(false);} /// For example for clouds we dont want to go up to finish screen
         cameraAnimator.SetTrigger("MoveUp");
         EndScenarioAnimator.SetTrigger("TurnOnEndScreen"); // 2 second delay on the animation for the cam to move up
     }

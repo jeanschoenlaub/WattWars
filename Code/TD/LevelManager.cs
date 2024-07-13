@@ -31,7 +31,9 @@ public class LevelManager : MonoBehaviour
     private static int gameSpeed = 1; // Default game speed
     private static int savedGameSpeed = 1; // To save the speed before pausing
 
+    //Singletons
     private AudioManager audioManager;
+    private SceneTransitionManager sceneTransitionManager;
 
     private void Awake()
     {
@@ -44,6 +46,14 @@ public class LevelManager : MonoBehaviour
         gameSpeed = 1; // Reset game speed to default upon scene load
         //DontDestroyOnLoad(gameObject); // Persist across scenes
         audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
+        sceneTransitionManager = GameObject.FindWithTag("SceneTransition").GetComponent<SceneTransitionManager>();
+    }
+
+    private void Start(){
+        StartCoroutine(sceneTransitionManager.StartScenario1EntryAnimation());
+        coins =  currentScenario.Coins;
+        numberOfLives = currentScenario.Lives;
+        audioManager.StartMusicForTDMode();
     }
 
     // Public method to set game speed
@@ -90,12 +100,6 @@ public class LevelManager : MonoBehaviour
         audioManager.StartMusicForVillageMode();
         string sceneName = "LvlSelection";
         SceneManager.LoadScene(sceneName);
-    }
-
-    private void Start(){
-        coins =  currentScenario.Coins;
-        numberOfLives = currentScenario.Lives;
-        audioManager.StartMusicForTDMode();
     }
 
     private void Update() {
